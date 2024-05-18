@@ -2,7 +2,7 @@
     "layer" : "top",
     "modules-left" : ["clock", "hyprland/window"],
     "modules-center" : ["hyprland/workspaces"],
-    "modules-right" : ["network", "cpu", "memory", "pulseaudio"],
+    "modules-right" : ["custom/powers", "network", "cpu", "memory", "pulseaudio"],
 
     "hyprland/workspaces" : {
         "persistent-workspaces": {
@@ -41,6 +41,13 @@
 
     "pulseaudio" : {
         "format": "{volume}% 󰓃",
-        "scroll-step": 3
+        "format-muted" : "",
+        "scroll-step": 3,
+        "on-click" : "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    },
+
+    "custom/powers" : {
+        "format" : "⏻ ",
+        "on-click" : "~/.config/waybar/power.sh"
     }
 }
