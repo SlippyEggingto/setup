@@ -48,6 +48,6 @@
 
     "custom/powers" : {
         "format" : "⏻ ",
-        "on-click" : "~/.config/waybar/power.sh"
+        "on-click" : "wlogout"
     }
 }
