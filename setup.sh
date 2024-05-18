@@ -7,16 +7,14 @@ sudo pacman -Syu
 echo "Installing hyprland hyprpaper waybar neovim nwg-look foot fish sway ttf-jetbrains-mono-nerd ntfs-3g wofi..."
 sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish sway ttf-jetbrains-mono-nerd ntfs-3g wofi
 
-echo "Configuring hyprpaper, waybar, wlogout and swaylock-effects..."
+echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects and wofi..."
 mv ~/setup/peakpx.jpg ~/Downloads
 mv ~/setup/wallpaper_2.jpg ~/Downloads
-mv ~/setup/hyprland.conf ~/.config/hypr
-mv ~/setup/hyprpaper.conf ~/.config/hypr
-mkdir ~/.config/waybar
-mv ~/setup/config.jsonc ~/.config/waybar
-mv ~/setup/style.css ~/.config/waybar
-mkdir ~/.config/swaylock
-mv ~/setup/config ~/.config/swaylock
+rm -rf ~/.config/hypr
+mv ~/setup/hypr ~/.config/
+mv ~/setup/waybar ~/.config
+mv ~/setup/swaylock ~/.config
+mv ~/setup/wofi ~/.config
 
 echo "Installing Windows fonts..."
 sudo mkdir /media
