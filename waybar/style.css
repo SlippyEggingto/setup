@@ -1,7 +1,6 @@
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border: none;
-    transition: 0.3s;
 }
 
 window#waybar {
@@ -24,6 +23,24 @@ window#waybar {
     border-radius: 100%;
     border: none;
     transition: 0.3s;
+}
+
+#workspaces button.empty:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+    background: none;
+    border: none;
+    background-color: #bcb2ff;
+    color: rgb(67, 67, 67);
+}
+
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+    background: none;
+    border: none;
+    background-color: #786bcc;
+    color: #cccccc;
 }
 
 #workspaces button.empty {
