@@ -1,11 +1,13 @@
+@import '../../.cache/wal/colors-waybar.css';
+
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border: none;
 }
 
 window#waybar {
-    background-color: rgba(255, 255, 255, 0.3);
-    color: #505050;
+    background-color: @color0;
+    color: @foreground;
 }
 
 .modules-left, .modules-right {
@@ -14,8 +16,8 @@ window#waybar {
 }
 
 #workspaces button {
-    background-color: #bcb2ff;
-    color: rgb(67, 67, 67);
+    background-color: @color4;
+    color: @background;
     border-radius: 100%;
     border: none;
     transition: 0.3s;
@@ -26,8 +28,13 @@ window#waybar {
     text-shadow: inherit;
     background: none;
     border: none;
-    background-color: #786bcc;
-    color: #cccccc;
+    background-color: @color4;
+    color: @color3;
+}
+
+#workspaces button.empty {
+    background-color: @color15;
+    color: @background;
 }
 
 #workspaces button.empty:hover {
@@ -35,27 +42,13 @@ window#waybar {
     text-shadow: inherit;
     background: none;
     border: none;
-    background-color: #bcb2ff;
-    color: rgb(67, 67, 67);
+    background-color: @color4;
+    color: @color3;
 }
 
-#workspaces button.active:hover {
-    box-shadow: inherit;
-    text-shadow: inherit;
-    background: none;
-    border: none;
-    background-color: #786bcc;
-    color: #cccccc;
-}
-
-#workspaces button.empty {
-    background-color: rgba(188, 178, 255, 0.28);
-    color: rgba(67, 67, 67, 0.3);
-}
-
-#workspaces button.active {
-    background-color: #786bcc;
-    color: #cccccc;
+#workspaces button.active, #workspaces button.active:hover {
+    background-color: @color1;
+    color: @foreground;
     min-width: 30px;
     border-radius: 100px;
 }
@@ -71,12 +64,12 @@ window#waybar {
 }
 
 #custom-powers {
-    color: rgba(255, 0, 0, 0.644);
     padding: 0 13px 0 10px;
     border-radius: 5px;
     transition: 0.3s;
 }
 
 #custom-applauncher:hover, #custom-powers:hover, #pulseaudio:hover {
-    background-color: rgba(255, 255, 255, 0.555);
+    background-color: @foreground;
+    color: @background;
 }
