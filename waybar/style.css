@@ -25,6 +25,15 @@ window#waybar {
     transition: 0.3s;
 }
 
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+    background: none;
+    border: none;
+    background-color: #786bcc;
+    color: #cccccc;
+}
+
 #workspaces button.empty:hover {
     box-shadow: inherit;
     text-shadow: inherit;
@@ -34,7 +43,7 @@ window#waybar {
     color: rgb(67, 67, 67);
 }
 
-#workspaces button:hover {
+#workspaces button.active:hover {
     box-shadow: inherit;
     text-shadow: inherit;
     background: none;
