@@ -60,7 +60,7 @@ window#waybar {
 }
 
 #custom-powers {
-    background-color: rgba(255, 255, 255, 0.555);
+    color: rgba(255, 0, 0, 0.644);
     padding: 0 13px 0 10px;
     border-radius: 5px;
 }
