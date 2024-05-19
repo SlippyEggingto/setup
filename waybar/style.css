@@ -8,6 +8,15 @@ window#waybar {
     color: #505050;
 }
 
+.modules-left {
+    padding: 5px;
+    border-radius: 100px;
+}
+
+.modules-right {
+    padding: 5px;
+}
+
 #workspaces button {
     background-color: #bcb2ff;
     color: rgb(67, 67, 67);
@@ -17,21 +26,19 @@ window#waybar {
 }
 
 #workspaces button.empty {
-    background-color: rgba(66, 135, 245, 0.13);
+    background-color: rgba(188, 178, 255, 0.28);
     color: rgba(67, 67, 67, 0.3);
 }
 
 #workspaces button.active {
     background-color: #786bcc;
     color: #cccccc;
+    min-width: 30px;
+    border-radius: 100px;
 }
 
 #workspaces button:not(:first-child) {
     margin-left: 5px;
-}
-
-.modules-center {
-    padding: 5px;
 }
 
 #clock, #network, #cpu, #memory, #pulseaudio {
@@ -39,14 +46,21 @@ window#waybar {
     border-radius: 100px;
 }
 
-#clock {
-    margin-left: 10px;
-}
-
-#window {
-    margin-left: 30px;
-}
-
 #pulseaudio {
     margin-right: 20px;
+}
+
+#clock {
+    margin-right: 10px;
+}
+
+#custom-applauncher {
+    font-size: 20px;
+    padding: 0 20px 0 20px;
+}
+
+#custom-powers {
+    background-color: rgba(255, 255, 255, 0.555);
+    padding: 0 13px 0 10px;
+    border-radius: 5px;
 }
