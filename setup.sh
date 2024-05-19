@@ -4,8 +4,8 @@ mkdir ~/Downloads
 echo "Updating and upgrading..."
 sudo pacman -Syu
 
-echo "Installing hyprland hyprpaper waybar neovim nwg-look foot fish sway ttf-jetbrains-mono-nerd ntfs-3g wofi..."
-sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish sway ttf-jetbrains-mono-nerd ntfs-3g wofi
+echo "Installing hyprland hyprpaper waybar neovim nwg-look gnome-terminal fish sway ttf-jetbrains-mono-nerd ntfs-3g wofi..."
+sudo pacman -S hyprland hyprpaper waybar neovim nwg-look gnome-terminal fish sway ttf-jetbrains-mono-nerd ntfs-3g wofi
 
 echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects and wofi..."
 mv ~/setup/peakpx.jpg ~/Downloads
@@ -50,3 +50,8 @@ sudo chmod 600 /SWAP.img
 sudo mkswap /SWAP.img
 sudo swapon /SWAP.img
 sudo echo "/SWAP.img none swap sw 0 0" >> /etc/fstab
+
+echo "Configurating fish terminal..."
+chsh -s /usr/bin/fish
+
+echo "===== Setup is completed. Reboot is required. ====="
