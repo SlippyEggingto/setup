@@ -1,6 +1,7 @@
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border: none;
+    transition: 0.3s;
 }
 
 window#waybar {
@@ -56,11 +57,16 @@ window#waybar {
 
 #custom-applauncher {
     font-size: 20px;
-    padding: 0 20px 0 20px;
+    padding: 0 25px 0 20px;
+    border-radius: 100px;
 }
 
 #custom-powers {
     color: rgba(255, 0, 0, 0.644);
     padding: 0 13px 0 10px;
     border-radius: 5px;
+}
+
+#custom-applauncher:hover, #custom-powers:hover, #pulseaudio:hover {
+    background-color: rgba(255, 255, 255, 0.555);
 }
