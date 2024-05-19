@@ -42,8 +42,6 @@
         "format": "{volume}% 󰓃",
         "format-muted" : "",
         "scroll-step": 3,
-        "reverse-scrolling" : true,
-        "reverse-mouse-scrolling" : true,
         "on-click" : "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
     },
 
@@ -55,7 +53,7 @@
     "custom/applauncher" : {
         "format" : "",
         "on-click" : "wofi --show drun",
-        "on-scroll-up" : "brightnessctl set 5%-",
-        "on-scroll-down" : "brightnessctl set 5%+"
+        "on-scroll-up" : "brightnessctl set 5%+",
+        "on-scroll-down" : "brightnessctl set 5%-"
     }
 }
