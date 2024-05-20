@@ -25,35 +25,41 @@
 
     "network" : {
         "format": "{signalStrength}% {icon}",
-        "format-icons" : ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"]
+        "format-icons" : ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "tooltip" : false
     },
 
     "cpu" : {
         "interval": 1,
-        "format": "{usage}% "
+        "format": "{usage}% ",
+        "tooltip" : false
     },
 
     "memory" : {
         "interval": 1,
-        "format": "{percentage}%      {swapPercentage}% "
+        "format": "{percentage}%      {swapPercentage}% ",
+        "tooltip" : false
     },
 
     "pulseaudio" : {
         "format": "{volume}% 󰓃",
         "format-muted" : "",
         "scroll-step": 3,
-        "on-click" : "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        "on-click" : "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "tooltip" : false
     },
 
     "custom/powers" : {
         "format" : "⏻",
-        "on-click" : "wlogout"
+        "on-click" : "wlogout",
+        "tooltip" : false
     },
 
     "custom/applauncher" : {
         "format" : "",
         "on-click" : "wofi --show drun",
         "on-scroll-up" : "brightnessctl set 5%+",
-        "on-scroll-down" : "brightnessctl set 5%-"
+        "on-scroll-down" : "brightnessctl set 5%-",
+        "tooltip" : false
     }
 }
