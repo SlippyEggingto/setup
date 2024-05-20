@@ -1,15 +1,16 @@
 cd ~
 mkdir ~/Downloads
+mkdir ~/Downloads/wallpapers
 
 echo "Updating and upgrading..."
 sudo pacman -Syu
 
-echo "Installing hyprland hyprpaper waybar neovim nwg-look foot fish sway ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal..."
-sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish sway ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal
+echo "Installing hyprland hyprpaper waybar neovim nwg-look foot fish sway ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal python-pydbus python-psutil cliphist..."
+sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish sway ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal python-pydbus python-psutil cliphist
 
 echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects, wofi, foot, fish and pywal..."
-mv ~/setup/peakpx.jpg ~/Downloads
-mv ~/setup/wallpaper_2.jpg ~/Downloads
+mv ~/setup/peakpx.jpg ~/Downloads/wallpapers
+mv ~/setup/wallpaper_2.jpg ~/Downloads/wallpapers
 rm -rf ~/.config/hypr
 mv ~/setup/hypr ~/.config/
 mv ~/setup/waybar ~/.config
@@ -43,8 +44,8 @@ git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 
-echo "Installing ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects..."
-yay -S ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects
+echo "Installing ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot..."
+yay -S ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot
 
 echo "Creating swap file..."
 sudo dd if=/dev/zero of=/SWAP.img bs=1M count=4096
