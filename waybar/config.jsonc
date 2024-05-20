@@ -2,7 +2,7 @@
     "layer" : "top",
     "modules-left" : ["custom/applauncher", "clock", "hyprland/workspaces"],
     "modules-center" : ["hyprland/window"],
-    "modules-right" : ["custom/powers", "network", "cpu", "memory", "pulseaudio"],
+    "modules-right" : ["custom/colorpicker", "custom/powers", "network", "cpu", "memory", "pulseaudio"],
 
     "hyprland/workspaces" : {
         "persistent-workspaces": {
@@ -60,6 +60,12 @@
         "on-click" : "wofi --show drun",
         "on-scroll-up" : "brightnessctl set 5%+",
         "on-scroll-down" : "brightnessctl set 5%-",
+        "tooltip" : false
+    },
+
+    "custom/colorpicker" : {
+        "format" : "",
+        "on-click" : "hyprpicker",
         "tooltip" : false
     }
 }
