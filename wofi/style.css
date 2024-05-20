@@ -1,7 +1,9 @@
+@import '/home/nptanphuc/.cache/wal/colors-waybar.css';
+
 window {
     margin: 0px;
-    border: 5px solid #f5c2e7;
-    background-color: #f5c2e7;
+    border: 5px solid @background;
+    background-color: @background;
     border-radius: 15px;
 }
 
@@ -10,26 +12,25 @@ window {
     margin: 4px;
     padding-left: 20px;
     border: none;
-    color: #fff;
+    color: @background;
     font-weight: bold;
-    background-color: #fff;
-    background: linear-gradient(90deg, rgba(203,166,247,1) 0%, rgba(245,194,231,1) 100%);
+    background-color: @color4;
    	outline: none;
     border-radius: 15px;
     margin: 10px;
     margin-bottom: 2px;
 }
 #input:focus {
-    border: 0px solid #fff;
+    border: 0px solid @background;
     margin-bottom: 0px;
 }
 
 #inner-box {
     margin: 4px;
-    border: 10px solid #fff;
-    color: #cba6f7;
+    border: 10px solid @background;
+    color: @foreground;
     font-weight: bold;
-    background-color: #fff;
+    background-color: @background;
     border-radius: 15px;
 }
 
@@ -37,7 +38,7 @@ window {
     margin: 0px;
     border: none;
     border-radius: 15px;
-    background-color: #fff;
+    background-color: @background;
 }
 
 #scroll {
@@ -45,11 +46,10 @@ window {
     border: none;
     border-radius: 15px;
     margin-bottom: 5px;
-    /* background: rgb(255,255,255); */
 }
 
 #text:selected {
-    color: #fff;
+    color: @background;
     margin: 0px 0px;
     border: none;
     border-radius: 15px;
@@ -66,5 +66,5 @@ window {
     margin: 0px 0px;
     border: none;
     border-radius: 15px;
-    background: linear-gradient(45deg, rgba(203,166,247,1) 30%, rgba(245,194,231,1) 100%);
+    background-color: @color4;
 }
