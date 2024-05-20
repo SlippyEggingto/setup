@@ -47,9 +47,9 @@ window#waybar {
 }
 
 #workspaces button.active, #workspaces button.active:hover {
-    background-color: @color1;
-    color: @foreground;
-    min-width: 30px;
+    background-color: @color4;
+    color: @background;
+    min-width: 40px;
     border-radius: 100px;
 }
 
