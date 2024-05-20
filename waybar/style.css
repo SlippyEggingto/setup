@@ -57,13 +57,13 @@ window#waybar {
     margin-left: 5px;
 }
 
-#clock, #network, #cpu, #memory, #pulseaudio, #custom-applauncher, #custom-powers {
+#clock, #network, #cpu, #memory, #pulseaudio, #custom-applauncher, #custom-powers, #custom-colorpicker {
     padding: 0 13px 0 10px;
     border-radius: 100px;
     transition: 0.3s;
 }
 
-#custom-applauncher:hover, #custom-powers:hover, #pulseaudio:hover {
+#custom-applauncher:hover, #custom-powers:hover, #pulseaudio:hover, #custom-colorpicker:hover {
     background-color: @foreground;
     color: @background;
 }
@@ -74,4 +74,11 @@ window#waybar {
 
 #pulseaudio {
     margin-right: 10px;
+}
+
+#custom-colorpicker {
+    padding: 0 14px 0 8px;
+    border-radius: 100px;
+    transition: 0.3s;
+    margin-right: 5px;
 }
