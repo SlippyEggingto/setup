@@ -4,10 +4,10 @@ mkdir ~/Downloads
 echo "Updating and upgrading..."
 sudo pacman -Syu
 
-echo "Installing hyprland hyprpaper waybar neovim nwg-look gnome-terminal fish sway ttf-jetbrains-mono-nerd ntfs-3g wofi..."
-sudo pacman -S hyprland hyprpaper waybar neovim nwg-look gnome-terminal fish sway ttf-jetbrains-mono-nerd ntfs-3g wofi
+echo "Installing hyprland hyprpaper waybar neovim nwg-look foot fish sway ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal..."
+sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish sway ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal
 
-echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects and wofi..."
+echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects, wofi, foot, fish and pywal..."
 mv ~/setup/peakpx.jpg ~/Downloads
 mv ~/setup/wallpaper_2.jpg ~/Downloads
 rm -rf ~/.config/hypr
@@ -15,6 +15,9 @@ mv ~/setup/hypr ~/.config/
 mv ~/setup/waybar ~/.config
 mv ~/setup/swaylock ~/.config
 mv ~/setup/wofi ~/.config
+mv ~/setup/foot ~/.config
+mv ~/setup/fish/config.fish ~/.config/fish
+wal -i ~/Downloads/peakpx.jpg
 
 echo "Installing Windows fonts..."
 sudo mkdir /media
@@ -50,6 +53,14 @@ sudo chmod 600 /SWAP.img
 sudo mkswap /SWAP.img
 sudo swapon /SWAP.img
 sudo echo "/SWAP.img none swap sw 0 0" >> /etc/fstab
+
+echo "Creating update-grub command..."
+touch /usr/sbin/update-grub
+echo "#!/bin/sh
+set -e
+exec grub-mkconfig -o /boot/grub/grub.cfg "$@"" >> /usr/sbin/update-grub
+sudo chown root:root /usr/sbin/update-grub
+sudo chmod 755 /usr/sbin/update-grub
 
 echo "Configurating fish terminal..."
 chsh -s /usr/bin/fish
