@@ -1,84 +1,71 @@
-@import '../../.cache/wal/colors-waybar.css';
+{
+    "layer" : "top",
+    "modules-left" : ["custom/applauncher", "clock", "hyprland/workspaces"],
+    "modules-center" : ["hyprland/window"],
+    "modules-right" : ["custom/colorpicker", "custom/powers", "network", "cpu", "memory", "pulseaudio"],
 
-* {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border: none;
-}
+    "hyprland/workspaces" : {
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": []
+        }
+    },
 
-window#waybar {
-    background-color: @color0;
-    color: @foreground;
-}
+    "hyprland/window" : {
+        "separate-outputs" : true
+    },
 
-.modules-left, .modules-right, .modules-center {
-    padding: 5px;
-    border-radius: 100px;
-}
+    "clock" : {
+        "interval" : 1,
+        "format" : "{:%R - %a, %B %d}"
+    },
 
-#workspaces button {
-    background-color: @color4;
-    color: @background;
-    border-radius: 100%;
-    border: none;
-    transition: 0.3s;
-}
+    "network" : {
+        "format": "{signalStrength}% {icon}",
+        "format-icons" : ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "tooltip" : false
+    },
 
-#workspaces button:hover {
-    box-shadow: inherit;
-    text-shadow: inherit;
-    background: none;
-    border: none;
-    background-color: @color4;
-    color: white;
-}
+    "cpu" : {
+        "interval": 1,
+        "format": "{usage}% ",
+        "tooltip" : false
+    },
 
-#workspaces button.empty {
-    background-color: @color15;
-    color: @background;
-}
+    "memory" : {
+        "interval": 1,
+        "format": "{percentage}%      {swapPercentage}% ",
+        "tooltip" : false
+    },
 
-#workspaces button.empty:hover {
-    box-shadow: inherit;
-    text-shadow: inherit;
-    background: none;
-    border: none;
-    background-color: @color4;
-    color: white;
-}
+    "pulseaudio" : {
+        "format": "{volume}% 󰓃",
+        "format-muted" : "",
+        "scroll-step": 3,
+        "on-click" : "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "tooltip" : false
+    },
 
-#workspaces button.active, #workspaces button.active:hover {
-    background-color: @color1;
-    color: @foreground;
-    min-width: 30px;
-    border-radius: 100px;
-}
+    "custom/powers" : {
+        "format" : "⏻",
+        "on-click" : "wlogout",
+        "tooltip" : false
+    },
 
-#workspaces button:not(:first-child) {
-    margin-left: 5px;
-}
+    "custom/applauncher" : {
+        "format" : "",
+        "on-click" : "wofi --show drun",
+        "on-scroll-up" : "brightnessctl set 5%+",
+        "on-scroll-down" : "brightnessctl set 5%-",
+        "tooltip" : false
+    },
 
-#clock, #network, #cpu, #memory, #pulseaudio, #custom-applauncher, #custom-powers, #custom-colorpicker {
-    padding: 0 13px 0 10px;
-    border-radius: 100px;
-    transition: 0.3s;
-}
-
-#custom-applauncher:hover, #custom-powers:hover, #pulseaudio:hover, #custom-colorpicker:hover {
-    background-color: @foreground;
-    color: @background;
-}
-
-#custom-applauncher {
-    margin-left: 10px;
-}
-
-#pulseaudio {
-    margin-right: 10px;
-}
-
-#custom-colorpicker {
-    padding: 0 14px 0 8px;
-    border-radius: 100px;
-    transition: 0.3s;
-    margin-right: 5px;
+    "custom/colorpicker" : {
+        "format" : "",
+        "on-click" : "hyprpicker",
+        "tooltip" : false
+    }
 }
