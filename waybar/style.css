@@ -32,6 +32,13 @@ window#waybar {
     color: white;
 }
 
+#workspaces button.active, #workspaces button.active:hover {
+    background-color: @color4;
+    color: @background;
+    min-width: 40px;
+    border-radius: 100px;
+}
+
 #workspaces button.empty {
     background-color: @color15;
     color: @background;
@@ -44,13 +51,6 @@ window#waybar {
     border: none;
     background-color: @color4;
     color: white;
-}
-
-#workspaces button.active, #workspaces button.active:hover {
-    background-color: @color4;
-    color: @background;
-    min-width: 40px;
-    border-radius: 100px;
 }
 
 #workspaces button:not(:first-child) {
