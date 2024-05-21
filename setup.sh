@@ -14,6 +14,7 @@ mv ~/setup/wallpaper_2.jpg ~/Downloads/wallpapers
 rm -rf ~/.config/hypr
 mv ~/setup/hypr ~/.config/
 mv ~/setup/waybar ~/.config
+mv ~/setup/wlogout ~/.config
 mv ~/setup/swaylock ~/.config
 mv ~/setup/wofi ~/.config
 mv ~/setup/foot ~/.config
