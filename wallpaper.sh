@@ -1,4 +1,5 @@
-wallpaper=/home/nptanphuc/Downloads/wallpapers/wall_7.jpg
+# wallpaper=/home/nptanphuc/Downloads/wallpapers/wall_1.jpg
+set wallpaper /home/nptanphuc/Downloads/wallpapers/wall_1.jpg
 
 rm ~/.config/fish/config.fish
 touch ~/.config/fish/config.fish
@@ -38,6 +39,9 @@ separator-color=00000000
 grace=0
 fade-in=0.5" >> ~/.config/swaylock/config
 
+sleep 1
+
+wal -i $wallpaper
 kill waybar
 kill hyprpaper
 hyprctl dispatch exec waybar
