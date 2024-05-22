@@ -39,8 +39,6 @@ separator-color=00000000
 grace=0
 fade-in=0.5" >> ~/.config/swaylock/config
 
-sleep 1
-
 wal -i $wallpaper
 kill waybar
 kill hyprpaper
