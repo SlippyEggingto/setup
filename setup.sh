@@ -17,7 +17,7 @@ mv ~/setup/swaylock ~/.config
 mv ~/setup/wofi ~/.config
 mv ~/setup/foot ~/.config
 mv ~/setup/fish/config.fish ~/.config/fish
-wal -i ~/Downloads/peakpx.jpg
+mv ~/setup/wallpaper.sh ~
 
 echo "Installing Windows fonts..."
 sudo mkdir /media
