@@ -8,11 +8,16 @@
 window#waybar {
     background-color: @color0;
     color: @foreground;
+    font-weight: 500;
 }
 
 .modules-left, .modules-right, .modules-center {
     padding: 5px;
     border-radius: 100px;
+}
+
+.modules-center, .modules-right, #clock, #custom-applauncher {
+    font-weight: 700;
 }
 
 #workspaces button {
@@ -21,6 +26,7 @@ window#waybar {
     border-radius: 100%;
     border: none;
     transition: 0.3s;
+    font-weight: 600;
 }
 
 #workspaces button:hover {
