@@ -7,7 +7,7 @@
 }
 
 window#waybar {
-    background-color: @color0;
+    background: @background;
     color: @foreground;
 }
 
@@ -17,41 +17,22 @@ window#waybar {
 }
 
 #workspaces button {
-    background-color: @color4;
-    color: @background;
-    border-radius: 100%;
-    border: none;
+    background: @color4;
+    border-radius: 100px;
     transition: 0.3s;
 }
 
-#workspaces button:hover {
+#workspaces button:hover, #workspaces button.active {
     box-shadow: inherit;
     text-shadow: inherit;
-    background: none;
+    background: @color4;
     border: none;
-    background-color: @color4;
-    color: white;
-}
-
-#workspaces button.active, #workspaces button.active:hover {
-    background-color: @color4;
-    color: @background;
     min-width: 40px;
-    border-radius: 100px;
 }
 
-#workspaces button.empty {
-    background-color: @color15;
+#workspaces button.empty, #workspaces button.empty:hover {
+    background: @color15;
     color: @background;
-}
-
-#workspaces button.empty:hover {
-    box-shadow: inherit;
-    text-shadow: inherit;
-    background: none;
-    border: none;
-    background-color: @color4;
-    color: white;
 }
 
 #workspaces button:not(:first-child) {
@@ -65,7 +46,7 @@ window#waybar {
 }
 
 #custom-applauncher:hover, #custom-powers:hover, #pulseaudio:hover, #custom-colorpicker:hover {
-    background-color: @foreground;
+    background: @foreground;
     color: @background;
 }
 
@@ -80,6 +61,5 @@ window#waybar {
 #custom-colorpicker {
     padding: 0 14px 0 8px;
     border-radius: 100px;
-    transition: 0.3s;
     margin-right: 5px;
 }
