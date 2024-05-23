@@ -3,6 +3,7 @@
 window {
     margin: 0px;
     border-radius: 15px;
+    background-color: rgb(40, 40, 40);
 }
 
 #input {
