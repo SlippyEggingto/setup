@@ -2,8 +2,6 @@
 
 window {
     margin: 0px;
-    border: 5px solid @background;
-    background-color: @background;
     border-radius: 15px;
 }
 
@@ -11,34 +9,23 @@ window {
     padding: 4px;
     margin: 4px;
     padding-left: 20px;
-    border: none;
-    color: @background;
     font-weight: bold;
-    background-color: @color4;
    	outline: none;
     border-radius: 15px;
     margin: 10px;
-    margin-bottom: 2px;
+    border: 2px solid @color4;
 }
+
 #input:focus {
-    border: 0px solid @background;
+    border: 0px;
     margin-bottom: 0px;
 }
 
 #inner-box {
     margin: 4px;
-    border: 10px solid @background;
-    color: @foreground;
     font-weight: bold;
-    background-color: @background;
     border-radius: 15px;
-}
-
-#outer-box {
-    margin: 0px;
-    border: none;
-    border-radius: 15px;
-    background-color: @background;
+    padding: 0 15px 0 15px;
 }
 
 #scroll {
@@ -48,11 +35,8 @@ window {
     margin-bottom: 5px;
 }
 
-#text:selected {
-    color: @background;
-    margin: 0px 0px;
-    border: none;
-    border-radius: 15px;
+#text {
+    margin-left: 10px;
 }
 
 #entry {
@@ -63,8 +47,5 @@ window {
 }
 
 #entry:selected {
-    margin: 0px 0px;
-    border: none;
-    border-radius: 15px;
     background-color: @color4;
 }
