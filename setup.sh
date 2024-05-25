@@ -1,13 +1,17 @@
 cd ~
+mkdir ~/Desktop
 mkdir ~/Downloads
+mkdir ~/Documents
+mkdir ~/Pictures
+mkdir ~/Pictures/Screenshots
 
 echo "Updating and upgrading..."
 sudo pacman -Syu
 
-echo "Installing hyprland hyprpaper waybar neovim nwg-look foot fish sway ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal python-pydbus python-psutil cliphist..."
-sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish sway ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal python-pydbus python-psutil cliphist
+echo "Installing hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist..."
+sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist
 
-echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects, wofi, foot, fish and pywal..."
+echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects, wofi, foot, and fish..."
 mv ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
 mv ~/setup/hypr ~/.config/
@@ -16,6 +20,7 @@ mv ~/setup/wlogout ~/.config
 mv ~/setup/swaylock ~/.config
 mv ~/setup/wofi ~/.config
 mv ~/setup/foot ~/.config
+mkdir ~/.config/fish
 mv ~/setup/fish/config.fish ~/.config/fish
 mv ~/setup/wallpaper.sh ~
 
@@ -36,13 +41,14 @@ echo "Creating Desktop shortcut..."
 ln -s /media/nptanphuc/Users/HP/Desktop/ ~/Desktop
 
 echo "Installing nvchad..."
-git clone https://github.com/NvChad/starter ~/.config/nvim && nvim
+git clone https://github.com/NvChad/starter ~/.config/nvim
 
 echo "Installing yay..."
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 
+cd ~
 echo "Installing ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot..."
 yay -S ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot
 
@@ -61,8 +67,5 @@ set -e
 exec grub-mkconfig -o /boot/grub/grub.cfg "$@"" >> /usr/sbin/update-grub
 sudo chown root:root /usr/sbin/update-grub
 sudo chmod 755 /usr/sbin/update-grub
-
-echo "Configurating fish terminal..."
-chsh -s /usr/bin/fish
 
 echo "===== Setup is completed. Reboot is required. ====="
