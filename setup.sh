@@ -68,4 +68,17 @@ exec grub-mkconfig -o /boot/grub/grub.cfg "$@"" >> /usr/sbin/update-grub
 sudo chown root:root /usr/sbin/update-grub
 sudo chmod 755 /usr/sbin/update-grub
 
-echo "===== Setup is completed. Reboot is required. ====="
+echo "Setting DNS..."
+sudo touch /etc/resolv.conf.override
+sudo echo "search lan
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+nameserver 2001:4860:4860::8888
+nameserver 2001:4860:4860::8844" >> /etc/resolv.conf.override
+sudo touch /etc/NetworkManager/dispatcher.d/override.sh
+sudo echo "cp -r /etc/resolv.conf.override /etc/resolv.conf" >> /etc/NetworkManager/dispatcher.d/override.sh
+sudo chown root:root /etc/NetworkManager/dispatcher.d/override.sh
+sudo systemctl enable NetworkManager-dispatcher.service
+sudo systemctl start NetworkManager-dispatcher.service
+
+echo "===== Setup was completed. Reboot is required. ====="
