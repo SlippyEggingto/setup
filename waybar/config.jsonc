@@ -1,6 +1,6 @@
 {
     "layer" : "top",
-    "modules-left" : ["custom/applauncher", "clock", "hyprland/workspaces", "custom/waybar-media"],
+    "modules-left" : ["custom/applauncher", "clock", "hyprland/workspaces"],
     "modules-center" : ["hyprland/window"],
     "modules-right" : ["custom/colorpicker", "custom/powers", "network", "cpu", "memory", "pulseaudio"],
 
@@ -8,10 +8,6 @@
         "persistent-workspaces": {
             "*": 5
         }
-    },
-
-    "hyprland/window" : {
-        "format" : "{} 🐸"
     },
 
     "clock" : {
