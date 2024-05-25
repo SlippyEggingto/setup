@@ -1,5 +1,5 @@
-# wallpaper=/home/nptanphuc/Downloads/wallpapers/wall_1.jpg
-set wallpaper /home/nptanphuc/Downloads/wallpapers/wall_1.jpg
+# wallpaper=/home/$USER/Downloads/wallpapers/wall_1.jpg
+set wallpaper /home/$USER/Downloads/wallpapers/wall_7.jpg
 
 rm ~/.config/fish/config.fish
 touch ~/.config/fish/config.fish
