@@ -2,7 +2,7 @@ indicator
 ignore-empty-password
 indicator-thickness=15
 indicator-radius=150
-image=/home/nptanphuc/Downloads/wallpapers/wall_7.jpg
+image=/home/$USER/Downloads/wallpapers/wall_7.jpg
 clock
 effect-blur=7x5
 effect-vignette=0.5:0.5
