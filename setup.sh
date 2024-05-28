@@ -51,8 +51,8 @@ cd yay
 makepkg -si
 
 cd ~
-echo "Installing ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot..."
-yay -S ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot
+echo "Installing ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot yaru-icon-theme bibata-cursor-theme..."
+yay -S ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot yaru-icon-theme bibata-cursor-theme
 
 echo "Creating swap file..."
 sudo dd if=/dev/zero of=/SWAP.img bs=1M count=4096
