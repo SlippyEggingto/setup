@@ -5,9 +5,9 @@
     "modules-right" : ["custom/colorpicker", "custom/powers", "network", "cpu", "memory", "pulseaudio"],
 
     "hyprland/workspaces" : {
-        "persistent-workspaces": {
-            "*": 5
-        }
+        "persistent-workspaces": {"*": 5},
+        "on-scroll-up": "hyprctl dispatch workspace r-1",
+        "on-scroll-down": "hyprctl dispatch workspace r+1"
     },
 
     "clock" : {
