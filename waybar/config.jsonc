@@ -1,8 +1,7 @@
 {
-    "layer" : "top",
     "modules-left" : ["custom/applauncher", "clock", "hyprland/workspaces"],
     "modules-center" : ["hyprland/window"],
-    "modules-right" : ["custom/colorpicker", "custom/powers", "network", "cpu", "memory", "pulseaudio"],
+    "modules-right" : ["custom/colorpicker", "custom/powers", "network", "cpu", "memory", "memory#swap", "pulseaudio"],
 
     "hyprland/workspaces" : {
         "persistent-workspaces": {"*": 5},
@@ -29,7 +28,13 @@
 
     "memory" : {
         "interval": 1,
-        "format": "{percentage}%      {swapPercentage}% ",
+        "format": "{percentage}% ",
+        "tooltip" : false
+    },
+
+    "memory#swap" : {
+        "interval": 1,
+        "format": "{swapPercentage}% ",
         "tooltip" : false
     },
 
