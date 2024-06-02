@@ -24,11 +24,11 @@ mv ~/setup/wofi ~/.config
 mv ~/setup/foot ~/.config
 mv ~/setup/wallpaper.sh ~
 touch .zshrc
-echp "bindkey  "^[[H"   beginning-of-line
-bindkey  "^[[F"   end-of-line
-bindkey  "^[[3~"  delete-char
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
+echo "bindkey  '^[[H'   beginning-of-line
+bindkey  '^[[F'   end-of-line
+bindkey  '^[[3~'  delete-char
+bindkey '^[[1;5C' forward-word
+bindkey '^[[1;5D' backward-word
 bindkey '^H' backward-kill-word
 bindkey '^[[3;5~' kill-word
 alias nvim="nvim +'hi Normal ctermbg=none guibg=none'"
