@@ -10,10 +10,10 @@ mkdir ~/Pictures/Screenshots
 echo "Updating and upgrading..."
 sudo pacman -Syu
 
-echo "Installing hyprland hyprpaper waybar neovim nwg-look foot zsh ttf-jetbrains-mono-nerd ttf-meslo-nerd ntfs-3g wofi python-pywal cliphist..."
-sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot zsh ttf-jetbrains-mono-nerd ttf-meslo-nerd ntfs-3g wofi python-pywal cliphist
+echo "Installing wget hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist..."
+sudo pacman -S wget hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist
 
-echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects, wofi, foot and zsh..."
+echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects, wofi, foot and fish..."
 mv ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
 mv ~/setup/hypr ~/.config/
@@ -23,17 +23,10 @@ mv ~/setup/swaylock ~/.config
 mv ~/setup/wofi ~/.config
 mv ~/setup/foot ~/.config
 mv ~/setup/wallpaper.sh ~
-touch .zshrc
-echo "bindkey '^[[H'    beginning-of-line
-bindkey '^[[F'    end-of-line
-bindkey '^[[3~'   delete-char
-bindkey '^[[1;5C' forward-word
-bindkey '^[[1;5D' backward-word
-bindkey '^H'      backward-kill-word
-bindkey '^[[3;5~' kill-word
-bindkey '^Z'      undo
+touch ~/.config/fish/config.fish
+echo "set fish_greeting
 alias nvim="nvim +'hi Normal ctermbg=none guibg=none'"
-(cat ~/.cache/wal/sequences &)" >> .zshrc
+cat ~/.cache/wal/sequences &" >> ~/.config/fish/config.fish
 
 echo "Installing Windows fonts..."
 sudo mkdir /media
@@ -60,8 +53,8 @@ cd yay
 makepkg -si
 
 cd ~
-echo "Installing ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot yaru-icon-theme bibata-cursor-theme zsh-theme-powerlevel10k-git..."
-yay -S ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot yaru-icon-theme bibata-cursor-theme zsh-theme-powerlevel10k-git
+echo "Installing ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot yaru-icon-theme bibata-cursor-theme..."
+yay -S ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot yaru-icon-theme bibata-cursor-theme
 
 echo "Creating swap file..."
 sudo dd if=/dev/zero of=/SWAP.img bs=1M count=4096
