@@ -13,7 +13,7 @@ sudo pacman -Syu
 echo "Installing wget hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist..."
 sudo pacman -S wget hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist
 
-echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects, wofi, foot and fish..."
+echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects, wofi, foot, fish and hyprshot..."
 mv ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
 mv ~/setup/hypr ~/.config/
@@ -27,6 +27,7 @@ touch ~/.config/fish/config.fish
 echo "set fish_greeting
 alias nvim="nvim +'hi Normal ctermbg=none guibg=none'"
 cat ~/.cache/wal/sequences &" >> ~/.config/fish/config.fish
+echo "export HYPRSHOT_DIR=~/Pictures/Screenshots/" >> ~/.bash_profile
 
 echo "Installing Windows fonts..."
 sudo mkdir /media
