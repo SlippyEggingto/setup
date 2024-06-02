@@ -10,10 +10,10 @@ mkdir ~/Pictures/Screenshots
 echo "Updating and upgrading..."
 sudo pacman -Syu
 
-echo "Installing hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist..."
-sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist
+echo "Installing hyprland hyprpaper waybar neovim nwg-look foot zsh ttf-jetbrains-mono-nerd ttf-meslo-nerd ntfs-3g wofi python-pywal cliphist..."
+sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot zsh ttf-jetbrains-mono-nerd ttf-meslo-nerd ntfs-3g wofi python-pywal cliphist
 
-echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects, wofi, foot, and fish..."
+echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects, wofi, foot and zsh..."
 mv ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
 mv ~/setup/hypr ~/.config/
@@ -22,9 +22,8 @@ mv ~/setup/wlogout ~/.config
 mv ~/setup/swaylock ~/.config
 mv ~/setup/wofi ~/.config
 mv ~/setup/foot ~/.config
-mkdir ~/.config/fish
-mv ~/setup/fish/config.fish ~/.config/fish
 mv ~/setup/wallpaper.sh ~
+mv ~/setup/.zshrc ~
 
 echo "Installing Windows fonts..."
 sudo mkdir /media
@@ -51,8 +50,8 @@ cd yay
 makepkg -si
 
 cd ~
-echo "Installing ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot yaru-icon-theme bibata-cursor-theme..."
-yay -S ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot yaru-icon-theme bibata-cursor-theme
+echo "Installing ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot yaru-icon-theme bibata-cursor-theme zsh-theme-powerlevel10k-git..."
+yay -S ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot yaru-icon-theme bibata-cursor-theme zsh-theme-powerlevel10k-git
 
 echo "Creating swap file..."
 sudo dd if=/dev/zero of=/SWAP.img bs=1M count=4096
