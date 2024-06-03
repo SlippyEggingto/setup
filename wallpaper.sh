@@ -1,16 +1,4 @@
-# wallpaper=/home/$USER/Downloads/wallpapers/wall_1.jpg
-set wallpaper /home/$USER/Downloads/wallpapers/wall_7.jpg
-
-rm ~/.config/fish/config.fish
-touch ~/.config/fish/config.fish
-echo "bind \e\[1\;5C forward-word
-bind \e\[1\;5D backward-word
-
-wal -i $wallpaper
-
-if status is-interactive
-    set fish_greeting
-end" >> ~/.config/fish/config.fish
+set wallpaper /home/$USER/Downloads/wallpapers/wall_13.jpg
 
 rm ~/.config/hypr/hyprpaper.conf
 touch ~/.config/hypr/hyprpaper.conf
@@ -40,7 +28,7 @@ grace=0
 fade-in=0.5" >> ~/.config/swaylock/config
 
 wal -i $wallpaper
-kill waybar
-kill hyprpaper
+killall waybar
+killall hyprpaper
 hyprctl dispatch exec waybar
 hyprctl dispatch exec hyprpaper
