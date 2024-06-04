@@ -25,7 +25,7 @@ mv ~/setup/foot ~/.config
 mv ~/setup/wallpaper.sh ~
 touch ~/.config/fish/config.fish
 echo "set fish_greeting
-alias nvim="nvim +'hi Normal ctermbg=none guibg=none'"
+alias nvim="nvim +'hi Normal ctermbg=none guibg=none' +'set expandtab ts=4 sw=4 ai'"
 cat ~/.cache/wal/sequences &" >> ~/.config/fish/config.fish
 echo "export HYPRSHOT_DIR=~/Pictures/Screenshots/" >> ~/.bash_profile
 
