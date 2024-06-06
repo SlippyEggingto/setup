@@ -10,8 +10,8 @@ mkdir ~/Pictures/Screenshots
 echo "Updating and upgrading..."
 sudo pacman -Syu
 
-echo "Installing wget hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist..."
-sudo pacman -S wget hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist
+echo "Installing hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist nautilus neofetch..."
+sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist nautilus neofetch
 
 echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects, wofi, foot, fish and hyprshot..."
 mv ~/setup/wallpapers ~/Downloads
