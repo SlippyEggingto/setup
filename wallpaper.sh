@@ -1,4 +1,4 @@
-set wallpaper /home/$USER/Downloads/wallpapers/wall_13.jpg
+set wallpaper /home/$USER/Downloads/wallpapers/wall_7.jpg
 
 rm ~/.config/hypr/hyprpaper.conf
 touch ~/.config/hypr/hyprpaper.conf
