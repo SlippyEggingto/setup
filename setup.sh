@@ -35,12 +35,12 @@ sudo mkdir /media/nptanphuc
 sudo mount /dev/sda2 /media/nptanphuc
 sudo mkdir /usr/local/share/fonts
 sudo mkdir /usr/local/share/fonts/WindowsFonts
-sudo cp /mnt/Windows/Fonts/* /usr/local/share/fonts/WindowsFonts
+sudo cp /media/nptanphuc/Windows/Fonts/* /usr/local/share/fonts/WindowsFonts
 fc-cache --force
 
-echo "Mounting F0C2F863C2F83008 on startup..."
-sudo cp /etc/fstab /etc/fstab.backup
-sudo echo "UUID=F0C2F863C2F83008 	/media/nptanphuc	ntfs-3g		uid=1000,gid=1000,umask=0022,sync,auto,nosuid,rw,nouser 0 0" >> /etc/fstab
+# echo "Mounting F0C2F863C2F83008 on startup..."
+# sudo cp /etc/fstab /etc/fstab.backup
+# sudo echo "UUID=F0C2F863C2F83008 	/media/nptanphuc	ntfs-3g		uid=1000,gid=1000,umask=0022,sync,auto,nosuid,rw,nouser 0 0" >> /etc/fstab
 
 echo "Creating Desktop shortcut..."
 ln -s /media/nptanphuc/Users/HP/Desktop/ ~/Desktop
@@ -54,8 +54,8 @@ cd yay
 makepkg -si
 
 cd ~
-echo "Installing ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot yaru-icon-theme bibata-cursor-theme..."
-yay -S ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot yaru-icon-theme bibata-cursor-theme
+echo "Installing ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme..."
+yay -S ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme
 
 echo "Creating swap file..."
 sudo dd if=/dev/zero of=/SWAP.img bs=1M count=4096
@@ -65,13 +65,13 @@ sudo mkswap /SWAP.img
 sudo swapon /SWAP.img
 sudo echo "/SWAP.img none swap sw 0 0" >> /etc/fstab
 
-echo "Creating update-grub command..."
-touch /usr/sbin/update-grub
-echo "#!/bin/sh
-set -e
-exec grub-mkconfig -o /boot/grub/grub.cfg "$@"" >> /usr/sbin/update-grub
-sudo chown root:root /usr/sbin/update-grub
-sudo chmod 755 /usr/sbin/update-grub
+# echo "Creating update-grub command..."
+# sudo touch /usr/sbin/update-grub
+# sudo echo "#!/bin/sh
+# set -e
+# exec grub-mkconfig -o /boot/grub/grub.cfg "$@"" >> /usr/sbin/update-grub
+# sudo chown root:root /usr/sbin/update-grub
+# sudo chmod 755 /usr/sbin/update-grub
 
 echo "Setting DNS..."
 sudo touch /etc/resolv.conf.override
