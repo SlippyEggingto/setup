@@ -62,7 +62,7 @@
 
     "custom/colorpicker" : {
         "format" : "",
-        "on-click" : "hyprpicker",
+        "on-click" : "hyprpicker -a",
         "tooltip" : false
     }
 }
