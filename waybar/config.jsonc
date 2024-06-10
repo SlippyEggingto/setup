@@ -15,6 +15,7 @@
     },
 
     "network" : {
+        "interval": 1,
         "format": "{signalStrength}% {icon}",
         "format-icons" : ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
         "tooltip" : false
