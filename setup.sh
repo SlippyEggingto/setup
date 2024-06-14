@@ -10,8 +10,8 @@ mkdir ~/Pictures/Screenshots
 echo "Updating and upgrading..."
 sudo pacman -Syu
 
-echo "Installing firefox hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist nautilus neofetch..."
-sudo pacman -S firefox hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist nautilus neofetch
+echo "Installing hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist nautilus neofetch..."
+sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist nautilus neofetch
 
 echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects, wofi, foot, fish and hyprshot..."
 mv ~/setup/wallpapers ~/Downloads
@@ -54,8 +54,8 @@ cd yay
 makepkg -si
 
 cd ~
-echo "Installing visual-studio-code-bin ibus-bamboo wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme..."
-yay -S visual-studio-code-bin ibus-bamboo wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme
+echo "Installing google-chrome-stable visual-studio-code-bin ibus-bamboo wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme..."
+yay -S google-chrome-stable visual-studio-code-bin ibus-bamboo wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme
 
 echo "Creating swap file..."
 sudo dd if=/dev/zero of=/SWAP.img bs=1M count=4096
@@ -65,25 +65,7 @@ sudo mkswap /SWAP.img
 sudo swapon /SWAP.img
 sudo echo "/SWAP.img none swap sw 0 0" >> /etc/fstab
 
-# echo "Creating update-grub command..."
-# sudo touch /usr/sbin/update-grub
-# sudo echo "#!/bin/sh
 # set -e
-# exec grub-mkconfig -o /boot/grub/grub.cfg "$@"" >> /usr/sbin/update-grub
-# sudo chown root:root /usr/sbin/update-grub
-# sudo chmod 755 /usr/sbin/update-grub
-
-echo "Setting DNS..."
-sudo touch /etc/resolv.conf.override
-sudo echo "search lan
-nameserver 8.8.8.8
-nameserver 8.8.4.4
-nameserver 2001:4860:4860::8888
-nameserver 2001:4860:4860::8844" >> /etc/resolv.conf.override
-sudo touch /etc/NetworkManager/dispatcher.d/override.sh
-sudo echo "cp -r /etc/resolv.conf.override /etc/resolv.conf" >> /etc/NetworkManager/dispatcher.d/override.sh
-sudo chown root:root /etc/NetworkManager/dispatcher.d/override.sh
-sudo systemctl enable NetworkManager-dispatcher.service
-sudo systemctl start NetworkManager-dispatcher.service
+# exec grub-mkconfig -o /boot/grub/grub.cfg "$@"
 
 echo "===== Setup was completed. Reboot is required. ====="
