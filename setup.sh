@@ -10,8 +10,8 @@ mkdir ~/Pictures/Screenshots
 echo "Updating and upgrading..."
 sudo pacman -Syu
 
-echo "Installing hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist nautilus neofetch..."
-sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist nautilus neofetch
+echo "Installing firefox hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist nautilus neofetch..."
+sudo pacman -S firefox hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist nautilus neofetch
 
 echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects, wofi, foot, fish and hyprshot..."
 mv ~/setup/wallpapers ~/Downloads
@@ -55,7 +55,7 @@ makepkg -si
 
 cd ~
 echo "Installing ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme..."
-yay -S ibus-bamboo google-chrome visual-studio-code-bin wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme
+yay -S ibus-bamboo visual-studio-code-bin wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme
 
 echo "Creating swap file..."
 sudo dd if=/dev/zero of=/SWAP.img bs=1M count=4096
