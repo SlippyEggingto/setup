@@ -54,16 +54,16 @@ cd yay
 makepkg -si
 
 cd ~
-echo "Installing google-chrome-stable visual-studio-code-bin ibus-bamboo wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme..."
-yay -S google-chrome-stable visual-studio-code-bin ibus-bamboo wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme
+echo "Installing brave-bin visual-studio-code-bin ibus-bamboo wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme..."
+yay -S brave-bin visual-studio-code-bin ibus-bamboo wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme
 
-echo "Creating swap file..."
-sudo dd if=/dev/zero of=/SWAP.img bs=1M count=4096
-sudo sync
-sudo chmod 600 /SWAP.img
-sudo mkswap /SWAP.img
-sudo swapon /SWAP.img
-sudo echo "/SWAP.img none swap sw 0 0" >> /etc/fstab
+# echo "Creating swap file..."
+# sudo dd if=/dev/zero of=/SWAP.img bs=1M count=4096
+# sudo sync
+# sudo chmod 600 /SWAP.img
+# sudo mkswap /SWAP.img
+# sudo swapon /SWAP.img
+# sudo echo "/SWAP.img none swap sw 0 0" >> /etc/fstab
 
 # set -e
 # exec grub-mkconfig -o /boot/grub/grub.cfg "$@"
