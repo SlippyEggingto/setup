@@ -1,3 +1,5 @@
+@import '../../.cache/wal/colors-waybar.css';
+
 * {
 	background-image: none;
 	box-shadow: none;
@@ -19,7 +21,7 @@ button {
 }
 
 button:focus, button:active, button:hover {
-	background-color: #3700B3;
+	background-color: @color4;
 	outline-style: none;
 }
 
