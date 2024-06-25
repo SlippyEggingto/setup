@@ -7,29 +7,25 @@ mkdir ~/Documents
 mkdir ~/Pictures
 mkdir ~/Pictures/Screenshots
 
-echo "Updating and upgrading..."
 sudo pacman -Syu
-
-echo "Installing hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist nautilus neofetch brightnessctl..."
 sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist nautilus neofetch brightnessctl
 
-echo "Configuring hyprpaper, waybar, wlogout, swaylock-effects, wofi, foot, fish and hyprshot..."
-mv ~/setup/wallpapers ~/Downloads
+cp -r ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
-mv ~/setup/hypr ~/.config/
-mv ~/setup/waybar ~/.config
-mv ~/setup/wlogout ~/.config
-mv ~/setup/swaylock ~/.config
-mv ~/setup/wofi ~/.config
-mv ~/setup/foot ~/.config
-mv ~/setup/wallpaper.sh ~
+cp -r ~/setup/hypr ~/.config/
+cp -r ~/setup/waybar ~/.config
+cp -r ~/setup/wlogout ~/.config
+cp -r ~/setup/swaylock ~/.config
+cp -r ~/setup/wofi ~/.config
+cp -r ~/setup/foot ~/.config
+cp ~/setup/wallpaper.sh ~
+mkdir ~/.config/fish
 touch ~/.config/fish/config.fish
 echo "set fish_greeting
 alias nvim="nvim +'hi Normal ctermbg=none guibg=none' +'set expandtab ts=4 sw=4 ai'"
 cat ~/.cache/wal/sequences &" >> ~/.config/fish/config.fish
 echo "export HYPRSHOT_DIR=~/Pictures/Screenshots/" >> ~/.bash_profile
 
-echo "Installing Windows fonts..."
 sudo mkdir /media
 sudo mkdir /media/nptanphuc
 sudo mount /dev/sda2 /media/nptanphuc
@@ -38,26 +34,19 @@ sudo mkdir /usr/local/share/fonts/WindowsFonts
 sudo cp /media/nptanphuc/Windows/Fonts/* /usr/local/share/fonts/WindowsFonts
 fc-cache --force
 
-# echo "Mounting F0C2F863C2F83008 on startup..."
-# sudo cp /etc/fstab /etc/fstab.backup
 # sudo echo "UUID=F0C2F863C2F83008 	/media/nptanphuc	ntfs-3g		uid=1000,gid=1000,umask=0022,sync,auto,nosuid,rw,nouser 0 0" >> /etc/fstab
 
-echo "Creating Desktop shortcut..."
 ln -s /media/nptanphuc/Users/HP/Desktop/ ~/Desktop
 
-echo "Installing nvchad..."
 git clone https://github.com/NvChad/starter ~/.config/nvim
 
-echo "Installing yay..."
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 
 cd ~
-echo "Installing brave-bin visual-studio-code-bin ibus-bamboo wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme..."
 yay -S brave-bin visual-studio-code-bin ibus-bamboo wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme
 
-# echo "Creating swap file..."
 # sudo dd if=/dev/zero of=/SWAP.img bs=1M count=4096
 # sudo sync
 # sudo chmod 600 /SWAP.img
@@ -65,7 +54,5 @@ yay -S brave-bin visual-studio-code-bin ibus-bamboo wlogout swaylock-effects hyp
 # sudo swapon /SWAP.img
 # sudo echo "/SWAP.img none swap sw 0 0" >> /etc/fstab
 
-# set -e
-# exec grub-mkconfig -o /boot/grub/grub.cfg "$@"
-
+sh wallpaper.sh
 echo "===== Setup was completed. Reboot is required. ====="
