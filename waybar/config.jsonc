@@ -16,7 +16,8 @@
 
     "network" : {
         "interval": 1,
-        "format": "{signalStrength}% {icon}",
+        "format-wifi": "{signalStrength}% {icon}",
+        "format-ethernet": "wired 󰈀",
         "format-icons" : ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
         "tooltip" : false
     },
