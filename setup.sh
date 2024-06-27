@@ -4,11 +4,10 @@ cd ~
 mkdir ~/Desktop
 mkdir ~/Downloads
 mkdir ~/Documents
-mkdir ~/Pictures
-mkdir ~/Pictures/Screenshots
+mkdir -p ~/Pictures/Screenshots
 
 sudo pacman -Syu
-sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist nautilus neofetch brightnessctl
+sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist nautilus neofetch brightnessctl vulkan-intel vulkan-tools htop tree
 
 cp -r ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
@@ -19,7 +18,7 @@ cp -r ~/setup/swaylock ~/.config
 cp -r ~/setup/wofi ~/.config
 cp -r ~/setup/foot ~/.config
 cp ~/setup/wallpaper.sh ~
-mkdir ~/.config/fish
+mkdir -p ~/.config/fish
 touch ~/.config/fish/config.fish
 echo "set fish_greeting
 alias nvim="nvim +'hi Normal ctermbg=none guibg=none' +'set expandtab ts=4 sw=4 ai'"
@@ -37,9 +36,7 @@ fc-cache --force
 # sudo echo "UUID=F0C2F863C2F83008 	/media/nptanphuc	ntfs-3g		uid=1000,gid=1000,umask=0022,sync,auto,nosuid,rw,nouser 0 0" >> /etc/fstab
 
 ln -s /media/nptanphuc/Users/HP/Desktop/ ~/Desktop
-
 git clone https://github.com/NvChad/starter ~/.config/nvim
-
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
@@ -47,7 +44,7 @@ makepkg -si
 cd ~
 yay -S brave-bin visual-studio-code-bin ibus-bamboo wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme
 
-# sudo dd if=/dev/zero of=/SWAP.img bs=1M count=4096
+# sudo dd if=/dev/zero of=/SWAP.img bs=1M count=8192
 # sudo sync
 # sudo chmod 600 /SWAP.img
 # sudo mkswap /SWAP.img
