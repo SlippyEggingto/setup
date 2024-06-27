@@ -27,7 +27,7 @@ separator-color=00000000
 grace=0
 fade-in=0.5" >> ~/.config/swaylock/config
 
-wal -i $wallpaper
+wal -i $wallpaper -q
 killall waybar
 killall hyprpaper
 hyprctl dispatch exec waybar
