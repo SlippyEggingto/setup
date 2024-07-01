@@ -10,54 +10,44 @@ window#waybar {
     color: @foreground;
 }
 
-.modules-left, .modules-right, .modules-center {
-    padding: 5px;
+.modules-center {
+    padding: 7px 14px 7px 14px;
     border-radius: 100px;
+    font-size: 16px;
+}
+
+#workspaces {
+    padding: 7px 14px 7px 14px;
 }
 
 #workspaces button {
-    background: @color4;
+    background: @foreground;
     border-radius: 100px;
     transition: 0.3s;
+    min-height: 0px;
+    min-width: 4px;
+    font-size: 0px;
 }
 
-#workspaces button:hover, #workspaces button.active {
-    box-shadow: inherit;
-    text-shadow: inherit;
-    background: @color4;
-    min-width: 40px;
+#workspaces button.empty {
+    background-color: transparent;
+    border: 3px solid @foreground;
+    min-width: 0px;
 }
 
-#workspaces button.empty, #workspaces button.empty:hover {
-    background: @color15;
-    color: @background;
+#workspaces button:hover, #workspaces button.active, #workspaces button.empty:hover {
+    min-width: 20px;
 }
 
 #workspaces button:not(:first-child) {
     margin-left: 5px;
 }
 
-#clock, #network, #battery, #cpu, #memory, #pulseaudio, #custom-applauncher, #custom-powers, #custom-colorpicker {
-    padding: 0 8px 0 8px;
-    border-radius: 100px;
-    transition: 0.3s;
-}
-
-#custom-applauncher:hover, #custom-powers:hover, #pulseaudio:hover, #custom-colorpicker:hover {
-    background: @foreground;
-    color: @background;
-}
-
-#custom-applauncher {
-    margin-left: 10px;
+#network, #pulseaudio, #battery {
+    padding: 0 7px 0 7px;
+    font-size: 17px;
 }
 
 #pulseaudio {
-    margin-right: 10px;
-}
-
-#custom-colorpicker {
-    padding: 0 10px 0 10px;
-    border-radius: 100px;
-    margin-right: 5px;
+    padding: 0px 14px 0px 7px;
 }
