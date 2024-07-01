@@ -17,7 +17,7 @@ window#waybar {
 }
 
 #workspaces {
-    padding: 7px 14px 7px 14px;
+    padding: 10px 14px 10px 14px;
 }
 
 #workspaces button {
@@ -25,14 +25,14 @@ window#waybar {
     border-radius: 100px;
     transition: 0.3s;
     min-height: 0px;
-    min-width: 4px;
+    min-width: 6px;
     font-size: 0px;
 }
 
 #workspaces button.empty {
     background-color: transparent;
     border: 3px solid @foreground;
-    min-width: 0px;
+    min-width: 1px;
 }
 
 #workspaces button:hover, #workspaces button.active, #workspaces button.empty:hover {
