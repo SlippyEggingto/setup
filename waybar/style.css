@@ -2,7 +2,6 @@
 
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Symbols Nerd Font Mono";
-    /* font-family: ; */
     font-weight: 600;
 }
 
@@ -42,7 +41,6 @@ window#waybar {
     padding: 0 8px 0 8px;
     border-radius: 100px;
     transition: 0.3s;
-    /* background-color: blue; */
 }
 
 #custom-applauncher:hover, #custom-powers:hover, #pulseaudio:hover, #custom-colorpicker:hover {
