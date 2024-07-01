@@ -25,7 +25,7 @@ window#waybar {
     box-shadow: inherit;
     text-shadow: inherit;
     background: @color4;
-    min-width: 45px;
+    min-width: 40px;
 }
 
 #workspaces button.empty, #workspaces button.empty:hover {
