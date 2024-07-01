@@ -1,4 +1,6 @@
-set wallpaper /home/$USER/Downloads/wallpapers/wall_7.jpg
+set wallpaper /home/$USER/Downloads/wallpapers/wall_25.jpg
+#set waybar "waybar -s ~/.config/waybar/original.css -c ~/.config/waybar/original.jsonc"
+set waybar waybar
 
 rm ~/.config/hypr/hyprpaper.conf
 touch ~/.config/hypr/hyprpaper.conf
@@ -30,5 +32,5 @@ fade-in=0.5" >> ~/.config/swaylock/config
 wal -i $wallpaper -q
 killall waybar
 killall hyprpaper
-hyprctl dispatch exec waybar
+hyprctl dispatch exec $waybar
 hyprctl dispatch exec hyprpaper
