@@ -5,14 +5,6 @@
     "spacing": 0,
     "height": 44,
 
-    "hyprland/window": {
-        "format": "",
-        "icon": true,
-        "on-click" : "wofi --show drun",
-        "on-scroll-up" : "brightnessctl set 5%+",
-        "on-scroll-down" : "brightnessctl set 5%-"
-    },
-
     "hyprland/workspaces" : {
         "persistent-workspaces": {"*": 5},
         "on-scroll-up": "hyprctl dispatch workspace r-1",
