@@ -1,0 +1,63 @@
+@import '../../.cache/wal/colors-waybar.css';
+
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Symbols Nerd Font Mono";
+    font-weight: 600;
+}
+
+window#waybar {
+    background-color: @background;
+    color: @foreground;
+}
+
+.modules-left, .modules-right, .modules-center {
+    padding: 5px;
+    border-radius: 100px;
+}
+
+#workspaces button {
+    background: @color4;
+    border-radius: 100px;
+    transition: 0.3s;
+}
+
+#workspaces button:hover, #workspaces button.active {
+    box-shadow: inherit;
+    text-shadow: inherit;
+    background: @color4;
+    min-width: 40px;
+}
+
+#workspaces button.empty, #workspaces button.empty:hover {
+    background: @color15;
+    color: @background;
+}
+
+#workspaces button:not(:first-child) {
+    margin-left: 5px;
+}
+
+#clock, #network, #battery, #cpu, #memory, #pulseaudio, #custom-applauncher, #custom-powers, #custom-colorpicker {
+    padding: 0 8px 0 8px;
+    border-radius: 100px;
+    transition: 0.3s;
+}
+
+#custom-applauncher:hover, #custom-powers:hover, #pulseaudio:hover, #custom-colorpicker:hover {
+    background: @foreground;
+    color: @background;
+}
+
+#custom-applauncher {
+    margin-left: 10px;
+}
+
+#pulseaudio {
+    margin-right: 10px;
+}
+
+#custom-colorpicker {
+    padding: 0 10px 0 10px;
+    border-radius: 100px;
+    margin-right: 5px;
+}
