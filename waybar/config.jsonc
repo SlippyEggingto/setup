@@ -1,7 +1,7 @@
 {
     "modules-left" : ["custom/applauncher", "clock", "hyprland/workspaces"],
     "modules-center" : ["hyprland/window"],
-    "modules-right" : ["custom/colorpicker", "custom/powers", "network", "cpu", "memory", "memory#swap", "pulseaudio"],
+    "modules-right" : ["custom/colorpicker", "custom/powers", "network", "battery", "cpu", "memory", "memory#swap", "pulseaudio"],
     "spacing": 0,
 
     "hyprland/workspaces" : {
@@ -24,6 +24,12 @@
         "tooltip" : false
     },
 
+    "battery": {
+        "interval": 1,
+        "format": "{capacity}% {icon}",
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+
     "cpu" : {
         "interval": 1,
         "format": "{usage}% ",
@@ -43,8 +49,8 @@
     },
 
     "pulseaudio" : {
-        "format": "{volume}% 󰓃",
-        "format-muted" : "muted ",
+        "format": "{volume}% ",
+        "format-muted" : "00% ",
         "scroll-step": 3,
         "on-click" : "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         "tooltip" : false
