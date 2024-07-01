@@ -1,13 +1,13 @@
 @import '../../.cache/wal/colors-waybar.css';
 
 * {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Symbols Nerd Font Mono";
+    /* font-family: ; */
     font-weight: 600;
 }
 
 window#waybar {
-    background: @background;
+    background-color: @background;
     color: @foreground;
 }
 
@@ -26,8 +26,7 @@ window#waybar {
     box-shadow: inherit;
     text-shadow: inherit;
     background: @color4;
-    border: none;
-    min-width: 40px;
+    min-width: 45px;
 }
 
 #workspaces button.empty, #workspaces button.empty:hover {
@@ -39,10 +38,11 @@ window#waybar {
     margin-left: 5px;
 }
 
-#clock, #network, #cpu, #memory, #pulseaudio, #custom-applauncher, #custom-powers, #custom-colorpicker {
-    padding: 0 13px 0 10px;
+#clock, #network, #battery, #cpu, #memory, #pulseaudio, #custom-applauncher, #custom-powers, #custom-colorpicker {
+    padding: 0 8px 0 8px;
     border-radius: 100px;
     transition: 0.3s;
+    /* background-color: blue; */
 }
 
 #custom-applauncher:hover, #custom-powers:hover, #pulseaudio:hover, #custom-colorpicker:hover {
@@ -59,7 +59,7 @@ window#waybar {
 }
 
 #custom-colorpicker {
-    padding: 0 14px 0 8px;
+    padding: 0 10px 0 10px;
     border-radius: 100px;
     margin-right: 5px;
 }
