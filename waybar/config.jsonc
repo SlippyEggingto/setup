@@ -3,6 +3,7 @@
     "modules-center" : ["clock"],
     "modules-right": ["network", "battery", "pulseaudio"],
     "spacing": 0,
+    "height": 44,
 
     "hyprland/window": {
         "format": "",
