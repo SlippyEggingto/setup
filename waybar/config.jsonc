@@ -50,7 +50,7 @@
 
     "pulseaudio" : {
         "format": "{volume}% ",
-        "format-muted" : "00% ",
+        "format-muted" : "muted ",
         "scroll-step": 3,
         "on-click" : "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         "tooltip" : false
