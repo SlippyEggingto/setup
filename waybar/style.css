@@ -10,29 +10,22 @@ window#waybar {
     color: @foreground;
 }
 
-.modules-center {
-    padding: 7px 14px 7px 14px;
-    border-radius: 100px;
-    font-size: 16px;
-}
-
 #workspaces {
-    padding: 10px 14px 10px 14px;
+    padding: 13px 0 13px 20px;
 }
 
 #workspaces button {
+    border: none;
     background: @foreground;
     border-radius: 100px;
     transition: 0.3s;
-    min-height: 0px;
-    min-width: 6px;
-    font-size: 0px;
+    min-width: 0;
+    min-height: 0;
+    font-size: 0;
 }
 
 #workspaces button.empty {
-    background-color: transparent;
-    border: 3px solid @foreground;
-    min-width: 1px;
+    background-color: rgba(192, 192, 192, 0.3);
 }
 
 #workspaces button:hover, #workspaces button.active, #workspaces button.empty:hover {
@@ -45,9 +38,9 @@ window#waybar {
 
 #network, #pulseaudio, #battery {
     padding: 0 7px 0 7px;
-    font-size: 17px;
+    font-size: 18px;
 }
 
 #pulseaudio {
-    padding: 0px 14px 0px 7px;
+    padding: 0px 20px 0 7px;
 }
