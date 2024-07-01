@@ -1,13 +1,13 @@
 #!/bin/bash
 
 cd ~
-mkdir ~/Desktop
-mkdir ~/Downloads
-mkdir ~/Documents
+mkdir -p ~/Desktop
+mkdir -p ~/Downloads
+mkdir -p ~/Documents
 mkdir -p ~/Pictures/Screenshots
 
 sudo pacman -Syu
-sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-jetbrains-mono-nerd ntfs-3g wofi python-pywal cliphist nautilus neofetch brightnessctl vulkan-intel vulkan-tools htop tree
+sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono ntfs-3g wofi python-pywal cliphist nautilus neofetch brightnessctl vulkan-intel vulkan-tools htop tree
 
 cp -r ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
@@ -25,11 +25,9 @@ alias nvim="nvim +'hi Normal ctermbg=none guibg=none' +'set expandtab ts=4 sw=4 
 cat ~/.cache/wal/sequences &" >> ~/.config/fish/config.fish
 echo "export HYPRSHOT_DIR=~/Pictures/Screenshots/" >> ~/.bash_profile
 
-sudo mkdir /media
-sudo mkdir /media/nptanphuc
+sudo mkdir -p /media/nptanphuc
 sudo mount /dev/sda2 /media/nptanphuc
-sudo mkdir /usr/local/share/fonts
-sudo mkdir /usr/local/share/fonts/WindowsFonts
+sudo mkdir -p /usr/local/share/fonts/WindowsFonts
 sudo cp /media/nptanphuc/Windows/Fonts/* /usr/local/share/fonts/WindowsFonts
 fc-cache --force
 
