@@ -3,6 +3,7 @@
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Symbols Nerd Font Mono";
     font-weight: 600;
+    border-radius: 100px;
 }
 
 window#waybar {
@@ -10,8 +11,18 @@ window#waybar {
     color: @foreground;
 }
 
+.modules-left, .modules-center, .modules-right {
+    border: 2px solid @foreground;
+    background-color: rgba(50, 50, 50, .5);
+    margin: 5px;
+}
+
 #workspaces {
-    padding: 13px 0 13px 20px;
+    padding: 6px;
+}
+
+#clock {
+    padding: 5px 15px 5px 15px;
 }
 
 #workspaces button {
@@ -25,7 +36,7 @@ window#waybar {
 }
 
 #workspaces button.empty {
-    background-color: rgba(192, 192, 192, 0.3);
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 #workspaces button:hover, #workspaces button.active, #workspaces button.empty:hover {
@@ -39,8 +50,4 @@ window#waybar {
 #network, #pulseaudio, #battery {
     padding: 0 7px 0 7px;
     font-size: 18px;
-}
-
-#pulseaudio {
-    padding: 0px 20px 0 7px;
 }
