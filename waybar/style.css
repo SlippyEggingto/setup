@@ -22,7 +22,7 @@ window#waybar {
 }
 
 #clock {
-    padding: 5px 15px 5px 15px;
+    padding: 5px 10px 5px 10px;
 }
 
 #workspaces button {
