@@ -14,7 +14,7 @@ window#waybar {
 .modules-left, .modules-center, .modules-right {
     border: 2px solid @foreground;
     background-color: rgba(50, 50, 50, .5);
-    margin: 5px;
+    margin: 8px 10px 2px 10px;
 }
 
 #workspaces {
