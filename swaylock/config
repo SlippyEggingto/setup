@@ -4,7 +4,7 @@ indicator-thickness=15
 indicator-radius=150
 image=/home/$USER/Downloads/wallpapers/wall_7.jpg
 clock
-effect-blur=7x5
+effect-blur=1x1
 effect-vignette=0.5:0.5
 ring-color=786bcc
 key-hl-color=bcb2ff
