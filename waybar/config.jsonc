@@ -3,7 +3,6 @@
     "modules-center" : ["clock"],
     "modules-right": ["network", "battery", "pulseaudio"],
     "spacing": 0,
-    "layer": "top",
 
     "hyprland/workspaces" : {
         "persistent-workspaces": {"*": 5},
