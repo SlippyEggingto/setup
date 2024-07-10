@@ -3,7 +3,6 @@
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Symbols Nerd Font Mono";
     font-weight: 600;
-    border-radius: 100px;
 }
 
 window#waybar {
@@ -11,18 +10,22 @@ window#waybar {
     color: @foreground;
 }
 
-.modules-left, .modules-center, .modules-right {
+.modules-center {
     border: 2px solid @foreground;
     background-color: rgba(50, 50, 50, .5);
     margin: 8px 10px 2px 10px;
+    border-radius: 100px;
 }
 
-.modules-right {
-    padding: 0 3px 0 3px;
+.modules-right, .modules-left {
+    padding: 8px 10px 2px 10px;
 }
 
 #workspaces {
+    border: 2px solid @foreground;
+    border-radius: 100px;
     padding: 6px;
+    background-color: rgba(50, 50, 50, .53);
 }
 
 #clock {
@@ -51,7 +54,38 @@ window#waybar {
     margin-left: 5px;
 }
 
-#network, #pulseaudio, #battery {
+#network, #pulseaudio, #battery, #custom-colorpicker, #custom-powers, #custom-applauncher {
     padding: 0 7px 0 7px;
+    background-color: rgba(50, 50, 50, .53);
     font-size: 18px;
+}
+
+#network {
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    border-top: 2px solid @foreground;
+    border-bottom: 2px solid @foreground;
+    border-left: 2px solid @foreground;
+    padding-left: 10px;
+}
+
+#battery {
+    border-top: 2px solid @foreground;
+    border-bottom: 2px solid @foreground;
+}
+
+#pulseaudio {
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    border-top: 2px solid @foreground;
+    border-bottom: 2px solid @foreground;
+    border-right: 2px solid @foreground;
+    padding-right: 10px;
+}
+
+#custom-colorpicker, #custom-powers, #custom-applauncher {
+    padding: 0 8px 0 8px;
+    font-size: 14px;
+    border-radius: 100px;
+    border: 2px solid @foreground;
 }
