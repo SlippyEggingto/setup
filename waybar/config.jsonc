@@ -1,8 +1,7 @@
 {
-    "modules-left" : ["hyprland/workspaces"],
+    "modules-left" : ["custom/applauncher", "custom/blank", "hyprland/workspaces"],
     "modules-center" : ["clock"],
-    "modules-right": ["network", "battery", "pulseaudio"],
-    "spacing": 0,
+    "modules-right": ["custom/colorpicker", "custom/blank", "network", "battery", "pulseaudio", "custom/blank", "custom/powers"],
 
     "hyprland/workspaces" : {
         "persistent-workspaces": {"*": 5},
@@ -38,5 +37,30 @@
         "interval": 1,
         "format": "{icon}",
         "format-icons": ["", "", "", "", ""]
+    },
+
+    "custom/colorpicker" : {
+        "format" : "",
+        "on-click" : "hyprpicker -a",
+        "tooltip" : false
+    },
+
+    "custom/blank": {
+        "format": " ",
+        "width": 10
+    },
+
+    "custom/powers" : {
+        "format" : "⏻",
+        "on-click" : "wlogout",
+        "tooltip" : false
+    },
+
+    "custom/applauncher" : {
+        "format" : "",
+        "on-click" : "wofi --show drun",
+        "on-scroll-up" : "brightnessctl set 5%+",
+        "on-scroll-down" : "brightnessctl set 5%-",
+        "tooltip" : false
     }
 }
