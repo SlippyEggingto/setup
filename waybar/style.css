@@ -54,7 +54,7 @@ window#waybar {
     margin-left: 5px;
 }
 
-#network, #pulseaudio, #battery, #custom-colorpicker, #custom-powers, #custom-applauncher {
+#network, #pulseaudio, #battery, #custom-colorpicker {
     padding: 0 7px 0 7px;
     background-color: rgba(50, 50, 50, .53);
     font-size: 18px;
@@ -83,7 +83,7 @@ window#waybar {
     padding-right: 10px;
 }
 
-#custom-colorpicker, #custom-powers, #custom-applauncher {
+#custom-colorpicker {
     padding: 0 8px 0 8px;
     font-size: 14px;
     border-radius: 100px;
