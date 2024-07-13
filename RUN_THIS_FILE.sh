@@ -30,6 +30,6 @@ cd yay
 makepkg -si
 
 cd ~
-yay -S wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme
+yay -S wlogout swaylock-effects hyprshot hyprpicker
 sh wallpaper.sh
 echo "===== Completed. Reboot. ====="
