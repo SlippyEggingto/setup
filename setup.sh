@@ -9,15 +9,15 @@ mkdir -p ~/Pictures/Screenshots
 sudo pacman -Syu
 sudo pacman -S firefox hyprland hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono ntfs-3g wofi python-pywal cliphist nautilus neofetch brightnessctl vulkan-intel vulkan-tools htop tree
 
-cp -r ~/setup/wallpapers ~/Downloads
+ln -s ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
-cp -r ~/setup/hypr ~/.config/
-cp -r ~/setup/waybar ~/.config
-cp -r ~/setup/wlogout ~/.config
-cp -r ~/setup/swaylock ~/.config
-cp -r ~/setup/wofi ~/.config
-cp -r ~/setup/foot ~/.config
-cp ~/setup/wallpaper.sh ~
+ln -s ~/setup/hypr ~/.config/
+ln -s ~/setup/waybar ~/.config
+ln -s ~/setup/wlogout ~/.config
+ln -s ~/setup/swaylock ~/.config
+ln -s ~/setup/wofi ~/.config
+ln -s ~/setup/foot ~/.config
+ln -s ~/setup/wallpaper.sh ~
 mkdir -p ~/.config/fish
 touch ~/.config/fish/config.fish
 echo "set fish_greeting
