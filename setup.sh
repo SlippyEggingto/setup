@@ -1,4 +1,4 @@
-#!/bin/bash
+
 
 cd ~
 mkdir -p ~/Desktop
@@ -7,7 +7,7 @@ mkdir -p ~/Documents
 mkdir -p ~/Pictures/Screenshots
 
 sudo pacman -Syu
-sudo pacman -S firefox zed clang eslint rust-analyzer xdg-desktop-portal-gtk hyprland hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono ntfs-3g wofi python-pywal cliphist nautilus neofetch brightnessctl vulkan-intel vulkan-tools htop tree
+sudo pacman -S firefox zed clang eslint rust-analyzer pyright xdg-desktop-portal-gtk hyprland hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono ntfs-3g wofi python-pywal cliphist nautilus neofetch brightnessctl vulkan-intel vulkan-tools htop tree
 
 mkdir ~/.config/xdg-desktop-portal
 touch ~/.config/xdg-desktop-portal/hyprland-portals.conf
