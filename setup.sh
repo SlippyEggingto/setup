@@ -7,7 +7,7 @@ mkdir -p ~/Documents
 mkdir -p ~/Pictures/Screenshots
 
 sudo pacman -Syu
-sudo pacman -S firefox zed clang eslint rust-analyzer pyright xdg-desktop-portal-gtk hyprland hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono ntfs-3g wofi python-pywal cliphist nautilus neofetch brightnessctl vulkan-intel vulkan-tools htop tree
+sudo pacman -S firefox hyprland hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono ntfs-3g wofi python-pywal cliphist nautilus neofetch brightnessctl vulkan-intel vulkan-tools htop tree
 
 mkdir ~/.config/xdg-desktop-portal
 touch ~/.config/xdg-desktop-portal/hyprland-portals.conf
@@ -46,7 +46,7 @@ cd yay
 makepkg -si
 
 cd ~
-yay -S ibus-bamboo wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme
+yay -S visual-studio-code-bin ibus-bamboo wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme
 
 # sudo dd if=/dev/zero of=/SWAP.img bs=1M count=8192
 # sudo sync
