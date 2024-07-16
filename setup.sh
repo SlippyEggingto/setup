@@ -40,7 +40,7 @@ cd yay
 makepkg -si
 
 cd ~
-yay -S visual-studio-code-bin ibus-bamboo wlogout swaylock-effects hyprshot hyprpicker yaru-icon-theme bibata-cursor-theme
+yay -S wlogout swaylock-effects hyprshot hyprpicker
 
 # sudo dd if=/dev/zero of=/SWAP.img bs=1M count=8192
 # sudo sync
