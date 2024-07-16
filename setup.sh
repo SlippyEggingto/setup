@@ -34,10 +34,16 @@ sudo mkdir -p /usr/local/share/fonts/WindowsFonts
 sudo cp /media/nptanphuc/Windows/Fonts/* /usr/local/share/fonts/WindowsFonts
 fc-cache --force
 
-# sudo echo "UUID=F0C2F863C2F83008 	/media/nptanphuc	ntfs-3g		uid=1000,gid=1000,umask=0022,sync,auto,nosuid,rw,nouser 0 0" >> /etc/fstab
-
 ln -s /media/nptanphuc/Users/HP/Desktop/ ~/Desktop
 git clone https://github.com/NvChad/starter ~/.config/nvim
+
+fish wallpaper.sh
+
+git config --global user.name "SlippyEggingto"
+git config --global user.email "phamtanphucnguyen@gmail.com"
+#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
+
+# sudo echo "UUID=F0C2F863C2F83008 	/media/nptanphuc	ntfs-3g		uid=1000,gid=1000,umask=0022,sync,auto,nosuid,rw,nouser 0 0" >> /etc/fstab
 
 # sudo dd if=/dev/zero of=/SWAP.img bs=1M count=8192
 # sudo sync
@@ -46,5 +52,4 @@ git clone https://github.com/NvChad/starter ~/.config/nvim
 # sudo swapon /SWAP.img
 # sudo echo "/SWAP.img none swap sw 0 0" >> /etc/fstab
 
-fish wallpaper.sh
 echo "===== Setup was completed. Reboot is required. ====="
