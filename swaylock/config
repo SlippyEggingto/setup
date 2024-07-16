@@ -2,9 +2,9 @@ indicator
 ignore-empty-password
 indicator-thickness=15
 indicator-radius=150
-image=/home/$USER/Downloads/wallpapers/wall_7.jpg
+image=/home/nptanphuc/Downloads/wallpapers/wall_10.jpg
 clock
-effect-blur=1x1
+effect-blur=7x5
 effect-vignette=0.5:0.5
 ring-color=786bcc
 key-hl-color=bcb2ff
