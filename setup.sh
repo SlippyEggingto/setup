@@ -6,8 +6,11 @@ mkdir -p ~/Downloads
 mkdir -p ~/Documents
 mkdir -p ~/Pictures/Screenshots
 
-sudo pacman -Syu
-sudo pacman -S firefox hyprland hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono ntfs-3g wofi python-pywal cliphist nautilus neofetch brightnessctl vulkan-intel vulkan-tools htop tree
+sudo rm /etc/pacman.conf
+sudo cp ~/setup/pacman.conf /etc
+
+sudo pacman -Syyuu
+sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist nautilus brightnessctl wlogout swaylock-effects hyprshot hyprpicker google-chrome vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay
 
 ln -s ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
@@ -35,12 +38,6 @@ fc-cache --force
 
 ln -s /media/nptanphuc/Users/HP/Desktop/ ~/Desktop
 git clone https://github.com/NvChad/starter ~/.config/nvim
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-
-cd ~
-yay -S wlogout swaylock-effects hyprshot hyprpicker
 
 # sudo dd if=/dev/zero of=/SWAP.img bs=1M count=8192
 # sudo sync
@@ -49,5 +46,5 @@ yay -S wlogout swaylock-effects hyprshot hyprpicker
 # sudo swapon /SWAP.img
 # sudo echo "/SWAP.img none swap sw 0 0" >> /etc/fstab
 
-sh wallpaper.sh
+fish wallpaper.sh
 echo "===== Setup was completed. Reboot is required. ====="
