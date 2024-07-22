@@ -7,7 +7,7 @@ mkdir -p ~/Documents
 mkdir -p ~/Pictures/Screenshots
 
 sudo rm /etc/pacman.conf
-sudo cp ~/setup/pacman.conf /etc
+sudo ln -s ~/setup/pacman.conf /etc
 
 sudo pacman -Syyuu
 sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist nautilus brightnessctl wlogout swaylock-effects hyprshot hyprpicker google-chrome vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay
