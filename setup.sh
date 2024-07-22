@@ -13,7 +13,7 @@ sudo rm /etc/pacman.d/mirrorlist
 sudo ln -s ~/setup/mirrorlist /etc/pacman.d
 
 sudo pacman -Syyuu
-sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist nautilus brightnessctl wlogout swaylock-effects hyprshot hyprpicker google-chrome vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay
+sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist nautilus brightnessctl wlogout swaylock-effects hyprshot hyprpicker google-chrome vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland
 
 ln -s ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
@@ -30,6 +30,11 @@ echo "set fish_greeting
 alias nvim="nvim +'hi Normal ctermbg=none guibg=none' +'set expandtab ts=4 sw=4 ai'"
 cat ~/.cache/wal/sequences &" >> ~/.config/fish/config.fish
 echo "export HYPRSHOT_DIR=~/Pictures/Screenshots/" >> ~/.bash_profile
+mkdir -p ~/.config/xdg-desktop-portal/
+touch ~/.config/xdg-desktop-portal/hyprland-portals.conf
+echo "[preferred]
+default=hyprland;gtk
+org.freedesktop.impl.portal.FileChooser=gtk" >> ~/.config/xdg-desktop-portal/hyprland-portals.conf
 
 sudo mkdir -p /media/nptanphuc
 sudo mount /dev/sda2 /media/nptanphuc
