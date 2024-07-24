@@ -28,8 +28,8 @@
         "format-muted" : "",
         "scroll-step": 0,
         "tooltip" : false,
-        "on-scroll-up": "wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 3%+ | notify-send \"Volume: $(amixer sget Master | grep 'Left:' | awk -F '[][]' '{print $2}')\"",
-        "on-scroll-down": "wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 3%- | notify-send \"Volume: $(amixer sget Master | grep 'Left:' | awk -F '[][]' '{print $2}')\"",
+        "on-scroll-up": "wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 3%+ ; makoctl dismiss ; notify-send \"Volume: $(pamixer --get-volume)%\"",
+        "on-scroll-down": "wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 3%- ; makoctl dismiss ; notify-send \"Volume: $(pamixer --get-volume)%\"",
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
     },
 
