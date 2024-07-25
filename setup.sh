@@ -13,7 +13,7 @@ sudo rm /etc/pacman.d/mirrorlist
 sudo ln -s ~/setup/mirrorlist /etc/pacman.d
 
 sudo pacman -Syyuu
-sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist nautilus brightnessctl wlogout swaylock-effects hyprshot hyprpicker mako pamixer google-chrome vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland
+sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist nautilus brightnessctl wlogout swaylock-effects hyprshot hyprpicker google-chrome vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland
 
 ln -s ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
@@ -24,7 +24,6 @@ ln -s ~/setup/swaylock ~/.config
 ln -s ~/setup/wofi ~/.config
 ln -s ~/setup/foot ~/.config
 ln -s ~/setup/wallpaper.sh ~
-ln -s ~/setup/mako ~/.config
 mkdir -p ~/.config/fish
 touch ~/.config/fish/config.fish
 echo "set fish_greeting
