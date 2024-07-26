@@ -24,6 +24,8 @@ ln -s ~/setup/swaylock ~/.config
 ln -s ~/setup/wofi ~/.config
 ln -s ~/setup/foot ~/.config
 ln -s ~/setup/wallpaper.sh ~
+sudo rm /usr/share/icons/default/index.theme
+sudo ln -s ~/setup/index.theme /usr/share/icons/default
 mkdir -p ~/.config/fish
 rm ~/.config/fish/config.fish
 touch ~/.config/fish/config.fish
