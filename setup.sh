@@ -12,8 +12,8 @@ sudo ln -s ~/setup/pacman.conf /etc
 sudo rm /etc/pacman.d/mirrorlist
 sudo ln -s ~/setup/mirrorlist /etc/pacman.d
 
-sudo pacman -Syyuu
-sudo pacman -S hyprland hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist nautilus brightnessctl wlogout swaylock-effects hyprshot hyprpicker google-chrome vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland
+sudo pacman -Syu
+sudo pacman -S hyprland-git hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist nautilus brightnessctl wlogout swaylock-effects hyprshot hyprpicker google-chrome vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland
 
 ln -s ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
@@ -25,6 +25,7 @@ ln -s ~/setup/wofi ~/.config
 ln -s ~/setup/foot ~/.config
 ln -s ~/setup/wallpaper.sh ~
 mkdir -p ~/.config/fish
+rm ~/.config/fish/config.fish
 touch ~/.config/fish/config.fish
 echo "set fish_greeting
 alias nvim="nvim +'hi Normal ctermbg=none guibg=none' +'set expandtab ts=4 sw=4 ai'"
