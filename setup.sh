@@ -13,7 +13,7 @@ sudo rm /etc/pacman.d/mirrorlist
 sudo ln -s ~/setup/mirrorlist /etc/pacman.d
 
 sudo pacman -Syu
-sudo pacman -S hyprland-git hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist nautilus brightnessctl wlogout swaylock-effects hyprshot hyprpicker google-chrome vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland
+sudo pacman -S hyprland-git hyprpaper waybar neovim nwg-look foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist nautilus brightnessctl wlogout swaylock-effects hyprshot hyprpicker google-chrome vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland bibata-cursor-theme yaru-icon-theme
 
 ln -s ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
