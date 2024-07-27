@@ -16,10 +16,10 @@
 }
 
 #navigator-toolbox {
-    height: 45px !important;
+    height: 50px !important;
     display: flex !important;
     justify-content: center !important;
-    border: 3px solid #2b2a33 !important;
+    border: 5px solid #2b2a33 !important;
 }
 
 #urlbar-background, #urlbar {
@@ -36,12 +36,21 @@
     display: none !important;
 }
 
+#urlbar-background {
+    background-color: #1C1B22 !important;
+}
+
 #urlbar-input {
     text-align: center !important;
 }
 
+#urlbar[focused="true"]:not([suppress-focus-border]) #urlbar-background,
+#searchbar:focus-within {
+    outline: none !important;
+}
+
 #browser {
-    padding: 10px;
+    padding: 0px 10px 10px 10px;
     background-color: #2b2a33 !important;
     gap: 10px;
 }
