@@ -1,0 +1,22 @@
+#TabsToolbar {
+    visibility: collapse;
+}
+
+#sidebar-box {
+    width: 34px !important;
+    min-width: 0px !important;
+}
+
+#sidebar-header, #sidebar-splitter {
+    display: none !important;
+}
+
+#navigator-toolbox {
+    height: 45px !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+#urlbar-input {
+    text-align: center !important;
+}

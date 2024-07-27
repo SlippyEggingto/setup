@@ -53,6 +53,11 @@ fish wallpaper.sh
 git config --global user.name "SlippyEggingto"
 git config --global user.email "phamtanphucnguyen@gmail.com"
 
+cd ~/.mozilla/firefox/*default-release*/
+mkdir -p chrome/
+ln -s ~/setup/userChrome.css chrome/
+cd ~
+
 # sudo echo "UUID=F0C2F863C2F83008 	/media/nptanphuc	ntfs-3g		uid=1000,gid=1000,umask=0022,sync,auto,nosuid,rw,nouser 0 0" >> /etc/fstab
 
 # sudo dd if=/dev/zero of=/SWAP.img bs=1M count=8192
