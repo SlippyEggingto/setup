@@ -46,11 +46,15 @@
     gap: 10px;
 }
 
-#appcontent {
+#tabbrowser-tabbox *{
     border-radius: 16px !important;
-    border: 3px solid white;
 }
 
-#tabbrowser-tabbox *{
-    border-radius: 12px !important;
+#main-window[sizemode="fullscreen"] #browser {
+    padding: 0 !important;
+    gap: 0 !important;
+}
+
+#main-window[sizemode="fullscreen"] #tabbrowser-tabbox * {
+    border-radius: 0 !important;
 }
