@@ -9,7 +9,6 @@
 #sidebar-box {
     width: 34px !important;
     min-width: 0px !important;
-
 }
 
 #sidebar-header, #sidebar-splitter {
@@ -20,6 +19,7 @@
     height: 45px !important;
     display: flex !important;
     justify-content: center !important;
+    border: 3px solid #2b2a33 !important;
 }
 
 #urlbar-background, #urlbar {
