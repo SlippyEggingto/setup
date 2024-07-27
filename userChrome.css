@@ -1,3 +1,7 @@
+#root.root {--frame-bg: #2b2a33;}
+#root.root {--toolbar-bg: rgb(43,42,51);}
+#root.root {--general-border-radius: 10px;}
+
 #TabsToolbar {
     visibility: collapse;
 }
@@ -5,6 +9,7 @@
 #sidebar-box {
     width: 34px !important;
     min-width: 0px !important;
+
 }
 
 #sidebar-header, #sidebar-splitter {
@@ -17,6 +22,35 @@
     justify-content: center !important;
 }
 
+#urlbar-background, #urlbar {
+    border-radius: 20px !important;
+}
+
+#identity-box.extensionPage #identity-icon-labels,
+#identity-box.extensionPage #identity-icon-label {
+    display: none !important;
+}
+
+#identity-box.extensionPage:hover #identity-icon-labels,
+#identity-box.extensionPage:hover #identity-icon-label {
+    display: none !important;
+}
+
 #urlbar-input {
     text-align: center !important;
+}
+
+#browser {
+    padding: 10px;
+    background-color: #2b2a33 !important;
+    gap: 10px;
+}
+
+#appcontent {
+    border-radius: 16px !important;
+    border: 3px solid white;
+}
+
+#tabbrowser-tabbox *{
+    border-radius: 12px !important;
 }
