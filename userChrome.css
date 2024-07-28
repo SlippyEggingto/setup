@@ -49,6 +49,10 @@
     outline: none !important;
 }
 
+toolbarspring {
+    flex: 20 !important;
+}
+
 #browser {
     padding: 0px 10px 10px 10px;
     background-color: #2b2a33 !important;
