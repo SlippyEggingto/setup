@@ -44,7 +44,7 @@
     text-align: center !important;
 }
 
-#urlbar[focused="true"]:not([suppress-focus-border]) #urlbar-background,
+#urlbar:not(:not([focused])) > #urlbar-background,
 #searchbar:focus-within {
     outline: none !important;
 }
