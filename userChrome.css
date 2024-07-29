@@ -2,6 +2,32 @@
 #root.root {--toolbar-bg: rgb(43,42,51);}
 #root.root {--general-border-radius: 10px;}
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        --custom-background-color: #1C1B22;
+        --custom-content-background-color: #2b2a33;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --custom-background-color: #F0F2F5;
+        --custom-content-background-color: #ffffff;
+    }
+}
+
+#nav-bar, #browser {
+    background-color: var(--custom-background-color) !important;
+}
+
+#sidebar-box, #sidebar, .sidebar-panel, #sidebar-search-container, #search-box, #search-box-input {
+    background-color: transparent !important;
+}
+
+#navigator-toolbox {
+    border: 5px solid var(--custom-background-color) !important;
+}
+
 #TabsToolbar {
     visibility: collapse;
 }
@@ -9,6 +35,11 @@
 #sidebar-box {
     width: 34px !important;
     min-width: 0px !important;
+    transition: 0.3s;
+}
+
+#sidebar-box:hover {
+    width: 300px !important;
 }
 
 #sidebar-header, #sidebar-splitter {
@@ -19,7 +50,6 @@
     height: 50px !important;
     display: flex !important;
     justify-content: center !important;
-    border: 5px solid #2b2a33 !important;
 }
 
 #urlbar-background, #urlbar {
@@ -37,7 +67,7 @@
 }
 
 #urlbar-background {
-    background-color: #1C1B22 !important;
+    background-color: var(--custom-content-background-color) !important;
 }
 
 #urlbar-input {
@@ -55,7 +85,6 @@ toolbarspring {
 
 #browser {
     padding: 0px 10px 10px 10px;
-    background-color: #2b2a33 !important;
     gap: 10px;
 }
 
