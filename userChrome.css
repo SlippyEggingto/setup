@@ -11,7 +11,7 @@
 
 @media (prefers-color-scheme: light) {
     :root {
-        --custom-background-color: #F0F2F5;
+        --custom-background-color: #F0F0F4;
         --custom-content-background-color: #ffffff;
     }
 }
@@ -21,7 +21,7 @@
 }
 
 #sidebar-box, #sidebar, .sidebar-panel, #sidebar-search-container, #search-box, #search-box-input {
-    background-color: transparent !important;
+    background-color: var(--custom-background-color) !important;
 }
 
 #navigator-toolbox {
@@ -34,12 +34,20 @@
 
 #sidebar-box {
     width: 34px !important;
-    min-width: 0px !important;
-    transition: 0.3s;
+    min-width: 34px !important;
+    position: relative;
+    z-index: 1;
 }
 
-#sidebar-box:hover {
-    width: 300px !important;
+#sidebar {
+    min-width: 34px !important;
+    will-change: min-width;
+    transition: 0.3s !important;
+}
+
+#sidebar-box:hover > #sidebar{
+    min-width: 300px !important;
+    padding-right: 10px;
 }
 
 #sidebar-header, #sidebar-splitter {
