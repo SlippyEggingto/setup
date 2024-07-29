@@ -16,7 +16,7 @@
     }
 }
 
-#nav-bar, #browser, #tabbrowser-tabbox *{
+#nav-bar, #browser, #tabbrowser-tabpanels{
     background-color: var(--custom-background-color) !important;
 }
 
