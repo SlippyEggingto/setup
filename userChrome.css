@@ -100,3 +100,11 @@ toolbarspring {
 #main-window[sizemode="fullscreen"] #tabbrowser-tabbox * {
     border-radius: 0 !important;
 }
+
+#main-window[sizemode="fullscreen"] #sidebar-box {
+    display: none !important;
+}
+
+#main-window[sizemode="fullscreen"] #navigator-toolbox {
+    display: none !important;
+}
