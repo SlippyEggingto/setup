@@ -102,13 +102,18 @@ mkdir -p chrome/
 ln -s ~/setup/userChrome.css chrome/
 cd ~
 
-# sudo echo "UUID=F0C2F863C2F83008 	/media/nptanphuc	ntfs-3g		uid=1000,gid=1000,umask=0022,sync,auto,nosuid,rw,nouser 0 0" >> /etc/fstab
+printf "UUID=F0C2F863C2F83008   /media/nptanphuc   ntfs-3g   uid=1000,gid=1000,umask=0022,sync,auto,nosuid,rw,nouser 0 0" | sudo tee -a /etc/fstab
+
+sudo touch /usr/sbin/update-grub
+printf '#!/bin/sh\nset -e\nexec grub-mkconfig -o /boot/grub/grub.cfg "$@"' | sudo tee -a /usr/sbin/update-grub
+sudo chown root:root /usr/sbin/update-grub
+sudo chmod 755 /usr/sbin/update-grub
 
 # sudo dd if=/dev/zero of=/SWAP.img bs=1M count=8192
 # sudo sync
 # sudo chmod 600 /SWAP.img
 # sudo mkswap /SWAP.img
 # sudo swapon /SWAP.img
-# sudo echo "/SWAP.img none swap sw 0 0" >> /etc/fstab
+# printf "/SWAP.img none swap sw 0 0" | sudo tee -a /etc/fstab
 
 echo "===== Setup was completed. Reboot is required. ====="
