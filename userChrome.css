@@ -50,6 +50,11 @@
     padding-right: 10px;
 }
 
+#sidebar-box[sidebarcommand="viewBookmarksSidebar"] > #sidebar,
+#sidebar-box[sidebarcommand="viewHistorySidebar"] > #sidebar{
+    min-width: 300px !important;
+}
+
 #sidebar-header, #sidebar-splitter {
     display: none !important;
 }
