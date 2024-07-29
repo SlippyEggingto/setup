@@ -38,6 +38,7 @@ cat ~/.cache/wal/sequences &" >> ~/.config/fish/config.fish
 echo "export HYPRSHOT_DIR=~/Pictures/Screenshots/" >> ~/.bash_profile
 
 mkdir -p ~/.config/xdg-desktop-portal/
+rm ~/.config/xdg-desktop-portal/hyprland-portals.conf
 touch ~/.config/xdg-desktop-portal/hyprland-portals.conf
 echo "[preferred]
 default=hyprland;gtk
