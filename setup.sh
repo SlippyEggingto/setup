@@ -35,7 +35,8 @@ echo "set fish_greeting
 alias nvim="nvim +'hi Normal ctermbg=none guibg=none' +'set expandtab ts=4 sw=4 ai'"
 cat ~/.cache/wal/sequences &" >> ~/.config/fish/config.fish
 
-echo "export HYPRSHOT_DIR=~/Pictures/Screenshots/" >> ~/.bash_profile
+echo "export HYPRSHOT_DIR=~/Pictures/Screenshots/
+export GTK_THEME=catppuccin-mocha-mauve-standard+default" >> ~/.bash_profile
 
 mkdir -p ~/.config/xdg-desktop-portal/
 rm ~/.config/xdg-desktop-portal/hyprland-portals.conf
@@ -47,7 +48,7 @@ org.freedesktop.impl.portal.FileChooser=gtk" >> ~/.config/xdg-desktop-portal/hyp
 sudo rm ~/.config/gtk-3.0/settings.ini
 touch ~/.config/gtk-3.0/settings.ini
 echo "[Settings]
-gtk-theme-name=Adwaita
+gtk-theme-name=catppuccin-mocha-mauve-standard+default
 gtk-icon-theme-name=Yaru
 gtk-font-name=Cantarell 11
 gtk-cursor-theme-name=Bibata-Modern-Classic
