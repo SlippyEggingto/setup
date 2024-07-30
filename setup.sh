@@ -12,7 +12,7 @@ sudo ln -s ~/setup/pacman.conf /etc
 sudo rm /etc/pacman.d/mirrorlist
 sudo ln -s ~/setup/mirrorlist /etc/pacman.d
 
-sudo pacman -Syu
+sudo pacman -Syyuu
 sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist nautilus brightnessctl wlogout swaylock-effects hyprshot-git hyprpicker-git firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme yaru-icon-theme catppuccin-gtk-theme-mocha
 
 ln -s ~/setup/wallpapers ~/Downloads
