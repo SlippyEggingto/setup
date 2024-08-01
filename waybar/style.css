@@ -29,7 +29,7 @@ window#waybar {
     background: @foreground;
     border-radius: 100px;
     transition: 0.3s;
-    min-width: 0;
+    min-width: 14px;
     min-height: 0;
     font-size: 0;
 }
@@ -39,7 +39,7 @@ window#waybar {
 }
 
 #workspaces button:hover, #workspaces button.active, #workspaces button.empty:hover {
-    min-width: 20px;
+    min-width: 35px;
 }
 
 #workspaces button:not(:first-child) {
