@@ -9,6 +9,9 @@ preload = \$wallpaper
 wallpaper = ,\$wallpaper" >> ~/.config/hypr/hyprpaper.conf
 
 wal -i $wallpaper -q
+
+oomox-cli ~/.cache/wal/colors-oomox
+
 killall waybar
 killall hyprpaper
 hyprctl dispatch exec $waybar
@@ -23,5 +26,3 @@ echo "$(sed 's/#//g' /home/$USER/.cache/wal/colors)" >> /home/$USER/.cache/wal/t
 for i in (seq 1 16)
     echo "\$color$i = rgb($(sed "$i q;d" /home/$USER/.cache/wal/template-colors))" >> /home/$USER/.cache/wal/hyprland-colors.conf
 end
-
-oomox-cli ~/.cache/wal/colors-oomox
