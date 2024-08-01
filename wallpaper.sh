@@ -10,6 +10,7 @@ wallpaper = ,\$wallpaper" >> ~/.config/hypr/hyprpaper.conf
 
 wal -i $wallpaper -q
 
+sed -i '15s/0/12/' ~/.cache/wal/colors-oomox
 oomox-cli ~/.cache/wal/colors-oomox
 
 killall waybar
