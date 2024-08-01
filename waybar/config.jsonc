@@ -11,7 +11,7 @@
 
     "clock" : {
         "interval" : 1,
-        "format" : "{:%R • %a, %B %d}",
+        "format" : "{:%R • %a, %b %d}",
         "tooltip" : false
     },
 
