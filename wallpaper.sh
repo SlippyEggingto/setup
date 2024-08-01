@@ -1,4 +1,4 @@
-set wallpaper /home/$USER/Downloads/wallpapers/wall_29.jpg
+set wallpaper /home/$USER/Downloads/wallpapers/wall_2.jpg
 #set waybar "waybar -s ~/.config/waybar/original.css -c ~/.config/waybar/original.jsonc"
 set waybar waybar
 
@@ -10,14 +10,6 @@ wallpaper = ,\$wallpaper" >> ~/.config/hypr/hyprpaper.conf
 
 wal -i $wallpaper -q
 
-sed -i '15s/0/12/' ~/.cache/wal/colors-oomox
-oomox-cli ~/.cache/wal/colors-oomox
-
-killall waybar
-killall hyprpaper
-hyprctl dispatch exec $waybar
-hyprctl dispatch exec hyprpaper
-
 rm /home/$USER/.cache/wal/hyprland-colors.conf
 rm /home/$USER/.cache/wal/template-colors
 touch /home/$USER/.cache/wal/hyprland-colors.conf
@@ -27,3 +19,30 @@ echo "$(sed 's/#//g' /home/$USER/.cache/wal/colors)" >> /home/$USER/.cache/wal/t
 for i in (seq 1 16)
     echo "\$color$i = rgb($(sed "$i q;d" /home/$USER/.cache/wal/template-colors))" >> /home/$USER/.cache/wal/hyprland-colors.conf
 end
+
+rm ~/.cache/wal/colors-oomox
+touch ~/.cache/wal/colors-oomox
+echo "NAME=wal
+BG=$(sed "1q;d" ~/.cache/wal/template-colors)
+FG=$(sed "16q;d" ~/.cache/wal/template-colors)
+MENU_BG=$(sed "1q;d" ~/.cache/wal/template-colors)
+MENU_FG=$(sed "16q;d" ~/.cache/wal/template-colors)
+SEL_BG=$(sed "4q;d" ~/.cache/wal/template-colors)
+SEL_FG=ffffff
+TXT_BG=$(sed "1q;d" ~/.cache/wal/template-colors)
+TXT_FG=$(sed "16q;d" ~/.cache/wal/template-colors)
+BTN_BG=$(sed "1q;d" ~/.cache/wal/template-colors)
+BTN_FG=$(sed "16q;d" ~/.cache/wal/template-colors)
+HDR_BG=$(sed "1q;d" ~/.cache/wal/template-colors)
+HDR_FG=$(sed "16q;d" ~/.cache/wal/template-colors)
+GTK3_GENERATE_DARK=True
+ROUNDNESS=12
+SPACING=3
+GRADIENT=0.0" >> ~/.cache/wal/colors-oomox
+
+oomox-cli ~/.cache/wal/colors-oomox
+
+killall waybar
+killall hyprpaper
+hyprctl dispatch exec $waybar
+hyprctl dispatch exec hyprpaper
