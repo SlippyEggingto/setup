@@ -19,6 +19,7 @@ git clone https://github.com/yeyushengfan258/Win11-icon-theme.git
 cd Win11-icon-theme
 ./install.sh
 cd ~
+sudo rm -r Win11-icon-theme
 
 ln -s ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
@@ -116,6 +117,10 @@ sudo touch /usr/sbin/update-grub
 printf '#!/bin/sh\nset -e\nexec grub-mkconfig -o /boot/grub/grub.cfg "$@"' | sudo tee -a /usr/sbin/update-grub
 sudo chown root:root /usr/sbin/update-grub
 sudo chmod 755 /usr/sbin/update-grub
+
+sudo sed -i '4s/5/0/' /etc/default/grub
+sudo sed -i '6s/ quiet//' /etc/default/grub
+#sudo update-grub
 
 # sudo dd if=/dev/zero of=/SWAP.img bs=1M count=8192
 # sudo sync
