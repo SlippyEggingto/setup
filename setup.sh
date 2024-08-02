@@ -13,7 +13,12 @@ sudo rm /etc/pacman.d/mirrorlist
 sudo ln -s ~/setup/mirrorlist /etc/pacman.d
 
 sudo pacman -Syyuu
-sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprshot-git hyprpicker-git themix-full-git nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme yaru-icon-theme catppuccin-gtk-theme-mocha fcitx fcitx-unikey fcitx-config-gtk cmus
+sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprshot-git hyprpicker-git themix-full-git nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme fcitx fcitx-unikey fcitx-config-gtk cmus
+
+git clone https://github.com/yeyushengfan258/Win11-icon-theme.git
+cd Win11-icon-theme
+./install.sh
+cd ~
 
 ln -s ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
@@ -35,7 +40,7 @@ alias nvim="nvim +'hi Normal ctermbg=none guibg=none' +'set expandtab ts=4 sw=4 
 cat ~/.cache/wal/sequences &" >> ~/.config/fish/config.fish
 
 echo "export HYPRSHOT_DIR=~/Pictures/Screenshots/
-export GTK_THEME=catppuccin-mocha-mauve-standard+default
+export GTK_THEME=oomox-colors-oomox
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx" >> ~/.bash_profile
@@ -50,8 +55,8 @@ org.freedesktop.impl.portal.FileChooser=gtk" >> ~/.config/xdg-desktop-portal/hyp
 sudo rm ~/.config/gtk-3.0/settings.ini
 touch ~/.config/gtk-3.0/settings.ini
 echo "[Settings]
-gtk-theme-name=catppuccin-mocha-mauve-standard+default
-gtk-icon-theme-name=Yaru
+gtk-theme-name=oomox-colors-oomox
+gtk-icon-theme-name=Win11-dark
 gtk-font-name=Cantarell 11
 gtk-cursor-theme-name=Bibata-Modern-Classic
 gtk-cursor-theme-size=24
@@ -70,8 +75,8 @@ gtk-application-prefer-dark-theme=1" >>  ~/.config/gtk-3.0/settings.ini
 sudo rm ~/.gtkrc-2.0
 touch ~/.gtkrc-2.0
 echo "include "/home/nptanphuc/.gtkrc-2.0.mine"
-gtk-theme-name="Adwaita"
-gtk-icon-theme-name="Yaru"
+gtk-theme-name="oomox-colors-oomox"
+gtk-icon-theme-name="Win11-dark"
 gtk-font-name="Cantarell 11"
 gtk-cursor-theme-name="Bibata-Modern-Classic"
 gtk-cursor-theme-size=24
