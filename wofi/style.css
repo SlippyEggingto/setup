@@ -3,7 +3,6 @@
 window {
     margin: 0px;
     border-radius: 15px;
-    background-color: rgb(40, 40, 40);
 }
 
 #input {
@@ -14,12 +13,12 @@ window {
    	outline: none;
     border-radius: 15px;
     margin: 10px;
-    border: 2px solid @color4;
+    min-height: 30px;
+    border: @foreground solid 2px;
 }
 
 #input:focus {
-    border: 0px;
-    margin-bottom: 0px;
+    border: @color4 solid 2px;
 }
 
 #inner-box {
