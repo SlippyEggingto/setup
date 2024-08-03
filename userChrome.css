@@ -41,11 +41,9 @@
     height: 300px !important;
 } */
 
-.tab-icon-stack {
-    margin-left: 2px !important;
-}
-
-.tab-label-container, .tab-close-button, #firefox-view-button, #alltabs-button {
+.tab-label-container, .tab-close-button,
+#firefox-view-button, #alltabs-button,
+.tab-icon-sound-label, .tab-icon-overlay {
     display: none !important;
 }
 
@@ -62,6 +60,12 @@
     flex: 0 !important;
     rotate: -90deg !important;
     min-width: 40px !important;
+}
+
+.tab-icon-image {
+    height: 20px !important;
+    width: 20px !important;
+    opacity: 1 !important;
 }
 
 #sidebar-box {
