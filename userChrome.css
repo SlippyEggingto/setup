@@ -29,38 +29,39 @@
     position: absolute !important;
     z-index: 10 !important;
     rotate: 90deg !important;
+    transform-origin: left bottom;
     width: calc(100vh - 60px) !important;
     height: 44px !important;
-    top: 0 !important;
-    transform: translateY(calc(51.1vh - 60px)) translateX(calc(50% + 28px)) !important;
     background-color: var(--custom-background-color) !important;
+    transition: 0.3s;
+    bottom: calc(100vh - 50px) !important;
 }
 
-.tab-label-container, .tab-close-button {
-    display: none !important;
-}
+/* #titlebar:hover {
+    height: 300px !important;
+} */
 
 .tab-icon-stack {
     margin-left: 2px !important;
 }
 
-#firefox-view-button {
-    rotate: -90deg !important;
+.tab-label-container, .tab-close-button, #firefox-view-button, #alltabs-button {
+    display: none !important;
 }
 
-#alltabs-button {
-    rotate: 180deg !important;
+#tabbrowser-tabs {
+    border: none !important;
+    padding: none !important
 }
 
-.tab-background {
-    border-radius: 10px !important;
+.tab-background, .toolbarbutton-icon, .toolbarbutton-badge-stack {
+    border-radius: 12px !important;
 }
 
 .tabbrowser-tab {
     flex: 0 !important;
     rotate: -90deg !important;
     min-width: 40px !important;
-    width: 40px !important;
 }
 
 #sidebar-box {
