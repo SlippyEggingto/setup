@@ -1,4 +1,4 @@
-set wallpaper /home/$USER/Downloads/wallpapers/wall_13.jpg
+set wallpaper /home/$USER/Downloads/wallpapers/wall_29.jpg
 #set waybar "waybar -s ~/.config/waybar/original.css -c ~/.config/waybar/original.jsonc"
 set waybar waybar
 
