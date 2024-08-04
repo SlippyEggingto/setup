@@ -36,6 +36,10 @@
     background-color: transparent !important;
 }
 
+.tab-throbber[busy] {
+    margin-left: 3px !important;
+}
+
 #titlebar:hover #tabbrowser-arrowscrollbox-periphery {
     width: 288px !important;
     margin-left: 2px !important;
