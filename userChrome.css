@@ -73,7 +73,6 @@ spacer[part="overflow-start-indicator"], spacer[part="overflow-end-indicator"],
     height: 44px !important;
     transition: var(--custom-transition-time) !important;
     bottom: calc(100vh - 52px) !important;
-    background-color: var(--custom-background-color) !important;
     border: none !important;
 }
 
@@ -155,7 +154,6 @@ scrollbox[part="scrollbox"] * {
     width: 20px !important;
     height: 20px !important;
     margin-left: 24px !important;
-    margin-right: 4px !important;
     transition: var(--custom-transition-time) !important;
 }
 
@@ -167,7 +165,7 @@ scrollbox[part="scrollbox"] * {
     height: 40px !important;
     width: 40px !important;
     opacity: 1 !important;
-    transform: scale(0.60);
+    transform: scale(0.55);
 }
 
 .tab-throbber {
@@ -175,8 +173,7 @@ scrollbox[part="scrollbox"] * {
 }
 
 #titlebar:hover #tabbrowser-arrowscrollbox-periphery {
-    width: 296px !important;
-    margin-left: 2px !important;
+    width: 298px !important;
 }
 
 #tabs-newtab-button {
@@ -184,6 +181,7 @@ scrollbox[part="scrollbox"] * {
     width: 40px !important;
     margin-left: 2px !important;
     transition: var(--custom-transition-time) !important;
+    height: 40px !important;
 }
 
 #titlebar:hover #tabs-newtab-button {
