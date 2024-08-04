@@ -1,11 +1,13 @@
+@import url('/home/nptanphuc/.cache/wal/colors.css');
+
 :root {
     --custom-transition-time: 0.3s;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --custom-background-color: #1C1B22;
-        --custom-content-background-color: #312f3d;
+        --custom-background-color: var(--color0);
+        --custom-content-background-color: rgba(255, 255, 255, 0.1);
     }
 }
 
@@ -16,14 +18,18 @@
     }
 }
 
-#nav-bar, #browser, #tabbrowser-tabpanels, #titlebar,
+#urlbar-background, #nav-bar, #browser, #tabbrowser-tabpanels, #titlebar,
 #sidebar-box, #sidebar, .sidebar-panel, #sidebar-search-container, #search-box, #search-box-input {
     background-color: var(--custom-background-color) !important;
 }
 
-#urlbar-background, .tab-background:not(:not([selected])),
+#urlbar:not([open]) .urlbar-input-container, .tab-background:not(:not([selected])),
 #tabs-newtab-button:hover {
     background-color: var(--custom-content-background-color) !important;
+}
+
+#urlbar:not([open]) .urlbar-input-container {
+    border-radius: 20px !important;
 }
 
 #tabs-newtab-button:hover .toolbarbutton-icon[type="menu"] {
@@ -141,6 +147,7 @@ scrollbox[part="scrollbox"] * {
     min-height: 46px !important;
     height: 46px !important;
     transition: var(--custom-transition-time) !important;
+    margin-top: -3px !important;
 }
 
 #titlebar:hover .tabbrowser-tab {
