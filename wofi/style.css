@@ -50,3 +50,7 @@ window {
 #entry:selected {
     background-color: @color4;
 }
+
+#img {
+    background-color: transparent;
+}
