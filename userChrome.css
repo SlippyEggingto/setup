@@ -182,6 +182,7 @@ scrollbox[part="scrollbox"] * {
     margin-left: 2px !important;
     transition: var(--custom-transition-time) !important;
     height: 40px !important;
+    margin-top: 1px !important
 }
 
 #titlebar:hover #tabs-newtab-button {
