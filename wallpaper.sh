@@ -1,4 +1,4 @@
-set wallpaper /home/$USER/Downloads/wallpapers/wall_29.jpg
+set wallpaper $(echo "$(zenity --file-selection)")
 #set waybar "waybar -s ~/.config/waybar/original.css -c ~/.config/waybar/original.jsonc"
 set waybar waybar
 

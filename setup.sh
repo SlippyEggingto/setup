@@ -13,7 +13,7 @@ sudo rm /etc/pacman.d/mirrorlist
 sudo ln -s ~/setup/mirrorlist /etc/pacman.d
 
 sudo pacman -Syyuu
-sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprshot-git hyprpicker-git themix-full-git nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme fcitx fcitx-unikey fcitx-config-gtk cmus
+sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprshot-git hyprpicker-git themix-full-git zenity nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme fcitx fcitx-unikey fcitx-config-gtk cmus
 
 git clone https://github.com/yeyushengfan258/Win11-icon-theme.git
 cd Win11-icon-theme
@@ -42,9 +42,9 @@ cat ~/.cache/wal/sequences &" >> ~/.config/fish/config.fish
 
 echo "export HYPRSHOT_DIR=~/Pictures/Screenshots/
 export GTK_THEME=oomox-colors-oomox
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
-export XMODIFIERS=@im=fcitx" >> ~/.bash_profile
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus" >> ~/.bash_profile
 
 mkdir -p ~/.config/xdg-desktop-portal/
 rm ~/.config/xdg-desktop-portal/hyprland-portals.conf
