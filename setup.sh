@@ -13,13 +13,21 @@ sudo rm /etc/pacman.d/mirrorlist
 sudo ln -s ~/setup/mirrorlist /etc/pacman.d
 
 sudo pacman -Syyuu
-sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprshot-git hyprpicker-git themix-full-git zenity nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme fcitx fcitx-unikey fcitx-config-gtk cmus
+sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprshot-git hyprpicker-git themix-full-git zenity sudo pacman -S typescript npm meson gjs gnome-bluetooth-3.0 upower gobject-introspection libdbusmenu-gtk3 libsoup3 nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme fcitx fcitx-unikey fcitx-config-gtk cmus
 
-git clone https://github.com/yeyushengfan258/Win11-icon-theme.git
-cd Win11-icon-theme
+git clone https://github.com/yeyushengfan258/Win11-icon-theme.git ~
+cd ~/Win11-icon-theme
 ./install.sh
 cd ~
-sudo rm -r Win11-icon-theme
+sudo rm -rf ~/Win11-icon-theme
+
+git clone --recursive https://github.com/Aylur/ags.git ~
+cd ~/ags
+npm install
+meson setup build
+meson install -C build
+cd ~
+sudo rm -rf ~/ags
 
 ln -s ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
@@ -28,6 +36,7 @@ ln -s ~/setup/waybar ~/.config
 ln -s ~/setup/wlogout ~/.config
 ln -s ~/setup/wofi ~/.config
 ln -s ~/setup/foot ~/.config
+ln -s ~/setup/ags ~/.config
 ln -s ~/setup/wallpaper.sh ~
 
 sudo rm /usr/share/icons/default/index.theme
