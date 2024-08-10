@@ -15,7 +15,7 @@ top_bar {
 button {
     min-height: 0;
     min-width: 10px;
-    /* font-size: 0; */
+    font-size: 0;
     border-radius: 100px;
 }
 
@@ -23,12 +23,17 @@ button:hover {
     min-width: 40px;
 }
 
-button.active {
+.active {
     background-color: @theme_fg_color;
 }
 
+.focused {
+    background-color: @theme_fg_color;
+    min-width: 30px;
+}
+
 .modules-left, .modules-center, .modules-right {
-    padding: 0 10px 0 10px;
+    padding: 3px 20px 3px 20px;
 }
 
 calendar {

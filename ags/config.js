@@ -2,48 +2,50 @@ const batteryService = await Service.import('battery');
 const hyprlandService = await Service.import('hyprland');
 const networkService = await Service.import('network');
 
-// const dispatch = ws => hyprlandService.messageAsync(`dispatch workspace ${ws}`);
-
-// const workspaces = () => Widget.EventBox({
-//     onScrollUp: () => dispatch('-1'),
-//     onScrollDown: () => dispatch('+1'),
-//     child: Widget.Box({
-//         children: Array.from({ length: 10 }, (_, i) => i + 1).map(i => Widget.Button({
-//             attribute: i,
-//             label: `${i}`,
-//             onClicked: () => dispatch(i),
-//         })),
-//     }),
-// })
-
-const workspaces = () => Widget.EventBox({
-    onScrollUp: () => hyprlandService.messageAsync('dispatch workspace -1'),
-    onScrollDown: () => hyprlandService.messageAsync('dispatch workspace +1'),
-    child: Widget.Box({
-        children: Array.from({length: 10}, (_, i) => i+1).map(i => Widget.Button({
-            attribute: i,
-            label: `${i}`,
-            onClicked: () => hyprlandService.messageAsync(`dispatch workspace ${i}`),
-        }))
-    }),
+function workspaces() {
+    function checkActiveWorkspace(a) {
+        for (let i = 0; i < hyprlandService.workspaces.length; i++) {
+            if (a === hyprlandService.workspaces[i].id) {
+                return true
+            }
+        }
     
-    class_name: 'workspaces'
-})
+        return false;
+    }
+
+    const activeId = hyprlandService.active.workspace.bind('id');
+
+    return Widget.EventBox({
+        child: Widget.Box({
+            class_name: 'workspaces',
+            spacing: 5,
+            children: Array.from({length: 10}, (_, i) => i+1).map(i => Widget.Button({
+                // label: `${i}`,
+                onClicked: () => hyprlandService.messageAsync(`dispatch workspace ${i}`),
+                class_name: activeId.as(id => `${id == i ? 'focused' : `${checkActiveWorkspace(i) === true ? 'active' : ''}`}`)
+            }))
+        }),
+
+        onScrollDown: () => Utils.exec("hyprctl dispatch workspace +1"),
+        onScrollUp: () => Utils.exec("hyprctl dispatch workspace -1"),
+    })
+}
 
 function window() {
     return Widget.Box({
         children: [
             Widget.Label({
-                label: hyprlandService.active.client.bind('class'),
+                label: hyprlandService.active.client.bind('class').as(p => p == '' ? 'Desktop' : p),
                 class_name: 'window-top',
                 hpack: 'start'
             }),
 
             Widget.Label({
-                label: hyprlandService.active.client.bind('title'),
+                label: hyprlandService.active.client.bind('title').as(p => p == '' ? `Workspace ${hyprlandService.active.workspace.id}` : p),
                 class_name: 'window-bottom',
                 maxWidthChars: 40,
-                truncate: 'end'
+                truncate: 'end',
+                hpack: 'start'
             })
         ],
 
@@ -149,7 +151,7 @@ function top_bar() {
     return Widget.Window({
         name: 'top_bar',
         layer: 'bottom',
-        exclusivity: 'ignore',
+        exclusivity: 'exclusive',
         anchor: ['top', 'left', 'right'],
         child: Widget.CenterBox({
             start_widget: top_bar_left(),
@@ -182,4 +184,3 @@ App.config({
 
 
 export { };
-// export { };
