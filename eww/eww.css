@@ -1,0 +1,28 @@
+.bar {
+    padding: 3px 15px 3px 15px;
+}
+
+.button, .focused, .active {
+    transition: 0.3s;
+    border-radius: 100px;
+    min-height: 0;
+    min-width: 0px;
+    border: none;
+}
+
+.button {
+    background-color: rgba(50, 50, 50, .5);
+}
+
+.focused {
+    background-color: @theme_fg_color;
+    min-width: 10px;
+}
+
+.active {
+    background-color: @theme_fg_color;
+}
+
+.modules-left {
+    padding: 15px 0 15px 0;
+}
