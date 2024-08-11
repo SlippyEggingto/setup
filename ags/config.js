@@ -61,6 +61,36 @@ const date_dmy = Variable("", {
     poll: [1000, 'date +"%a, %b %d"']
 })
 
+const divide = ([total, free]) => free / total
+
+const cpu = Variable(0, {
+    // @ts-ignore
+    poll: [2000, 'top -b -n 1', out => divide([100, out.split('\n')
+        .find(line => line.includes('Cpu(s)'))
+        .split(/\s+/)[1]
+        .replace(',', '.')])],
+})
+
+const ram = Variable(0, {
+    // @ts-ignore
+    poll: [2000, 'free', out => divide(out.split('\n')
+        .find(line => line.includes('Mem:'))
+        .split(/\s+/)
+        .splice(1, 2))],
+})
+
+const cpuProgress = Widget.CircularProgress({
+    class_name: 'cpu',
+    value: cpu.bind(),
+    start_at: 0.75
+})
+
+const ramProgress = Widget.CircularProgress({
+    class_name: 'ram',
+    value: ram.bind(),
+    start_at: 0.75
+})
+
 function clock() {
     return Widget.Box({
         children: [
@@ -140,7 +170,9 @@ function top_bar_right() {
         children: [
             network(),
             battery(),
-            clock()
+            clock(),
+            cpuProgress,
+            ramProgress
         ],
 
         spacing: 10

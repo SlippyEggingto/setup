@@ -4,19 +4,17 @@
     transition: 0.3s;
 }
 
-top_bar {
-    border-radius: 10px;
-}
-
 .workspaces {
     padding: 10px 0 10px 0;
 }
 
 button {
     min-height: 0;
-    min-width: 10px;
+    min-width: 14px;
     font-size: 0;
     border-radius: 100px;
+    border: none;
+    background-color: rgba(75, 75, 75, 0.5);
 }
 
 button:hover {
@@ -48,4 +46,8 @@ calendar {
 
 .window-bottom, .date-dmy {
     font-size: 14px;
+}
+
+.cpu, .ram {
+    background-color: rgba(75, 75, 75, 0.5);
 }
