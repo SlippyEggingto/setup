@@ -1,0 +1,9 @@
+background-color=#77ABA6
+border-color=#77ABA6
+max-history=100
+sort=+time
+font="Montserrat"1
+max-visible=10
+height=250
+border-radius=16
+default-timeout=7000
