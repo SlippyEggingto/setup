@@ -9,7 +9,7 @@
 )
 
 (defwidget clock[]
-    (box :class "clock hehe"
+    (box :class "clock"
          :orientation "horizontal"
 
          time
@@ -17,14 +17,18 @@
 )
 
 (deflisten hehe :initial ""
-    "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true"
+    "playerctl --follow metadata --format '{{ artist }} • {{ title }}' || true"
 )
 
 (defwidget music[]
     (box :class "music"
          :orientation "horizontal"
 
-         {hehe != "" ? "${hehe}" : ""}
+         (label
+            :text {hehe != "" ? "${hehe}" : ""}
+            :show-truncated true
+            :limit-width 60
+         )
     )
 )
 
@@ -77,8 +81,11 @@
     (box :class "modules-center"
          :orientation "horizontal"
          :halign "center"
+         :space-evenly false
+         :spacing 40
 
          (clock)
+         (music)
     )
 )
 
@@ -86,7 +93,7 @@
     (box :class "modules-right"
          :orientation "horizontal"
          :halign "end"
-         :spacing "10"
+         :spacing 10
 
          (cpu)
          (ram)
@@ -117,4 +124,50 @@
         :namespace "example"
 
     (bar)
+)
+
+(defwidget cpuWidget[]
+    (box :class "cpu-widget"
+         :orientation "horizontal"
+
+         (circular-progress
+             :value {EWW_CPU.avg}
+             :thickness 10
+             :start-at 75
+         )
+    )
+)
+
+(defwidget ramWidget[]
+    (box :class "ram-widget"
+         :orientation "horizontal"
+
+         (circular-progress
+             :value {EWW_RAM.used_mem * 100 / EWW_RAM.total_mem}
+             :thickness 10
+             :start-at 75
+
+             (button
+                 :onclick "notify-send 'hehe'"
+                 "hehe"
+             )
+         )
+    )
+)
+
+(defwindow cpuWindow
+        :monitor 0
+        :geometry (geometry :x "100px"
+                            :y "100px"
+                            :width "100px"
+                            :height "100px"
+                            :anchor "top left"
+                  )
+        
+        :stacking "bottom"
+        :exclusive "false"
+        :focusable "false"
+        :namespace "cpuWindow"
+
+    (cpuWidget)
 )

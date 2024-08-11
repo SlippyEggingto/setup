@@ -1,12 +1,15 @@
+@import url('/home/${USER}/.cache/wal/colors-waybar.css');
+
 .bar {
     padding: 3px 15px 3px 15px;
+    background-color: rgba(0,0,0,0);
 }
 
 .button {
     border-radius: 100px;
     min-width: 10px;
     min-height: 10px;
-    background-color: rgba(75, 75, 75, 0.9);
+    background-color: rgba(50, 50, 50, 0.4);
     border: none;
 }
 
@@ -22,11 +25,15 @@
 .focused {
     transition: 0.3s;
     border-radius: 100px;
-    min-width: 30px;
+    background-color: @color1;
     min-height: 10px;
     border: none;
 }
 
 .modules-left {
     padding: 15px 0 15px 0;
+}
+
+.clock, .music {
+    font-weight: 700;
 }
