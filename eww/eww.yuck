@@ -1,26 +1,8 @@
-(deflisten activeWorkspace "script/workspaces.sh")
+(deflisten workspaces :initial "(box :class \"workspaces\" :orientation \"horizontal\" :spacing 8 :space-evenly \"false\" (button :onclick \"hyprctl dispatch workspace 1\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 2\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 3\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 4\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 5\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 6\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 7\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 8\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 9\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 10\" :class \"button\"))" "scripts/workspaces.sh")
 
 (defwidget workspaces[]
-    (literal :content activeWorkspace)
+    (literal :content workspaces)
 )
-
-; (defwidget workspaces []
-;     (box :class "workspaces"
-;          :orientation "horizontal"
-;          :spacing 10 :space-evenly "true"
-         
-;          (button :onclick "hyprctl dispatch workspace 1" :class "$one_class")
-;          (button :onclick "hyprctl dispatch workspace 2" :class "$two_class")
-;          (button :onclick "hyprctl dispatch workspace 3" :class "$three_class")
-;          (button :onclick "hyprctl dispatch workspace 4" :class "$four_class")
-;          (button :onclick "hyprctl dispatch workspace 5" :class "$five_class")
-;          (button :onclick "hyprctl dispatch workspace 6" :class "$six_class")
-;          (button :onclick "hyprctl dispatch workspace 7" :class "$seven_class")
-;          (button :onclick "hyprctl dispatch workspace 8" :class "$eight_class")
-;          (button :onclick "hyprctl dispatch workspace 9" :class "$nine_class")
-;          (button :onclick "hyprctl dispatch workspace 10" :class "$ten_class")
-;     )
-; )
 
 (defpoll time :interval "1s"
          `date +"%H:%m • %a, %b %d"`
@@ -46,10 +28,16 @@
     )
 )
 
-(deflisten cpuUsage "script/cpu.sh")
-
 (defwidget cpu[]
-    (literal :content cpuUsage)
+    (box :class "cpu"
+         :orientation "horizontal"
+
+         (circular-progress
+             :value {EWW_CPU.avg}
+             :thickness 10
+             :start-at 75
+         )
+    )
 )
 
 (defwidget ram[]

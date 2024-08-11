@@ -1,13 +1,8 @@
-* {
-    transition: 0.3s;
-}
-
 .bar {
     padding: 3px 15px 3px 15px;
 }
 
 .button {
-    transition: 0.3s;
     border-radius: 100px;
     min-width: 10px;
     min-height: 10px;
