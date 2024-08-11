@@ -13,7 +13,7 @@ sudo rm /etc/pacman.d/mirrorlist
 sudo ln -s ~/setup/mirrorlist /etc/pacman.d
 
 sudo pacman -Syyuu
-sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprshot-git hyprpicker-git themix-full-git typescript npm meson gjs gnome-bluetooth-3.0 upower gobject-introspection libdbusmenu-gtk3 libsoup3 eww-git nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme ibus ibus-unikey cmus polkit-kde-agent qt5-wayland qt6-wayland
+sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprshot-git hyprpicker-git themix-full-git mako typescript npm meson gjs gnome-bluetooth-3.0 upower gobject-introspection libdbusmenu-gtk3 libsoup3 eww-git nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme ibus ibus-unikey cmus polkit-kde-agent qt5-wayland qt6-wayland
 
 git clone https://github.com/yeyushengfan258/Win11-icon-theme.git ~
 cd ~/Win11-icon-theme
@@ -38,10 +38,11 @@ ln -s ~/setup/wofi ~/.config
 ln -s ~/setup/foot ~/.config
 ln -s ~/setup/ags ~/.config
 ln -s ~/setup/eww ~/.config
+ln -s ~/setup/mako ~/.config
 ln -s ~/setup/wallpaper.sh ~
 
-sudo chmod u+x ~/setup/eww/script/current.sh
-sudo chmod u+x ~/setup/eww/script/active.sh
+sudo chmod u+x ~/setup/eww/script/workspaces.sh
+sudo chmod u+x ~/setup/eww/script/cpu.sh
 
 sudo rm /usr/share/icons/default/index.theme
 sudo ln -s ~/setup/index.theme /usr/share/icons/default
