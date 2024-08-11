@@ -1,26 +1,35 @@
+* {
+    transition: 0.3s;
+}
+
 .bar {
     padding: 3px 15px 3px 15px;
 }
 
-.button, .focused, .active {
+.button {
     transition: 0.3s;
     border-radius: 100px;
-    min-height: 0;
-    min-width: 0px;
+    min-width: 10px;
+    min-height: 10px;
+    background-color: rgba(75, 75, 75, 0.9);
     border: none;
 }
 
-.button {
-    background-color: rgba(50, 50, 50, .5);
+.active {
+    transition: 0.3s;
+    border-radius: 100px;
+    min-width: 10px;
+    min-height: 10px;
+    background-color: @theme_fg_color;
+    border: none;
 }
 
 .focused {
-    background-color: @theme_fg_color;
-    min-width: 10px;
-}
-
-.active {
-    background-color: @theme_fg_color;
+    transition: 0.3s;
+    border-radius: 100px;
+    min-width: 30px;
+    min-height: 10px;
+    border: none;
 }
 
 .modules-left {

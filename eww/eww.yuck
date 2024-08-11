@@ -27,7 +27,7 @@
 )
 
 (defwidget clock[]
-    (box :class "clock"
+    (box :class "clock hehe"
          :orientation "horizontal"
 
          time
@@ -46,27 +46,11 @@
     )
 )
 
+(deflisten cpuUsage "script/cpu.sh")
+
 (defwidget cpu[]
-    (box :class "cpu"
-         :orientation "horizontal"
-
-         (circular-progress
-             :value {EWW_CPU.cores.three}
-             :thickness 10
-             :start-at 75
-         )
-    )
+    (literal :content cpuUsage)
 )
-
-; cores: [
-;             {
-;                   core: 1,
-;                   freq: 2000,
-;                   usage: 90%
-;             },
-; 
-;             avg
-;        ]
 
 (defwidget ram[]
     (box :class "ram"
@@ -116,10 +100,8 @@
          :halign "end"
          :spacing "10"
 
-        ;  (music)
          (cpu)
          (ram)
-         (battery)
     )
 )
 
