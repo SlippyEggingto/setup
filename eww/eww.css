@@ -37,3 +37,8 @@
 .clock, .music {
     font-weight: 700;
 }
+
+.cpu-widget, .ram-widget, .swap-widget {
+    background-color: rgba(50, 50, 50, 0.4);
+    border-radius: 100px;
+}
