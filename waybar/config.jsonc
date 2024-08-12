@@ -42,7 +42,7 @@
 
     "custom/colorpicker" : {
         "format" : "",
-        "on-click" : "hyprpicker -a",
+        "on-click" : "notify-send $(hyprpicker -a)",
         "tooltip" : false
     },
 
