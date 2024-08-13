@@ -1,5 +1,10 @@
 @import url('/home/${USER}/.cache/wal/colors-waybar.css');
 
+* {
+    transition: .3s;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Symbols Nerd Font Mono";
+}
+
 .bar {
     padding: 3px 15px 3px 15px;
     background-color: rgba(0,0,0,0);
@@ -41,4 +46,54 @@
 .cpu-widget, .ram-widget, .swap-widget {
     background-color: rgba(50, 50, 50, 0.4);
     border-radius: 100px;
+}
+
+.poweroff, .reboot, .suspend, .hibernate, .lock, .uwu {
+    border: none;
+    background-color: rgba(50, 50, 50, 0.8);
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: 20px 15px;
+}
+
+.poweroff {
+    background-image: url('./icons/shutdown.png');
+}
+
+.reboot {
+    background-image: url('./icons/reboot.png');
+}
+
+.suspend {
+    background-image: url('./icons/suspend.png');
+}
+
+.hibernate {
+    background-image: url('./icons/hibernate.png');
+}
+
+.lock {
+    background-image: url('./icons/lock.png');
+}
+
+.poweroff:hover, .reboot:hover, .suspend:hover, .hibernate:hover, .lock:hover, .uwu:hover {
+    margin-left: 25px;
+    background-color: @color3;
+}
+
+.logout-image {
+    border-radius: 20px;
+}
+
+window {
+    border-radius: 20px;
+}
+
+.logout {
+    padding: 25px;
+    border-radius: 20px;
+}
+
+.button-label {
+    margin-left: 25px;
 }
