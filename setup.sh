@@ -42,7 +42,7 @@ ln -s ~/setup/mako ~/.config
 ln -s ~/setup/wallpaper.sh ~
 
 sudo chmod u+x ~/setup/eww/script/workspaces.sh
-sudo chmod u+x ~/setup/eww/script/cpu.sh
+sudo chmod u+x ~/setup/eww/script/notification.sh
 
 sudo rm /usr/share/icons/default/index.theme
 sudo ln -s ~/setup/index.theme /usr/share/icons/default
