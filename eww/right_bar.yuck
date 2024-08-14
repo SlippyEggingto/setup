@@ -1,0 +1,143 @@
+(defwidget tools []
+    (box :class "tools"
+         :space-evenly false
+         :valign "start"
+         :halign "center"
+         :spacing 10
+
+         (button :class "tool-button-wifi"
+                 :onclick "notify-send '$(nmcli device wifi)'"
+                 :height 30 
+                 :width 30
+                 :space-evenly false
+                 :halign "center"
+                 :valign "center"
+                
+                 " 󰤨"
+         )
+
+         (button :class "tool-button-bluetooth"
+                 :onclick "notify-send 'hehe'"
+                 :height 30 
+                 :width 30
+                 :space-evenly false
+                 :halign "center"
+                 :valign "center"
+
+                 " 󰂯"
+         )
+
+         (button :class "tool-button-speaker"
+                 :onclick "notify-send 'speaker'"
+                 :height 30 
+                 :width 30
+                 :space-evenly false
+                 :halign "center"
+                 :valign "center"
+
+                 " "
+         )
+
+         (button :class "tool-button-battery"
+                 :onclick "notify-send 'battery'"
+                 :height 30 
+                 :width 30
+                 :space-evenly false
+                 :halign "center"
+                 :valign "center"
+
+                 " "
+         )
+
+         (button :class "tool-button-settings"
+                 :onclick "notify-send 'settings'"
+                 :height 30 
+                 :width 30
+                 :space-evenly false
+                 :halign "center"
+                 :valign "center"
+
+                 " "
+         )
+    )
+)
+
+(deflisten notification "scripts/notification.sh")
+
+(defwidget notification []
+    (literal :content notification)
+)
+
+; (defwidget notification []
+;     (box :class "notification"
+;          :orientation "vertical"
+;          :spacing 10
+
+;          (button :class "notification-cell"
+;                  :onclick "notify-send 'notification-cell'"
+
+;                  (box :class "notification-cell-content"
+;                       :space-evenly false
+;                       :spacing 20
+                      
+;                       (image :class "notification-cell-image"
+;                               :path "./icons/icon_3.jpg"
+;                               :image-width 30
+;                               :image-height 30
+;                       )
+      
+;                       (box :class "notification-cell-label"
+;                            :orientation "vertical"
+;                            :space-evenly false
+;                            :valign "center"
+;                            :spacing 5
+      
+;                            (label :class "notification-cell-label-summary"
+;                                   :wrap true
+;                                   :halign "start"
+;                                   :text "FREE YOUTUBE PREMIUM FOR 1 YEAR!"
+;                                   :show-truncated false
+;                                   :limit-width 100
+;                            )
+                                 
+;                            (label :class "notification-cell-label-body"
+;                                   :wrap true
+;                                   :xalign 0
+;                                   :yalgin 1
+;                                   :halign "start"
+;                                   :text "Click here to get free youtube premium for 1 year!"
+;                                   :show-truncated false
+;                                   :limit-width 100
+;                            )
+;                       )
+;                  )
+;          )
+;     )
+; )
+
+(defwidget right_bar []
+    (box :class "right-bar"
+         :orientation "vertical"
+         :space-evenly false
+         :spacing 20
+
+         (tools)
+         (notification)
+    )
+)
+
+(defwindow right_bar
+        :monitor 0
+        :geometry (geometry :x "0px"
+                            :y "0px"
+                            :width "400px"
+                            :height "90%"
+                            :anchor "right center"
+                    )
+        :stacking "bg"
+        :exclusive false
+        :focusable false
+        :namespace "example"
+
+    (right_bar)
+)

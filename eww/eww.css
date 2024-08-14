@@ -5,9 +5,12 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Symbols Nerd Font Mono";
 }
 
+window {
+    background: rgba(0,0,0,0);
+}
+
 .bar {
     padding: 3px 15px 3px 15px;
-    background-color: rgba(0,0,0,0);
 }
 
 .button {
@@ -96,4 +99,31 @@ window {
 
 .button-label {
     margin-left: 25px;
+}
+
+.right-bar {
+    margin-right: 10px;
+    background-color: red;
+    border-radius: 26px;
+    padding: 20px;
+}
+
+.tool-button-wifi, .tool-button-bluetooth, .tool-button-speaker, .tool-button-battery, .tool-button-settings {
+    border: none;
+    border-radius: 100px;
+}
+
+.tools {
+    background-color: green;
+    padding: 10px;
+    border-radius: 1000px;
+}
+
+.notification-cell {
+    /* background-color: green; */
+    padding: 5px 10px 5px 10px;
+}
+
+.notification-cell-label-summary {
+    font-weight: 800;
 }
