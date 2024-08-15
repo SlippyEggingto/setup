@@ -113,6 +113,12 @@
 ;     )
 ; )
 
+(defwidget calendar-widget []
+    (calendar :class "calendar"
+            ;   :show-details
+    )
+)
+
 (defwidget right_bar []
     (box :class "right-bar"
          :orientation "vertical"
@@ -121,6 +127,7 @@
 
          (tools)
          (notification)
+         (calendar-widget)
     )
 )
 
@@ -129,7 +136,7 @@
         :geometry (geometry :x "0px"
                             :y "0px"
                             :width "400px"
-                            :height "90%"
+                            :height "700px"
                             :anchor "right center"
                     )
         :stacking "bg"
