@@ -103,7 +103,7 @@ window {
 
 .right-bar {
     margin-right: 10px;
-    background-color: red;
+    background-color: @theme_bg_color;
     border-radius: 26px;
     padding: 20px;
 }
@@ -120,7 +120,6 @@ window {
 }
 
 .notification-cell {
-    /* background-color: green; */
     padding: 5px 10px 5px 10px;
 }
 
