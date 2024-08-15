@@ -70,7 +70,6 @@
 ;                  :spacing 10
 
 ;                  (button :class "notification-cell"
-;                          :onclick "notify-send 'notification-cell'"
 
 ;                          (box :class "notification-cell-content"
 ;                               :space-evenly false

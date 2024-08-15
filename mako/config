@@ -1,6 +1,6 @@
 background-color=#77ABA6
 border-color=#77ABA6
-max-history=100
+max-history=15
 sort=+time
 font="Montserrat"1
 max-visible=10
