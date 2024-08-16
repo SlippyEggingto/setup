@@ -55,12 +55,11 @@
          )
 
          (button :class "lock"
-                 :onclick "firefox https://github.com/hyprwm/Hyprland/issues/5816"
-                 :timeout 500
+                 :onclick "eww close logoutWindow"
                  :width 350
 
                  (label :class "button-label"
-                        :text "‎     Lock ('should be fixed.')"
+                        :text " Close window"
                         :halign "start"
                  )
          )

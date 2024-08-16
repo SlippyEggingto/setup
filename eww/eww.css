@@ -75,9 +75,9 @@ window {
     background-image: url('./icons/hibernate.png');
 }
 
-.lock {
+/* .lock {
     background-image: url('./icons/lock.png');
-}
+} */
 
 .poweroff:hover, .reboot:hover, .suspend:hover, .hibernate:hover, .lock:hover, .uwu:hover {
     margin-left: 25px;
@@ -95,6 +95,11 @@ window {
 .logout {
     padding: 25px;
     border-radius: 20px;
+    background-color: @theme_bg_color;
+}
+
+.logout-image-button {
+    border-radius: 0;
 }
 
 .button-label {
