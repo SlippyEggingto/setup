@@ -45,7 +45,8 @@ sudo chmod u+x ~/setup/eww/script/workspaces.sh
 sudo chmod u+x ~/setup/eww/script/notification.sh
 
 sudo rm /usr/share/icons/default/index.theme
-sudo ln -s ~/setup/index.theme /usr/share/icons/default
+sudo touch /usr/share/icons/default/index.theme
+printf "[Icon Theme]\nInherits=Bibata-Modern-Classic" | sudo tee -a /usr/share/icons/default/index.theme
 
 mkdir -p ~/.config/fish
 rm ~/.config/fish/config.fish
