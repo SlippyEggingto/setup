@@ -48,7 +48,7 @@
 #firefox-view-button, #alltabs-button, #new-tab-button,
 #sidebar-header, #sidebar-splitter,
 .tab-icon-sound-label,
-#private-browsing-indicator-with-label,
+label[data-l10n-id="private-browsing-indicator-label"],
 #save-to-pocket-button,
 .titlebar-buttonbox-container,
 #scrollbutton-up, #scrollbutton-down,
@@ -60,6 +60,21 @@ spacer[part="overflow-start-indicator"], spacer[part="overflow-end-indicator"],
 #identity-box.extensionPage:hover #identity-icon-label,
 #main-window[sizemode="fullscreen"] #navigator-toolbox {
     display: none !important;
+}
+
+/* ////////////////////////////////////////////////////////////////////////////////////////////// */
+
+#private-browsing-indicator-with-label {
+    height: 44px !important;
+    transition: var(--custom-transition-time) !important;
+}
+
+#titlebar:hover  #private-browsing-indicator-with-label {
+    height: 300px !important;
+}
+
+.private-browsing-indicator-icon {
+    rotate: -90deg !important;
 }
 
 /* ////////////////////////////////////////////////////////////////////////////////////////////// */
@@ -78,6 +93,7 @@ spacer[part="overflow-start-indicator"], spacer[part="overflow-end-indicator"],
 
 #titlebar:hover {
     height: 310px !important;
+    padding-top: 10px !important;
 }
 
 /* ////////////////////////////////////////////////////////////////////////////////////////////// */
