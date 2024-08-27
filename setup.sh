@@ -13,7 +13,7 @@ sudo rm /etc/pacman.d/mirrorlist
 sudo ln -s ~/setup/mirrorlist /etc/pacman.d
 
 sudo pacman -Syyuu
-sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprshot-git hyprpicker-git themix-full-git mako eww-git nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme ibus ibus-unikey cmus polkit-kde-agent qt5-wayland qt6-wayland visual-studio-code-bin
+sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprshot-git hyprpicker-git themix-full-git mako eww-git nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme ibus ibus-bamboo-git cmus polkit-kde-agent qt5-wayland qt6-wayland visual-studio-code-bin
 
 git clone https://github.com/yeyushengfan258/Win11-icon-theme.git ~/Win11-icon-theme/
 cd ~/Win11-icon-theme
@@ -68,7 +68,7 @@ echo "[preferred]
 default=hyprland;gtk
 org.freedesktop.impl.portal.FileChooser=gtk" >> ~/.config/xdg-desktop-portal/hyprland-portals.conf
 
-sudo rm ~/.config/gtk-3.0/settings.ini
+sudo rm -rf ~/.config/gtk-3.0/settings.ini
 touch ~/.config/gtk-3.0/settings.ini
 echo "[Settings]
 gtk-theme-name=oomox-colors-oomox
@@ -86,15 +86,15 @@ gtk-xft-antialias=1
 gtk-xft-hinting=1
 gtk-xft-hintstyle=hintslight
 gtk-xft-rgba=rgb
-gtk-application-prefer-dark-theme=1" >>  ~/.config/gtk-3.0/settings.ini
+gtk-application-prefer-dark-theme=1" >> ~/.config/gtk-3.0/settings.ini
 
-sudo rm ~/.gtkrc-2.0
+sudo rm -rf ~/.gtkrc-2.0
 touch ~/.gtkrc-2.0
-echo "include "/home/nptanphuc/.gtkrc-2.0.mine"
-gtk-theme-name="oomox-colors-oomox"
-gtk-icon-theme-name="Win11-dark"
-gtk-font-name="Cantarell 11"
-gtk-cursor-theme-name="Bibata-Modern-Classic"
+echo "include \"/home/nptanphuc/.gtkrc-2.0.mine\"
+gtk-theme-name=\"oomox-colors-oomox\"
+gtk-icon-theme-name=\"Win11-dark\"
+gtk-font-name=\"Cantarell 11\"
+gtk-cursor-theme-name=\"Bibata-Modern-Classic\"
 gtk-cursor-theme-size=24
 gtk-toolbar-style=GTK_TOOLBAR_ICONS
 gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
@@ -104,8 +104,20 @@ gtk-enable-event-sounds=1
 gtk-enable-input-feedback-sounds=0
 gtk-xft-antialias=1
 gtk-xft-hinting=1
-gtk-xft-hintstyle="hintslight"
-gtk-xft-rgba="rgb"" >> ~/.gtkrc-2.0
+gtk-xft-hintstyle=\"hintslight\"
+gtk-xft-rgba=\"rgb\"" >> ~/.gtkrc-2.0
+
+sudo rm -rf ~/.config/xsettingsd/xsettingsd.conf
+touch ~/.config/xsettingsd/xsettingsd.conf
+echo "Net/ThemeName \"oomox-colors-oomox\"
+Net/IconThemeName \"Win11-dark\"
+Gtk/CursorThemeName \"Bibata-Modern-Classic\"
+Net/EnableEventSounds 1
+EnableInputFeedbackSounds 0
+Xft/Antialias 1
+Xft/Hinting 1
+Xft/HintStyle \"hintslight\"
+Xft/RGBA \"rgb\"" >> ~/.config/xsettingsd/xsettingsd.conf
 
 sudo mkdir -p /media/nptanphuc
 sudo mount /dev/sda2 /media/nptanphuc
