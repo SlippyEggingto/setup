@@ -13,21 +13,21 @@ sudo rm /etc/pacman.d/mirrorlist
 sudo ln -s ~/setup/mirrorlist /etc/pacman.d
 
 sudo pacman -Syyuu
-sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprshot-git hyprpicker-git themix-full-git mako typescript npm meson gjs gnome-bluetooth-3.0 upower gobject-introspection libdbusmenu-gtk3 libsoup3 eww-git nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme ibus ibus-unikey cmus polkit-kde-agent qt5-wayland qt6-wayland
+sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprshot-git hyprpicker-git themix-full-git mako eww-git nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme ibus ibus-unikey cmus polkit-kde-agent qt5-wayland qt6-wayland visual-studio-code-bin
 
-git clone https://github.com/yeyushengfan258/Win11-icon-theme.git ~
+git clone https://github.com/yeyushengfan258/Win11-icon-theme.git ~/Win11-icon-theme/
 cd ~/Win11-icon-theme
-./install.sh
+bash ./install.sh
 cd ~
 sudo rm -rf ~/Win11-icon-theme
 
-git clone --recursive https://github.com/Aylur/ags.git ~
-cd ~/ags
-npm install
-meson setup build
-meson install -C build
-cd ~
-sudo rm -rf ~/ags
+# git clone --recursive https://github.com/Aylur/ags.git ~/ags
+# cd ~/ags
+# npm install
+# meson setup build
+# meson install -C build
+# cd ~
+# sudo rm -rf ~/ags
 
 ln -s ~/setup/wallpapers ~/Downloads
 rm -rf ~/.config/hypr
@@ -52,7 +52,7 @@ mkdir -p ~/.config/fish
 rm ~/.config/fish/config.fish
 touch ~/.config/fish/config.fish
 echo "set fish_greeting
-alias nvim="nvim +'hi Normal ctermbg=none guibg=none' +'set expandtab ts=4 sw=4 ai'"
+alias nvim="nvim +\'hi Normal ctermbg=none guibg=none\' +\'set expandtab ts=4 sw=4 ai\'"
 cat ~/.cache/wal/sequences &" >> ~/.config/fish/config.fish
 
 echo "export HYPRSHOT_DIR=~/Pictures/Screenshots/
@@ -121,12 +121,13 @@ fish wallpaper.sh
 git config --global user.name "SlippyEggingto"
 git config --global user.email "phamtanphucnguyen@gmail.com"
 
+firefox
 cd ~/.mozilla/firefox/*default-release*/
 mkdir -p chrome/
 ln -s ~/setup/userChrome.css chrome/
 cd ~
 
-printf "UUID=F0C2F863C2F83008   /media/nptanphuc   ntfs-3g   uid=1000,gid=1000,umask=0022,sync,auto,nosuid,rw,nouser 0 0" | sudo tee -a /etc/fstab
+printf "\nUUID=F0C2F863C2F83008   /media/nptanphuc   ntfs-3g   uid=1000,gid=1000,umask=0022,sync,auto,nosuid,rw,nouser 0 0" | sudo tee -a /etc/fstab
 
 sudo touch /usr/sbin/update-grub
 printf '#!/bin/sh\nset -e\nexec grub-mkconfig -o /boot/grub/grub.cfg "$@"' | sudo tee -a /usr/sbin/update-grub
