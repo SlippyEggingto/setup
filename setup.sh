@@ -21,6 +21,8 @@ bash ./install.sh
 cd ~
 sudo rm -rf ~/Win11-icon-theme
 
+# sudo pacman -S typescript npm meson gjs gnome-bluetooth-3.0 upower gobject-introspection libdbusmenu-gtk3 libsoup3
+
 # git clone --recursive https://github.com/Aylur/ags.git ~/ags
 # cd ~/ags
 # npm install
@@ -128,7 +130,7 @@ fc-cache --force
 ln -s /media/nptanphuc/Users/HP/Desktop/ ~/Desktop
 git clone https://github.com/NvChad/starter ~/.config/nvim
 
-fish wallpaper.sh
+bash wallpaper.sh
 
 git config --global user.name "SlippyEggingto"
 git config --global user.email "phamtanphucnguyen@gmail.com"
