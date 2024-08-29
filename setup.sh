@@ -13,7 +13,7 @@ sudo rm /etc/pacman.d/mirrorlist
 sudo ln -s ~/setup/mirrorlist /etc/pacman.d
 
 sudo pacman -Syyuu
-sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprshot-git hyprpicker-git themix-full-git mako eww-git nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme ibus ibus-bamboo-git cmus polkit-kde-agent qt5-wayland qt6-wayland visual-studio-code-bin
+sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprshot-git hyprpicker-git themix-full-git mako eww-git nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme ibus ibus-bamboo-git cmus polkit-kde-agent qt5-wayland qt6-wayland visual-studio-code-bin keyd
 
 git clone https://github.com/yeyushengfan258/Win11-icon-theme.git ~/Win11-icon-theme/
 cd ~/Win11-icon-theme
@@ -152,6 +152,9 @@ sudo sed -i '4s/5/0/' /etc/default/grub
 sudo sed -i '6s/ quiet//' /etc/default/grub
 sudo sed -i '6s/3/7/' /etc/default/grub
 #sudo update-grub
+
+sudo touch /etc/keyd/default.conf
+printf "[ids]\n\n*\n\n[main]\n\nrightshift = leftcontrol" | sudo tee -a /etc/keyd/default.conf
 
 # sudo dd if=/dev/zero of=/SWAP.img bs=1M count=8192
 # sudo sync
