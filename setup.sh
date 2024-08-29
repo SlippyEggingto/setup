@@ -155,6 +155,8 @@ sudo sed -i '6s/3/7/' /etc/default/grub
 
 sudo touch /etc/keyd/default.conf
 printf "[ids]\n\n*\n\n[main]\n\nrightshift = leftcontrol" | sudo tee -a /etc/keyd/default.conf
+sudo systemctl enable keyd.service
+sudo systemctl start keyd.service
 
 # sudo dd if=/dev/zero of=/SWAP.img bs=1M count=8192
 # sudo sync
