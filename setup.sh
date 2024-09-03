@@ -154,7 +154,7 @@ sudo sed -i '6s/3/7/' /etc/default/grub
 #sudo update-grub
 
 sudo touch /etc/keyd/default.conf
-printf "[ids]\n\n*\n\n[main]\n\nrightshift = leftcontrol" | sudo tee -a /etc/keyd/default.conf
+printf "[ids]\n\n*\n\n[main]\n\nrightalt = leftcontrol" | sudo tee -a /etc/keyd/default.conf
 sudo systemctl enable keyd.service
 sudo systemctl start keyd.service
 
