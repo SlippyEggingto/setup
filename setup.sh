@@ -13,7 +13,7 @@ sudo rm /etc/pacman.d/mirrorlist
 sudo ln -s ~/setup/mirrorlist /etc/pacman.d
 
 sudo pacman -Syyuu
-sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprshot-git hyprpicker-git themix-full-git mako eww-git nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme ibus ibus-bamboo-git cmus polkit-kde-agent qt5-wayland qt6-wayland visual-studio-code-bin keyd
+sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprpicker-git hyprshot themix-full-git mako eww-git nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme ibus ibus-bamboo-git cmus polkit-kde-agent qt5-wayland qt6-wayland visual-studio-code-bin keyd
 
 git clone https://github.com/yeyushengfan258/Win11-icon-theme.git ~/Win11-icon-theme/
 cd ~/Win11-icon-theme
@@ -54,7 +54,7 @@ mkdir -p ~/.config/fish
 rm ~/.config/fish/config.fish
 touch ~/.config/fish/config.fish
 echo "set fish_greeting
-alias nvim="nvim +\'hi Normal ctermbg=none guibg=none\' +\'set expandtab ts=4 sw=4 ai\'"
+alias nvim=\"nvim +\'hi Normal ctermbg=none guibg=none\' +\'set expandtab ts=4 sw=4 ai\'\"
 cat ~/.cache/wal/sequences &" >> ~/.config/fish/config.fish
 
 echo "export HYPRSHOT_DIR=~/Pictures/Screenshots/
@@ -130,8 +130,6 @@ fc-cache --force
 ln -s /media/nptanphuc/Users/HP/Desktop/ ~/Desktop
 git clone https://github.com/NvChad/starter ~/.config/nvim
 
-bash wallpaper.sh
-
 git config --global user.name "SlippyEggingto"
 git config --global user.email "phamtanphucnguyen@gmail.com"
 
@@ -151,7 +149,7 @@ sudo chmod 755 /usr/sbin/update-grub
 sudo sed -i '4s/5/0/' /etc/default/grub
 sudo sed -i '6s/ quiet//' /etc/default/grub
 sudo sed -i '6s/3/7/' /etc/default/grub
-#sudo update-grub
+sudo update-grub
 
 sudo touch /etc/keyd/default.conf
 printf "[ids]\n\n*\n\n[main]\n\nrightalt = leftcontrol" | sudo tee -a /etc/keyd/default.conf
@@ -164,5 +162,7 @@ sudo systemctl start keyd.service
 # sudo mkswap /SWAP.img
 # sudo swapon /SWAP.img
 # printf "/SWAP.img none swap sw 0 0" | sudo tee -a /etc/fstab
+
+bash wallpaper.sh
 
 echo "===== Setup was completed. Reboot is required. ====="
