@@ -121,6 +121,10 @@ Xft/Hinting 1
 Xft/HintStyle \"hintslight\"
 Xft/RGBA \"rgb\"" >> ~/.config/xsettingsd/xsettingsd.conf
 
+curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+fisher install IlanCosman/tide@v6
+tide configure --auto --style=Rainbow --prompt_colors='16 colors' --show_time='24-hour format' --rainbow_prompt_separators=Angled --powerline_prompt_heads=Sharp --powerline_prompt_tails=Flat --powerline_prompt_style='Two lines, character and frame' --prompt_connection=Disconnected --powerline_right_prompt_frame=Yes --prompt_spacing=Sparse --icons='Few icons' --transient=No
+
 sudo mkdir -p /media/nptanphuc
 sudo mount /dev/sda2 /media/nptanphuc
 sudo mkdir -p /usr/local/share/fonts/WindowsFonts
