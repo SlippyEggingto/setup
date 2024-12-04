@@ -23,7 +23,8 @@
 /* ////////////////////////////////////////////////////////////////////////////////////////////// */
 
 #urlbar-background, #nav-bar, #browser, #tabbrowser-tabpanels, #TabsToolbar,
-#sidebar-box, #sidebar, .sidebar-panel, #sidebar-search-container, #search-box, #search-box-input {
+#sidebar-box, #sidebar, .sidebar-panel, #sidebar-search-container, #search-box, #search-box-input,
+#statuspanel-label {
     background-color: var(--custom-background-color) !important;
 }
 
@@ -276,4 +277,12 @@ toolbarspring {
 
 #main-window[sizemode="fullscreen"] #tabbrowser-tabbox * {
     border-radius: 0 !important;
+}
+
+/* ////////////////////////////////////////////////////////////////////////////////////////////// */
+
+#statuspanel-label {
+    border-radius: 0 !important;
+    border-top-right-radius: 16px !important;
+    padding: 2px 10px 2px 0 !important;
 }
