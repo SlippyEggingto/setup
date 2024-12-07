@@ -4,7 +4,7 @@
     "modules-right": ["custom/colorpicker", "custom/blank", "network", "battery", "pulseaudio"],
 
     "hyprland/workspaces" : {
-        "persistent-workspaces": {"*": 5},
+        "persistent-workspaces": {"*": 10},
         "on-scroll-up": "hyprctl dispatch workspace r-1",
         "on-scroll-down": "hyprctl dispatch workspace r+1"
     },

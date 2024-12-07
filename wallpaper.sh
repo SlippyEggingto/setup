@@ -1,5 +1,6 @@
 wallpaper="/home/$USER/Downloads/wallpapers/wall_40.webp"
-#set waybar "waybar -s ~/.config/waybar/original.css -c ~/.config/waybar/original.jsonc"
+# waybar="waybar -s ~/.config/waybar/original.css -c ~/.config/waybar/original.jsonc"
+# waybar="waybar -s ~/.config/waybar/old.css"
 waybar=waybar
 
 rm ~/.config/hypr/hyprpaper.conf
