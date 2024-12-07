@@ -1,5 +1,37 @@
 (deflisten workspaces :initial "(box :class \"workspaces\" :orientation \"horizontal\" :spacing 8 :space-evenly \"false\" (button :onclick \"hyprctl dispatch workspace 1\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 2\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 3\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 4\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 5\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 6\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 7\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 8\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 9\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 10\" :class \"button\"))" "scripts/workspaces.sh")
 
+; (deflisten workspaces :initial 
+
+;     "(box :class workspaces
+;                                          :orientation horizontal
+;                                          :spacing 8
+;                                          :space-evenly false
+;         (button :onclick hyprctl dispatch workspace 1
+;                 :class button
+;         )
+        
+;         (button :onclick hyprctl dispatch workspace 2
+;                 :class button)
+;         (button :onclick hyprctl dispatch workspace 3
+;                 :class button)
+;         (button :onclick hyprctl dispatch workspace 4
+;                 :class button)
+;         (button :onclick hyprctl dispatch workspace 5
+;                 :class button)
+;         (button :onclick hyprctl dispatch workspace 6
+;                 :class button)
+;         (button :onclick hyprctl dispatch workspace 7
+;                 :class button)
+;         (button :onclick hyprctl dispatch workspace 8
+;                 :class button)
+;         (button :onclick hyprctl dispatch workspace 9
+;                 :class button)
+;         (button :onclick hyprctl dispatch workspace 10
+;                 :class button)
+;     )"
+    
+;     "scripts/workspaces.sh")
+
 (defwidget workspaces[]
     (literal :content workspaces)
 )
@@ -32,14 +64,29 @@
     )
 )
 
+(defwidget hehe[]
+    (box :class "cpu"
+         :orientation "horizontal"
+         
+         "‎         "
+    )
+)
+
 (defwidget cpu[]
     (box :class "cpu"
          :orientation "horizontal"
+         :tooltip "CPU Usage"
 
          (circular-progress
+             :class "cpu-chart"
              :value {EWW_CPU.avg}
-             :thickness 10
+             :thickness 3
              :start-at 75
+
+             (label
+                :class "cpu-label"
+                :text {round(EWW_CPU.avg, 0)}
+             )
          )
     )
 )
@@ -47,23 +94,35 @@
 (defwidget ram[]
     (box :class "ram"
          :orientation "horizontal"
+         :tooltip "RAM Usage"
 
          (circular-progress
+             :class "ram-chart"
              :value {EWW_RAM.used_mem * 100 / EWW_RAM.total_mem}
-             :thickness 10
+             :thickness 3
              :start-at 75
+
+             (label
+                 :class "ram-label"
+                 :text {round(EWW_RAM.used_mem * 100 / EWW_RAM.total_mem, 0)}
+             )
          )
     )
 )
 
 (defwidget battery[]
-    (box :class "batter"
+    (box :class "battery"
          :orientation "horizontal"
 
          (circular-progress
              :value {EWW_BATTERY.BAT0.capacity}
-             :thickness 10
+             :thickness 3
              :start-at 75
+
+             (label
+                :class "batter-label"
+                :text {round(EWW_BATTERY.BAT0.capacity, 0)}
+             )
          )
     )
 )
@@ -95,6 +154,7 @@
          :halign "end"
          :spacing 10
 
+         (hehe)
          (cpu)
          (ram)
     )

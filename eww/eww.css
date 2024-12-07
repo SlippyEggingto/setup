@@ -6,7 +6,8 @@
 }
 
 window {
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
+    border-radius: 20px;
 }
 
 .bar {
@@ -33,13 +34,14 @@ window {
 .focused {
     transition: 0.3s;
     border-radius: 100px;
-    background-color: @color1;
+    min-width: 30px;
+    background-color: @theme_fg_color;
     min-height: 10px;
     border: none;
 }
 
-.modules-left {
-    padding: 15px 0 15px 0;
+.workspaces {
+    padding: 11px 0 11px 0;
 }
 
 .clock, .music {
@@ -85,10 +87,6 @@ window {
 }
 
 .logout-image {
-    border-radius: 20px;
-}
-
-window {
     border-radius: 20px;
 }
 
