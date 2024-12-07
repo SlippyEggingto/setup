@@ -168,5 +168,7 @@ sudo systemctl start keyd.service
 # printf "/SWAP.img none swap sw 0 0" | sudo tee -a /etc/fstab
 
 bash wallpaper.sh
+ln -s ~/setup/color.cpp ~/.cache/wal/
+bash wallpaper.sh
 
 echo "===== Setup was completed. Reboot is required. ====="

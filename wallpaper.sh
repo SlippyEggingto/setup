@@ -48,6 +48,10 @@ GRADIENT=0.0" >> ~/.cache/wal/colors-oomox
 
 oomox-cli ~/.cache/wal/colors-oomox
 
+cd ~/.cache/wal/
+g++ color.cpp -o color && ./color
+cd ~
+
 killall waybar
 killall hyprpaper
 hyprctl dispatch exec $waybar
