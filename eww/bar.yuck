@@ -1,11 +1,12 @@
-(deflisten workspaces :initial "(box :class \"workspaces\" :orientation \"horizontal\" :spacing 8 :space-evenly \"false\" (button :onclick \"hyprctl dispatch workspace 1\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 2\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 3\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 4\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 5\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 6\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 7\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 8\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 9\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 10\" :class \"button\"))" "scripts/workspaces.sh")
+(deflisten workspaces :initial "(box :class \"workspaces\" :orientation \"horizontal\" :spacing 5 :space-evenly \"false\" (button :onclick \"hyprctl dispatch workspace 1\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 2\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 3\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 4\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 5\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 6\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 7\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 8\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 9\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 10\" :class \"button\"))" "scripts/workspaces.sh")
 
 ; (deflisten workspaces :initial 
 
 ;     "(box :class workspaces
-;                                          :orientation horizontal
-;                                          :spacing 8
-;                                          :space-evenly false
+;           :orientation horizontal
+;           :spacing 8
+;           :space-evenly false
+
 ;         (button :onclick hyprctl dispatch workspace 1
 ;                 :class button
 ;         )
@@ -36,15 +37,35 @@
     (literal :content workspaces)
 )
 
+; (defpoll time_time :interval "1s"
+;          `date +"%H:%m %p"`
+; )
+
+; (defpoll time_date
+;     :interval "1s"
+;     `date +"%a, %b %d"`
+; )
+
 (defpoll time :interval "1s"
          `date +"%H:%m • %a, %b %d"`
 )
 
 (defwidget clock[]
     (box :class "clock"
-         :orientation "horizontal"
+         :orientation "vertical"
 
          time
+
+        ; (label
+        ;     :class "clock-time"
+        ;     ; :halign "end"
+        ;     :text time_time
+        ; )
+
+        ; (label
+        ;     :class "clock-date"
+        ;     :text time_date
+        ; )
     )
 )
 
@@ -57,7 +78,7 @@
          :orientation "horizontal"
 
          (label
-            :text {hehe != "" ? "${hehe}" : ""}
+            :text {hehe != "" ? "‎          ${hehe}" : ""}
             :show-truncated true
             :limit-width 60
          )
@@ -65,7 +86,7 @@
 )
 
 (defwidget hehe[]
-    (box :class "cpu"
+    (box :class "hehe"
          :orientation "horizontal"
          
          "‎         "
@@ -74,8 +95,10 @@
 
 (defwidget cpu[]
     (box :class "cpu"
+         :space-evenly "false"
+         :spacing 4
          :orientation "horizontal"
-         :tooltip "CPU Usage"
+         :tooltip "CPU Usage ${round(EWW_CPU.avg, 0)}%"
 
          (circular-progress
              :class "cpu-chart"
@@ -84,35 +107,53 @@
              :start-at 75
 
              (label
-                :class "cpu-label"
-                :text {round(EWW_CPU.avg, 0)}
+                :class "cpu-icon"
+                :text ""
              )
          )
+
+        ;  (label
+        ;      :class "cpu-label"
+        ;      :text {round(EWW_CPU.avg, 0)}
+        ;  )
     )
 )
 
 (defwidget ram[]
     (box :class "ram"
+         :space-evenly "false"
+         :spacing 4
          :orientation "horizontal"
-         :tooltip "RAM Usage"
+         :tooltip "RAM Usage ${round(EWW_RAM.used_mem * 100 / EWW_RAM.total_mem, 0)}%"
 
          (circular-progress
              :class "ram-chart"
+             :height "100px"
+             :width "100px"
              :value {EWW_RAM.used_mem * 100 / EWW_RAM.total_mem}
              :thickness 3
              :start-at 75
 
              (label
-                 :class "ram-label"
-                 :text {round(EWW_RAM.used_mem * 100 / EWW_RAM.total_mem, 0)}
+                 :class "ram-icon"
+                 :text ""
              )
          )
+
+        ;  (label
+        ;      :class "ram-label"
+        ;      :text {round(EWW_RAM.used_mem * 100 / EWW_RAM.total_mem, 0)}
+        ;  )
     )
 )
+
 
 (defwidget battery[]
     (box :class "battery"
          :orientation "horizontal"
+         :space-evenly "false"
+         :spacing 4
+         :tooltip "Battery Percentage ${EWW_BATTERY.BAT0.capacity}%"
 
          (circular-progress
              :value {EWW_BATTERY.BAT0.capacity}
@@ -120,10 +161,81 @@
              :start-at 75
 
              (label
-                :class "batter-label"
-                :text {round(EWW_BATTERY.BAT0.capacity, 0)}
+                :class "battery-icon"
+                :text "󰁹"
              )
          )
+
+        ;  (label
+        ;      :class "battery-label"
+        ;      :text {round(EWW_BATTERY.BAT0.capacity, 0)}
+        ;  )
+    )
+)
+
+(defvar vol_reveal false)
+(defpoll volume_percent :interval "1ms" "pamixer --get-volume")
+
+(defwidget volume[]
+    (eventbox
+        :onhover "eww update vol_reveal=true"
+        :onhoverlost "eww update vol_reveal=false"
+
+        (box
+            :class "volume"
+            :orientation "h"
+            :space-evenly "false"
+
+            (button :class "volume-icon" :onclick "" "${vol_reveal ? volume_percent : ""}")
+
+            (revealer
+                :transition "slideleft"
+                :reveal vol_reveal
+                :duration "400ms"
+
+                (scale
+                    :class "volume-scale"
+                    :value volume_percent
+                    :max 100
+                    :min 0
+                    :onchange "pamixer --set-volume {}"
+                )
+            )
+        )
+    )
+)
+
+(defvar bright_reveal false)
+; (defvar max_brightness `brightnessctl max`)
+(defvar max_brightness 937)
+(defpoll brightness_percent :interval "1ms" "brightnessctl get")
+
+(defwidget brightness[]
+    (eventbox
+        :onhover "eww update bright_reveal=true"
+        :onhoverlost "eww update bright_reveal=false"
+
+        (box
+            :class "brightness"
+            :orientation "h"
+            :space-evenly "false"
+
+            (button :class "volume-icon" :onclick "" "${bright_reveal ? round(brightness_percent/max_brightness*100, 0) : ""}")
+
+            (revealer
+                :transition "slideleft"
+                :reveal bright_reveal
+                :duration "400ms"
+
+                (scale
+                    :class "volume-scale"
+                    :max max_brightness
+                    :min 0
+                    :value brightness_percent
+                    :onchange "brightnessctl set {}"
+                )
+            )
+        )
     )
 )
 
@@ -141,7 +253,6 @@
          :orientation "horizontal"
          :halign "center"
          :space-evenly false
-         :spacing 40
 
          (clock)
          (music)
@@ -153,10 +264,13 @@
          :orientation "horizontal"
          :halign "end"
          :spacing 10
+         :space-evenly "false"
 
-         (hehe)
          (cpu)
          (ram)
+         (battery)
+         (brightness)
+         (volume)
     )
 )
 
@@ -175,7 +289,7 @@
         :geometry (geometry :x "0px"
                             :y "0px"
                             :width "100%"
-                            :height "44px"
+                            :height "40px"
                             :anchor "top center"
                     )
         :stacking "fg"

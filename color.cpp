@@ -3,7 +3,7 @@
 #include <cstdio>
 
 const std::string opacity = "0.1";
-const double tints_shades_index = 0.9;
+const double tints_shades_index = 0.35;
 
 int value(char c) {
     if (c>=0 && c<='9') return c-(int)('0');
