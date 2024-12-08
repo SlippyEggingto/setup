@@ -85,19 +85,23 @@ hyprland_get_active_workspace() {
     done
     
     echo "\
-(box :class \"workspaces\" \
-     :orientation \"horizontal\" \
-     :spacing 5 :space-evenly \"false\" \
-     (button :onclick \"hyprctl dispatch workspace 1\" :class \"$one_class\") \
-     (button :onclick \"hyprctl dispatch workspace 2\" :class \"$two_class\") \
-     (button :onclick \"hyprctl dispatch workspace 3\" :class \"$three_class\") \
-     (button :onclick \"hyprctl dispatch workspace 4\" :class \"$four_class\") \
-     (button :onclick \"hyprctl dispatch workspace 5\" :class \"$five_class\") \
-     (button :onclick \"hyprctl dispatch workspace 6\" :class \"$six_class\") \
-     (button :onclick \"hyprctl dispatch workspace 7\" :class \"$seven_class\") \
-     (button :onclick \"hyprctl dispatch workspace 8\" :class \"$eight_class\") \
-     (button :onclick \"hyprctl dispatch workspace 9\" :class \"$nine_class\") \
-     (button :onclick \"hyprctl dispatch workspace 10\" :class \"$ten_class\") \
+(eventbox \
+    :class \"workspaces\" \
+    :orientation \"horizontal\" \
+    :spacing 5 :space-evenly \"false\" \
+    :onscroll \"hyprctl dispatch workspace r-1\" \
+    (box\
+        (button :onclick \"hyprctl dispatch workspace 1\" :class \"$one_class\") \
+        (button :onclick \"hyprctl dispatch workspace 2\" :class \"$two_class\") \
+        (button :onclick \"hyprctl dispatch workspace 3\" :class \"$three_class\") \
+        (button :onclick \"hyprctl dispatch workspace 4\" :class \"$four_class\") \
+        (button :onclick \"hyprctl dispatch workspace 5\" :class \"$five_class\") \
+        (button :onclick \"hyprctl dispatch workspace 6\" :class \"$six_class\") \
+        (button :onclick \"hyprctl dispatch workspace 7\" :class \"$seven_class\") \
+        (button :onclick \"hyprctl dispatch workspace 8\" :class \"$eight_class\") \
+        (button :onclick \"hyprctl dispatch workspace 9\" :class \"$nine_class\") \
+        (button :onclick \"hyprctl dispatch workspace 10\" :class \"$ten_class\") \
+    )\
 )"
 
     # echo "(box :class \"workspaces\" :orientation \"horizontal\" :spacing 5 :space-evenly \"false\" (button :onclick \"hyprctl dispatch workspace 1\" :class \"$one_class\") (button :onclick \"hyprctl dispatch workspace 2\" :class \"$two_class\") (button :onclick \"hyprctl dispatch workspace 3\" :class \"$three_class\") (button :onclick \"hyprctl dispatch workspace 4\" :class \"$four_class\") (button :onclick \"hyprctl dispatch workspace 5\" :class \"$five_class\") (button :onclick \"hyprctl dispatch workspace 6\" :class \"$six_class\") (button :onclick \"hyprctl dispatch workspace 7\" :class \"$seven_class\") (button :onclick \"hyprctl dispatch workspace 8\" :class \"$eight_class\") (button :onclick \"hyprctl dispatch workspace 9\" :class \"$nine_class\") (button :onclick \"hyprctl dispatch workspace 10\" :class \"$ten_class\"))"

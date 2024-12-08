@@ -20,7 +20,7 @@
 }
 
 window#waybar {
-    background-color: @color1-rgba;
+    background-color: transparent;
     color: @foreground;
 }
 

@@ -16,12 +16,13 @@ window {
 }
 
 .bar {
-    padding: 0 15px 0 15px;
+    padding: 0 20px 0 20px;
 }
 
 .volume-icon {
     background-color: transparent;
     min-width: 0px;
+    font-size: 17px;
 }
 
 .volume-scale {
@@ -36,43 +37,37 @@ window {
     background-color: @color0-rgba;
 }
 
-.button {
+.windows {
+    font-weight: 700;
+}
+
+.workspaces-widget {
+    min-height: 0px;
+    padding: 12px 0 12px 0;
+}
+
+.workspace-entry {
+    font-size: 0;
     border-radius: 100px;
-    min-width: 10px;
-    min-height: 10px;
-    /* background-color: rgba(50, 50, 50, 0.4); */
+    min-width: 16px;
+    min-height: 0px;
+}
+
+.workspace-entry.empty{
     background-color: @color0-rgba;
-    border: none;
 }
 
-.active {
-    transition: 0.3s;
-    border-radius: 100px;
-    min-width: 10px;
-    min-height: 10px;
+.workspace-entry.current {
     background-color: @theme_fg_color;
-    border: none;
+    min-width: 40px;
 }
 
-.focused {
-    transition: 0.3s;
-    border-radius: 100px;
-    min-width: 30px;
+.workspace-entry.occupied {
     background-color: @theme_fg_color;
-    min-height: 10px;
-    border: none;
-}
-
-.workspaces {
-    padding: 11px 0 11px 0;
 }
 
 .clock, .music {
     font-weight: 700;
-}
-
-.clock {
-    font-size: 14px;
 }
 
 .cpu-chart, .ram-chart, .battery-chart {
@@ -87,6 +82,13 @@ window {
 .ram-icon, .cpu-icon, .battery-icon {
     font-size: 14px;
     padding: 7px;
+}
+
+.colorpicker-icon {
+    border-radius: 100px;
+    background-color: transparent;
+    min-width: 34px;
+    min-height: 20px;
 }
 
 .cpu-widget, .ram-widget, .swap-widget {
