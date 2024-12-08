@@ -52,9 +52,11 @@ cd ~/.cache/wal/
 g++ color.cpp -o color && ./color
 cd ~
 
-killall waybar
-killall hyprpaper
-hyprctl dispatch exec $waybar
-hyprctl dispatch exec hyprpaper
+#killall waybar
+#killall hyprpaper
+#hyprctl dispatch exec $waybar
+#hyprctl dispatch exec hyprpaper
+swww img --transition-type grow --transition-pos 0.854,0.997 --transition-step 90 $wallpaper
+eww reload
 
 notify-send "Colorscheme and wallpaper changed" "Wallpaper: $wallpaper\n"
