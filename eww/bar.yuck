@@ -45,7 +45,7 @@
          :orientation "horizontal"
 
          (label
-            :text {hehe != "" ? "‎          ${hehe}" : "‎          No media"}
+            :text {hehe != "" ? "‎          ${hehe}" : ""}
             :show-truncated true
             :limit-width 50
          )
@@ -196,7 +196,7 @@
             :orientation "h"
             :space-evenly "false"
 
-            (button :class "volume-icon" :onclick "" "${vol_reveal ? volume_percent : ""}")
+            (box :class "volume-icon" :onclick "" "${vol_reveal ? volume_percent : ""}")
 
             (revealer
                 :transition "slideleft"
@@ -229,7 +229,7 @@
             :orientation "h"
             :space-evenly "false"
 
-            (button :class "volume-icon" :onclick "" "${bright_reveal ? round(brightness_percent/max_brightness*100, 0) : ""}")
+            (box :class "volume-icon" :onclick "" "${bright_reveal ? round(brightness_percent/max_brightness*100, 0) : ""}")
 
             (revealer
                 :transition "slideleft"
@@ -261,14 +261,14 @@
             :orientation "h"
             :space-evenly "false"
 
-            (button :class "volume-icon" :onclick "" "${wifi_ssid!="" ? "󰤨" : ""}")
+            (box :class "volume-icon" :onclick "" "${wifi_ssid!="" ? "󰤨" : ""}")
 
             (revealer
                 :transition "slideleft"
                 :reveal wifi_reveal
                 :duration "400ms"
 
-                wifi_ssid
+                (label :text "‎ ${wifi_ssid}")
             )
         )
     )
@@ -301,17 +301,19 @@
     (box :class "modules-right"
          :orientation "horizontal"
          :halign "end"
-         :spacing 3
+         :spacing 12
          :space-evenly "false"
 
          (colorpicker)
-         "‎ "
-         (cpu)
-         "‎"
-         (ram)
-         "‎"
-         (battery)
-         "‎    "
+         
+        ;  (box
+        ;      :space-evenly "false"
+        ;      :spacing 5
+
+        ;      (cpu)
+        ;      (ram)
+        ;      (battery)
+        ;  )
 
          (wifi)
          (brightness)
