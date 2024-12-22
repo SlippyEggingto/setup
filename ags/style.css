@@ -1,53 +1,109 @@
+/* START OF BASIC.H */
 @import url('/home/nptanphuc/.cache/wal/colors-waybar.css');
+@import url('/home/nptanphuc/.cache/wal/rgb-colors.css');
 
 * {
     transition: 0.3s;
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Symbols Nerd Font Mono"; */
+    font-family: "Segoe UI";
 }
+/* END OF BASIC.H */
+
+/* START OF BAR_BASIC.H */
+
+window.Bar {
+    background-color: @color0-rgba;
+    color: @color15;
+    font-weight: 600;
+}
+
+.modules-left, .modules-right {
+    padding: 0 20px 0 20px;
+}
+
+/* END OF BAR_BASIC.H */
+
+/* START OF BAR_WORKSPACES.H */
 
 .workspaces {
-    padding: 10px 0 10px 0;
-}
-
-button {
-    min-height: 0;
-    min-width: 14px;
-    font-size: 0;
     border-radius: 100px;
+    padding: 8px;
+    font-size: 0px;
+    margin: 6px;
+    background-color: rgba(255, 255, 255, .1);
+}
+
+.workspaces button {
+    min-height: 0px;
+    min-width: 6px;
+    background-color: rgba(255, 255, 255, .1);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, .4);
     border: none;
-    background-color: rgba(75, 75, 75, 0.5);
 }
 
-button:hover {
-    min-width: 40px;
+.workspaces .active {
+    background-color: @color15;
 }
 
-.active {
-    background-color: @theme_fg_color;
-}
-
-.focused {
-    background-color: @theme_fg_color;
+.workspaces .focused {
+    background-color: rgba(255, 255, 255, .1);
     min-width: 30px;
 }
 
-.modules-left, .modules-center, .modules-right {
-    padding: 3px 20px 3px 20px;
+.workspaces .empty:hover, .workspaces .active:hover{
+    min-width: 30px;
 }
 
-calendar {
-    padding: 5px;
-    font-family: Source Code Pro;
-    border-radius: 10px;
+.workspaces .focused_and_active {
+    background-color: @color15;
+    min-width: 30px;
+    border: none;
 }
 
-.window-top, .date_hm {
-    font-weight: 800;
-}
+/* END OF BAR_WORKSPACES.H */
 
-.window-bottom, .date-dmy {
+/* START OF BAR_WINDOW.H */
+
+.window_class {
     font-size: 14px;
 }
 
-.cpu, .ram {
-    background-color: rgba(75, 75, 75, 0.5);
+.window_title {
+    font-size: 15px;
+    font-weight: 800;
+    margin-top: -3px;
 }
+
+/* END OF BAR_WINDOW.H */
+
+/* START OF BAR_CLOCK.H */
+
+.clock {
+    margin: 6px;
+    border-radius: 100px;
+    padding: 0 8px 0 8px;
+    background-color: rgba(255, 255, 255, .1);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, .4);
+}
+
+.time-time {
+    font-weight: 800;
+}
+
+/* END OF BAR_CLOCK.H */
+
+/* START OF BAR_MEDIA.H */
+
+.media {
+    margin: 6px;
+    border-radius: 100px;
+    padding: 0 8px 0 8px;
+    background-color: rgba(255, 255, 255, .1);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, .4);
+}
+
+.media-title {
+    font-weight: 800;
+}
+
+/* END OF BAR_MEDIA.H */

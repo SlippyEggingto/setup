@@ -1,0 +1,53 @@
+@import url('/home/nptanphuc/.cache/wal/colors-waybar.css');
+
+* {
+    transition: 0.3s;
+}
+
+.workspaces {
+    padding: 10px 0 10px 0;
+}
+
+button {
+    min-height: 0;
+    min-width: 14px;
+    font-size: 0;
+    border-radius: 100px;
+    border: none;
+    background-color: rgba(75, 75, 75, 0.5);
+}
+
+button:hover {
+    min-width: 40px;
+}
+
+.active {
+    background-color: @theme_fg_color;
+}
+
+.focused {
+    background-color: @theme_fg_color;
+    min-width: 30px;
+}
+
+.modules-left, .modules-center, .modules-right {
+    padding: 3px 20px 3px 20px;
+}
+
+calendar {
+    padding: 5px;
+    font-family: Source Code Pro;
+    border-radius: 10px;
+}
+
+.window-top, .date_hm {
+    font-weight: 800;
+}
+
+.window-bottom, .date-dmy {
+    font-size: 14px;
+}
+
+.cpu, .ram {
+    background-color: rgba(75, 75, 75, 0.5);
+}
