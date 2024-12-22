@@ -37,7 +37,7 @@
 )
 
 (deflisten hehe :initial ""
-    "playerctl --follow metadata --format '{{ title }}' || true"
+    "playerctl --follow metadata --format '{{ title }} • {{ artist }}' || true"
 )
 
 (defwidget music[]

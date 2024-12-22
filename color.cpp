@@ -2,8 +2,8 @@
 #include <string>
 #include <cstdio>
 
-const std::string opacity = "0.1";
-const double tints_shades_index = 0.35;
+const std::string opacity = "0.6";
+const double tints_shades_index = 1;
 
 int value(char c) {
     if (c>=0 && c<='9') return c-(int)('0');

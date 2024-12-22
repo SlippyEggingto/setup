@@ -6,6 +6,10 @@
     font-weight: 600;
 }
 
+button {
+    border: transparent;
+}
+
 #workspaces, #clock, #custom-colorpicker, #network, #battery, #pulseaudio {
     
 }
@@ -28,7 +32,7 @@ window#waybar {
     background: @foreground;
     border-radius: 100px;
     transition: 0.3s;
-    min-width: 8px;
+    min-width: 10px;
     min-height: 0;
     font-size: 0;
 }

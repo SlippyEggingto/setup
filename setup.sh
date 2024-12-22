@@ -13,7 +13,7 @@ sudo rm /etc/pacman.d/mirrorlist
 sudo ln -s ~/setup/mirrorlist /etc/pacman.d
 
 sudo pacman -Syyuu
-sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprpicker-git hyprshot themix-full-git mako eww-git nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme ibus ibus-bamboo-git cmus polkit-kde-agent qt5-wayland qt6-wayland visual-studio-code-bin keyd socat swww
+sudo pacman -S hyprland-git hyprpaper-git waybar-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi python-pywal cliphist brightnessctl wlogout hyprlock-git hyprpicker-git hyprshot themix-full-git mako eww-git aylurs-gtk-shell-git nemo firefox vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git bibata-cursor-theme ibus ibus-bamboo-git cmus polkit-kde-agent qt5-wayland qt6-wayland visual-studio-code-bin keyd socat swww
 
 git clone https://github.com/yeyushengfan258/Win11-icon-theme.git ~/Win11-icon-theme/
 cd ~/Win11-icon-theme

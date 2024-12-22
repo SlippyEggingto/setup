@@ -1,3 +1,4 @@
-ags/types
+ags/@girs
+ags/.gitignore
 ags/tsconfig.json
-ags/README.md
+ags/env.d.ts
