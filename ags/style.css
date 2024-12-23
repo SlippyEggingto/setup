@@ -4,8 +4,7 @@
 
 * {
     transition: 0.3s;
-    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Symbols Nerd Font Mono"; */
-    font-family: "Segoe UI";
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Symbols Nerd Font Mono";
 }
 /* END OF BASIC.H */
 
@@ -18,7 +17,7 @@ window.Bar {
 }
 
 .modules-left, .modules-right {
-    padding: 0 20px 0 20px;
+    margin: 0 15px 0 15px;
 }
 
 /* END OF BAR_BASIC.H */
@@ -28,7 +27,7 @@ window.Bar {
 .workspaces {
     border-radius: 100px;
     padding: 8px;
-    font-size: 0px;
+    /* font-size: 0px; */
     margin: 6px;
     background-color: rgba(255, 255, 255, .1);
 }
@@ -84,6 +83,7 @@ window.Bar {
     padding: 0 8px 0 8px;
     background-color: rgba(255, 255, 255, .1);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, .4);
+    font-size: 14px;
 }
 
 .time-time {
@@ -100,6 +100,7 @@ window.Bar {
     padding: 0 8px 0 8px;
     background-color: rgba(255, 255, 255, .1);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, .4);
+    font-size: 14px;
 }
 
 .media-title {

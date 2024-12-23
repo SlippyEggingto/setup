@@ -8,6 +8,8 @@ import Wp from "gi://AstalWp"
 import Network from "gi://AstalNetwork"
 import Tray from "gi://AstalTray"
 import { CircularProgress } from "astal/gtk3/widget"
+import { textdomain } from "gettext"
+import CinnamonDesktop from "gi://CinnamonDesktop?version=3.0"
 
 function capitialize(s : String) {
     return String(s).charAt(0).toUpperCase() + String(s).slice(1);
@@ -15,6 +17,17 @@ function capitialize(s : String) {
 
 function Workspaces() {
     const hypr = Hyprland.get_default()
+
+    // hypr.connect("event", async(_, event, args) => {
+    //     console.log(event, args);
+
+    //     if (event === "workspacev2") {
+    //         console.log(hypr.monitors)
+    //         await hypr.sync_monitors;
+
+    //         console.log("synced?");
+    //     }
+    // })
 
     function checkActiveWorkspace(a:number) {
         for (let i = 0; i < hypr.get_clients().length; i++) {
@@ -25,6 +38,27 @@ function Workspaces() {
 
         return false;
     }
+
+    hypr.connect("event", async(_, event, args) => {
+        if (event == "openwindow") {
+            console.log(hypr.focusedWorkspace.id)
+            return (
+                <eventbox>
+                    <box className="workspaces" spacing={5}>{
+                        Array.from({length: 10}, (_, i) => i+1).map(i => (
+                            <button
+                                onClick = {() => hypr.dispatch("workspace", i.toString())}
+                                className={hypr.focusedWorkspace.id == i
+                                    ? `${checkActiveWorkspace(i) ? "focused_and_active" : "focused"}`
+                                    : `${checkActiveWorkspace(i) ? "active" : "empty"}`
+                                }
+                            />
+                        ))
+                    }</box>
+                </eventbox>
+            )
+        }
+    })
 
     return (
         <eventbox>
@@ -44,24 +78,22 @@ function Workspaces() {
 }
 
 function Media({player} : {player: Mpris.Player}) {
-    const title = bind(player, "title").as(hehe => hehe || "Unknown title")
-    const artist = bind(player, "artist").as(hehe => ` • ${hehe}` || "Unknown artist")
-    // const coverArt = bind(player, "cover_art").as(hehe => `background-image: url('${hehe}');`)
+    const title = bind(player, "title").as(hehe => hehe != null ? hehe : "Unknown title")
+    const artist = bind(player, "artist").as(hehe => ` • ${hehe != null ? hehe : "Unknown artist"}`)
 
     return (
         <box className="media">
-            {/* <box className="cover-art" css={coverArt}></box> */}
             <box className="media-info">
                 <label halign={Gtk.Align.START}
                     truncate={true}
-                    maxWidthChars={15}
+                    maxWidthChars={20}
                     className="media-title"
                     label={title}
                 />
 
                 <label halign={Gtk.Align.START}
                     truncate={true}
-                    maxWidthChars={15}
+                    maxWidthChars={20}
                     className="media-artist"
                     label={artist}
                 />
@@ -72,6 +104,23 @@ function Media({player} : {player: Mpris.Player}) {
 
 function Window() {
     const hypr = Hyprland.get_default();
+
+    hypr.connect("event", async(_, event, args) => {
+        if (event == "windowtitle") {
+            console.log("title-changed", hypr.focusedClient.title)
+            return (
+                <box className="window" orientation={Gtk.Orientation.VERTICAL}>
+                    <label className="window_class" halign={Gtk.Align.START}
+                        label={hypr.focusedClient.class != null ? capitialize(hypr.focusedClient.class) : "Wallpaper"}
+                    />
+        
+                    <label className="window_title" truncate={true} maxWidthChars={40}
+                        label={hypr.focusedClient.title != null ? hypr.focusedClient.title.replace(" — Mozilla Firefox", "") : `Workspace ${hypr.focusedWorkspace.id}`}
+                    />
+                </box>
+            )
+        }
+    })
 
     return (
         <box className="window" orientation={Gtk.Orientation.VERTICAL}>
@@ -86,7 +135,7 @@ function Window() {
     )
 }
 
-function Clock() {
+function Clock() {    
     const time_time = Variable<string>("").poll(1000, () => GLib.DateTime.new_now_local().format("%H:%M")!);
     const time_date = Variable<string>("").poll(1000, () => GLib.DateTime.new_now_local().format(" • %a, %b %d")!);
 
@@ -136,7 +185,10 @@ function Volume() {
     const volume = Wp.get_default()?.audio.defaultSpeaker!
 
     return (
-        <box className="volume">
+        <eventbox className="volume" 
+            onClick={() => (volume.get_mute()==true) ? volume.set_mute(false) : volume.set_mute(true)}
+            onScroll={() => (volume.set_volume(volume.get_volume() + 0.01))}
+        >
             <icon className="volume-icon"
                 icon={bind(volume, "volumeIcon")}
             />
@@ -150,7 +202,7 @@ function Volume() {
                 onDragged={({value}) => volume.volume = value}
                 value={bind(volume, "volume")}
             /> */}
-        </box>
+        </eventbox>
     )
 }
 
@@ -177,7 +229,7 @@ function Center() {
 
 function Right() {
     return (
-        <box className="modules-right" halign={Gtk.Align.END} spacing={8}>
+        <box className="modules-right" halign={Gtk.Align.END} spacing={10}>
             <Wifi></Wifi>
             <Energy></Energy>
             <Volume></Volume>
