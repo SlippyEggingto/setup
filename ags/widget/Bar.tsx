@@ -11,23 +11,8 @@ import { CircularProgress } from "astal/gtk3/widget"
 import { textdomain } from "gettext"
 import CinnamonDesktop from "gi://CinnamonDesktop?version=3.0"
 
-function capitialize(s : String) {
-    return String(s).charAt(0).toUpperCase() + String(s).slice(1);
-}
-
 function Workspaces() {
     const hypr = Hyprland.get_default()
-
-    // hypr.connect("event", async(_, event, args) => {
-    //     console.log(event, args);
-
-    //     if (event === "workspacev2") {
-    //         console.log(hypr.monitors)
-    //         await hypr.sync_monitors;
-
-    //         console.log("synced?");
-    //     }
-    // })
 
     function checkActiveWorkspace(a:number) {
         for (let i = 0; i < hypr.get_clients().length; i++) {
@@ -40,24 +25,22 @@ function Workspaces() {
     }
 
     hypr.connect("event", async(_, event, args) => {
-        if (event == "openwindow") {
-            console.log(hypr.focusedWorkspace.id)
-            return (
-                <eventbox>
-                    <box className="workspaces" spacing={5}>{
-                        Array.from({length: 10}, (_, i) => i+1).map(i => (
-                            <button
-                                onClick = {() => hypr.dispatch("workspace", i.toString())}
-                                className={hypr.focusedWorkspace.id == i
-                                    ? `${checkActiveWorkspace(i) ? "focused_and_active" : "focused"}`
-                                    : `${checkActiveWorkspace(i) ? "active" : "empty"}`
-                                }
-                            />
-                        ))
-                    }</box>
-                </eventbox>
-            )
-        }
+        console.log("hypr.focusedWorkspace.id:", hypr.focusedWorkspace.id)
+        return (
+            <eventbox>
+                <box className="workspaces" spacing={5}>{
+                    Array.from({length: 10}, (_, i) => i+1).map(i => (
+                        <button
+                            onClick = {() => hypr.dispatch("workspace", i.toString())}
+                            className={hypr.focusedWorkspace.id == i
+                                ? `${checkActiveWorkspace(i) ? "focused_and_active" : "focused"}`
+                                : `${checkActiveWorkspace(i) ? "active" : "empty"}`
+                            }
+                        />
+                    ))
+                }</box>
+            </eventbox>
+        )
     })
 
     return (
@@ -106,26 +89,24 @@ function Window() {
     const hypr = Hyprland.get_default();
 
     hypr.connect("event", async(_, event, args) => {
-        if (event == "windowtitle") {
-            console.log("title-changed", hypr.focusedClient.title)
-            return (
-                <box className="window" orientation={Gtk.Orientation.VERTICAL}>
-                    <label className="window_class" halign={Gtk.Align.START}
-                        label={hypr.focusedClient.class != null ? capitialize(hypr.focusedClient.class) : "Wallpaper"}
-                    />
-        
-                    <label className="window_title" truncate={true} maxWidthChars={40}
-                        label={hypr.focusedClient.title != null ? hypr.focusedClient.title.replace(" — Mozilla Firefox", "") : `Workspace ${hypr.focusedWorkspace.id}`}
-                    />
-                </box>
-            )
-        }
+        console.log("hypr.focusedClient.title:", hypr.focusedClient.title)
+        return (
+            <box className="window" orientation={Gtk.Orientation.VERTICAL}>
+                <label className="window_class" halign={Gtk.Align.START}
+                    label={hypr.focusedClient.class != null ? hypr.focusedClient.class : "Wallpaper"}
+                />
+    
+                <label className="window_title" truncate={true} maxWidthChars={40}
+                    label={hypr.focusedClient.title != null ? hypr.focusedClient.title.replace(" — Mozilla Firefox", "") : `Workspace ${hypr.focusedWorkspace.id}`}
+                />
+            </box>
+        )
     })
 
     return (
         <box className="window" orientation={Gtk.Orientation.VERTICAL}>
             <label className="window_class" halign={Gtk.Align.START}
-                label={bind(hypr, "focusedClient").as(hehe => hehe != null ? capitialize(hehe.class) : "Wallpaper")}
+                label={bind(hypr, "focusedClient").as(hehe => hehe != null ? hehe.class : "Wallpaper")}
             />
 
             <label className="window_title" truncate={true} maxWidthChars={40}
@@ -170,13 +151,19 @@ function Energy() {
     const battery = Battery.get_default();
 
     return (
-        <box className="battery">
+        <box className="battery"
+            tooltipText={bind(battery, "state").as(hehe => hehe == 1
+                ? `Charging: ${Math.floor(battery.percentage*100)}%`
+                : `${hehe == 2
+                    ? `Uncharged: ${Math.floor(battery.percentage*100)}%`
+                    : `Unknown state: ${Math.floor(battery.percentage*100)}%`
+                }`
+            )
+            }
+        >
             <icon className="battery-icon"
                 icon={bind(battery, "iconName")}
             />
-            {/* <label className="battery-label"
-                label={bind(battery, "percentage").as(hehe => `${Math.floor(hehe*100)}%`)}
-            /> */}
         </box>
     )
 }
@@ -185,23 +172,13 @@ function Volume() {
     const volume = Wp.get_default()?.audio.defaultSpeaker!
 
     return (
-        <eventbox className="volume" 
+        <eventbox className="volume" tooltipText={bind(volume, "volume").as(hehe => `Volume: ${Math.floor(hehe*100)}%`)}
             onClick={() => (volume.get_mute()==true) ? volume.set_mute(false) : volume.set_mute(true)}
             onScroll={() => (volume.set_volume(volume.get_volume() + 0.01))}
         >
             <icon className="volume-icon"
                 icon={bind(volume, "volumeIcon")}
             />
-
-            {/* <label className="volume-label"
-                label={bind(volume, "volume").as(hehe => `${Math.floor(hehe*100)}%`)}
-            />
-
-            <slider className="volume-slider"
-                hexpand
-                onDragged={({value}) => volume.volume = value}
-                value={bind(volume, "volume")}
-            /> */}
         </eventbox>
     )
 }
