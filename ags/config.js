@@ -143,52 +143,43 @@ function volume() {
 }
 
 const PlayerTitle = player => Widget.Box({
-    child: Widget.Label().hook(player, label => {
-        const {track_title} = player;
-        label.label = ` ${track_title}`
-        label.truncate = "end"
-        label.max_width_chars = 20
+    child: Widget.Label().hook(player, hehe => {
+        hehe.class_name = "media-title";
+        hehe.label = ` ${player.track_title}`
+        hehe.truncate = "end"
+        hehe.max_width_chars = 20
     })
 })
 
 const PlayerArtist = player => Widget.Box({
-    child: Widget.Label().hook(player, label => {
-        const {track_artists} = player;
-        label.label = ` • ${track_artists[0]} `;
-        label.truncate = "end"
-        label.max_width_chars = 20
+    child: Widget.Label().hook(player, hehe => {
+        hehe.class_name = "media-artist";
+        hehe.label = ` • ${track_artists[0]} `;
+        hehe.truncate = "end"
+        hehe.max_width_chars = 20
     })
 })
 
 const PlayerProgress = player => Widget.Box({
     children: [
         Widget.CircularProgress().hook(player, hehe => {
-            const {position, length} = player;
-            let a = player.position;
-            let b = player.length;
             setInterval(() => {
-                a = player.position;
-                hehe.value = a/b;
-                print("[MESSAGE]: song_pos/song_length =", a/b)
+                if (player.play_back_status == "Playing") {
+                    hehe.value = player.position / player.length;
+                }
             }, 1000);
+
             hehe.start_at = 0.75;
             hehe.class_name = "media-progress";
-        }),
-
-        Widget.Label({
-            label: player.icon,
-            css: 'margin-left: -10px;'
         })
     ]
 })
 
 const media_title = Widget.Box({
-    class_name: "media-title",
     children: mprisService.bind("players").as(p => p.map(PlayerTitle))
 })
 
 const media_artist = Widget.Box({
-    class_name: "media-artist",
     children: mprisService.bind("players").as(p => p.map(PlayerArtist))
 })
 
