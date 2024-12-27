@@ -142,62 +142,57 @@ function volume() {
     })
 }
 
-const PlayerTitle = player => Widget.Box({
-    child: Widget.Label().hook(player, hehe => {
-        hehe.class_name = "media-title";
-        hehe.label = ` ${player.track_title}`
-        hehe.truncate = "end"
-        hehe.max_width_chars = 20
+function mediabox(player) {
+    return Widget.Box({
+        class_name: "media",
+        children: [
+            Widget.CircularProgress().hook(player, hehe => {
+                setInterval(() => {
+                    if (player.play_back_status == "Playing") {
+                        hehe.value = player.position / player.length;
+                    }
+                }, 1000);
+
+                hehe.start_at = 0.75;
+                hehe.class_name = "media-progress";
+            }),
+
+            Widget.Label().hook(player, hehe => {
+                hehe.class_name = "media-title"
+                hehe.label = ` ${player.track_title}`
+                hehe.truncate = "end"
+                hehe.max_width_chars = 20
+            }),
+
+            Widget.Label().hook(player, hehe => {
+                hehe.class_name = "media-artist";
+                hehe.label = ` • ${player.track_artists[0]} `;
+                hehe.truncate = "end"
+                hehe.max_width_chars = 20
+            })
+        ]
     })
-})
+}
 
-const PlayerArtist = player => Widget.Box({
-    child: Widget.Label().hook(player, hehe => {
-        hehe.class_name = "media-artist";
-        hehe.label = ` • ${track_artists[0]} `;
-        hehe.truncate = "end"
-        hehe.max_width_chars = 20
-    })
-})
+// function mediabox() {
+//     let progress = 0, title = "", artist = "", player = mprisService.bind("players")["emitter"]["players"][0]
 
-const PlayerProgress = player => Widget.Box({
-    children: [
-        Widget.CircularProgress().hook(player, hehe => {
-            setInterval(() => {
-                if (player.play_back_status == "Playing") {
-                    hehe.value = player.position / player.length;
-                }
-            }, 1000);
-
-            hehe.start_at = 0.75;
-            hehe.class_name = "media-progress";
-        })
-    ]
-})
-
-const media_title = Widget.Box({
-    children: mprisService.bind("players").as(p => p.map(PlayerTitle))
-})
-
-const media_artist = Widget.Box({
-    children: mprisService.bind("players").as(p => p.map(PlayerArtist))
-})
-
-const media_progress = Widget.Box({
-    children: mprisService.bind("players").as(p => p.map(PlayerProgress))
-})
-
+//     setInterval(() => {
+//         player = mprisService.bind("players")["emitter"]["players"][0]
+//         console.log("[IMPORTATN]:", player)
+//         progress = mprisService.bind("players")["emitter"]["players"][0].position / mprisService.bind("players")["emitter"]["players"][0].length;
+//         title = mprisService.bind("players")["emitter"]["players"][0]["track-title"];
+//         artist = mprisService.bind("players")["emitter"]["players"][0]["track-artist"];
+//     }, 1000)
+// }
 
 function media() {
     return Widget.EventBox({
         onPrimaryClick: () => Utils.exec("playerctl play-pause"),
         child: Widget.Box({
-            class_name: "media",
-            children: [
-                media_progress,
-                media_title,
-                media_artist
-            ]
+            children: mprisService.bind("players").as(hehe => hehe.map(player => (
+                mediabox(player)
+            )))
         })
     })
 }
