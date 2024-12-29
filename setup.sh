@@ -21,7 +21,7 @@ bash ./install.sh
 cd ~
 sudo rm -rf ~/Win11-icon-theme
 
-git clone --recursive https://github.com/Aylur/ags.git ~/ags
+git clone https://github.com/Aylur/ags.git -b v1 ~/ags
 cd ~/ags
 npm install
 meson setup build
@@ -69,11 +69,12 @@ default=hyprland;gtk
 org.freedesktop.impl.portal.FileChooser=gtk" >> ~/.config/xdg-desktop-portal/hyprland-portals.conf
 
 sudo rm -rf ~/.config/gtk-3.0/settings.ini
+mkdir -p ~/.config/gtk-3.0/
 touch ~/.config/gtk-3.0/settings.ini
 echo "[Settings]
 gtk-theme-name=oomox-colors-oomox
 gtk-icon-theme-name=Win11-dark
-gtk-font-name=Cantarell 11
+gtk-font-name=Segoe UI 11
 gtk-cursor-theme-name=Bibata-Modern-Classic
 gtk-cursor-theme-size=24
 gtk-toolbar-style=GTK_TOOLBAR_ICONS
@@ -90,10 +91,10 @@ gtk-application-prefer-dark-theme=1" >> ~/.config/gtk-3.0/settings.ini
 
 sudo rm -rf ~/.gtkrc-2.0
 touch ~/.gtkrc-2.0
-echo "include \"/home/nptanphuc/.gtkrc-2.0.mine\"
+echo "include \"/home/$USER/.gtkrc-2.0.mine\"
 gtk-theme-name=\"oomox-colors-oomox\"
 gtk-icon-theme-name=\"Win11-dark\"
-gtk-font-name=\"Cantarell 11\"
+gtk-font-name=\"Segoe UI 11\"
 gtk-cursor-theme-name=\"Bibata-Modern-Classic\"
 gtk-cursor-theme-size=24
 gtk-toolbar-style=GTK_TOOLBAR_ICONS
@@ -108,6 +109,7 @@ gtk-xft-hintstyle=\"hintslight\"
 gtk-xft-rgba=\"rgb\"" >> ~/.gtkrc-2.0
 
 sudo rm -rf ~/.config/xsettingsd/xsettingsd.conf
+mkdir -p ~/.config/xsettingsd/
 touch ~/.config/xsettingsd/xsettingsd.conf
 echo "Net/ThemeName \"oomox-colors-oomox\"
 Net/IconThemeName \"Win11-dark\"
