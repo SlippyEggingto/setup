@@ -17,6 +17,22 @@ function workspaces() {
 
     const activeId = hyprlandService.active.workspace.bind('id');
 
+    // return Widget.EventBox({
+    //     child: Widget.Box().hook(hyprlandService, self => {
+    //         self.class_name = 'workspaces'
+    //         self.spacing = 5
+    //         self.children = Array.from({length: 10}, (_, i) => i+1).map(i => Widget.Button({
+    //             onClicked: () => hyprlandService.messageAsync(`dispatch workspace ${i}`),
+    //             class_name: activeId.as(id => `${id == i
+    //                 ? `${checkActiveWorkspace(i) ? 'focused_and_active' : 'focused'}`
+    //                 : `${checkActiveWorkspace(i) ? 'active' : 'empty'}`}`)
+    //         }))
+    //     }, 'client-added'),
+
+    //     onScrollDown: () => Utils.exec('hyprctl dispatch workspace +1'),
+    //     onScrollUp: () => Utils.exec('hyprctl dispatch workspace -1'),
+    // })
+
     return Widget.EventBox({
         child: Widget.Box({
             class_name: 'workspaces',
@@ -24,13 +40,13 @@ function workspaces() {
             children: Array.from({length: 10}, (_, i) => i+1).map(i => Widget.Button({
                 onClicked: () => hyprlandService.messageAsync(`dispatch workspace ${i}`),
                 class_name: activeId.as(id => `${id == i
-                    ? `${checkActiveWorkspace(i) ? "focused_and_active" : "focused"}`
-                    : `${checkActiveWorkspace(i) ? "active" : "empty"}`}`)
+                    ? `${checkActiveWorkspace(i) ? 'focused_and_active' : 'focused'}`
+                    : `${checkActiveWorkspace(i) ? 'active' : 'empty'}`}`)
             }))
         }),
 
-        onScrollDown: () => Utils.exec("hyprctl dispatch workspace -1"),
-        onScrollUp: () => Utils.exec("hyprctl dispatch workspace +1"),
+        onScrollDown: () => Utils.exec('hyprctl dispatch workspace -1'),
+        onScrollUp: () => Utils.exec('hyprctl dispatch workspace +1'),
     })
 }
 
@@ -44,7 +60,7 @@ function window() {
             }),
 
             Widget.Label({
-                label: hyprlandService.active.client.bind('title').as(p => p == '' ? `Workspace ${hyprlandService.active.workspace.id}` : p),
+                label: hyprlandService.active.client.bind('title').as(p => p == '' ? `Workspace ${hyprlandService.active.workspace.id}` : p.replace(' — Mozilla Firefox', '')),
                 class_name: 'window-title',
                 maxWidthChars: 40,
                 truncate: 'end',
@@ -56,11 +72,11 @@ function window() {
     })
 }
 
-const time_time = Variable("", {
+const time_time = Variable('', {
     poll: [1000, 'date +"%H:%M"']
 })
 
-const time_date = Variable("", {
+const time_date = Variable('', {
     poll: [1000, 'date +"• %a, %b %d"']
 })
 
@@ -119,15 +135,15 @@ const volumeIndicator = Widget.EventBox({
         let mut = audioService.speaker.is_muted
 
         if (mut == true) {
-            self.icon = "audio-volume-muted-symbolic"
+            self.icon = 'audio-volume-muted-symbolic'
         } else if (vol <= 15) {
-            self.icon = "audio-volume-low-symbolic"
+            self.icon = 'audio-volume-low-symbolic'
         } else if (vol <= 25) {
-            self.icon = "audio-volume-medium-symbolic"
+            self.icon = 'audio-volume-medium-symbolic'
         } else if (vol <= 67) {
-            self.icon = "audio-volume-high-symbolic"
+            self.icon = 'audio-volume-high-symbolic'
         } else {
-            self.icon = "audio-volume-overamplified-symbolic"
+            self.icon = 'audio-volume-overamplified-symbolic'
         }
 
         self.tooltip_text = `Volume ${Math.floor(vol)}%`;
@@ -144,53 +160,53 @@ function volume() {
 
 function mediabox(player) {
     return Widget.Box({
-        class_name: "media",
+        class_name: 'media',
         children: [
             Widget.CircularProgress().hook(player, hehe => {
                 setInterval(() => {
-                    if (player.play_back_status == "Playing") {
+                    if (player.play_back_status == 'Playing') {
                         hehe.value = player.position / player.length;
                     }
                 }, 1000);
 
                 hehe.start_at = 0.75;
-                hehe.class_name = "media-progress";
+                hehe.class_name = 'media-progress';
             }),
 
             Widget.Label().hook(player, hehe => {
-                hehe.class_name = "media-title"
+                hehe.class_name = 'media-title'
                 hehe.label = ` ${player.track_title}`
-                hehe.truncate = "end"
+                hehe.truncate = 'end'
                 hehe.max_width_chars = 20
             }),
 
             Widget.Label().hook(player, hehe => {
-                hehe.class_name = "media-artist";
+                hehe.class_name = 'media-artist';
                 hehe.label = ` • ${player.track_artists[0]} `;
-                hehe.truncate = "end"
+                hehe.truncate = 'end'
                 hehe.max_width_chars = 20
-            })
+            }),
         ]
     })
 }
 
 // function mediabox() {
-//     let progress = 0, title = "", artist = "", player = mprisService.bind("players")["emitter"]["players"][0]
+//     let progress = 0, title = '', artist = '', player = mprisService.bind('players')['emitter']['players'][0]
 
 //     setInterval(() => {
-//         player = mprisService.bind("players")["emitter"]["players"][0]
-//         console.log("[IMPORTATN]:", player)
-//         progress = mprisService.bind("players")["emitter"]["players"][0].position / mprisService.bind("players")["emitter"]["players"][0].length;
-//         title = mprisService.bind("players")["emitter"]["players"][0]["track-title"];
-//         artist = mprisService.bind("players")["emitter"]["players"][0]["track-artist"];
+//         player = mprisService.bind('players')['emitter']['players'][0]
+//         console.log('[IMPORTATN]:', player)
+//         progress = mprisService.bind('players')['emitter']['players'][0].position / mprisService.bind('players')['emitter']['players'][0].length;
+//         title = mprisService.bind('players')['emitter']['players'][0]['track-title'];
+//         artist = mprisService.bind('players')['emitter']['players'][0]['track-artist'];
 //     }, 1000)
 // }
 
 function media() {
     return Widget.EventBox({
-        onPrimaryClick: () => Utils.exec("playerctl play-pause"),
+        onPrimaryClick: () => Utils.exec('playerctl play-pause'),
         child: Widget.Box({
-            children: mprisService.bind("players").as(hehe => hehe.map(player => (
+            children: mprisService.bind('players').as(hehe => hehe.map(player => (
                 mediabox(player)
             )))
         })
