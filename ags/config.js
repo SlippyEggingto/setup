@@ -6,47 +6,31 @@ const mprisService = await Service.import('mpris');
 
 function workspaces() {
     function checkActiveWorkspace(a) {
-        for (let i = 0; i < hyprlandService.bind("clients").emitter.clients.length; i++) {
-            if (a == hyprlandService.bind("clients").emitter.clients[i].workspace.id) {
-                return true
-            }
+        for (let i = 0; i < hyprlandService.bind('clients').emitter.clients.length; i++) {
+            if (a == hyprlandService.bind('clients').emitter.clients[i].workspace.id) return true;
         }
     
         return false;
     }
 
-    const activeId = hyprlandService.active.workspace.bind('id');
-
-    // return Widget.EventBox({
-    //     child: Widget.Box().hook(hyprlandService, self => {
-    //         self.class_name = 'workspaces'
-    //         self.spacing = 5
-    //         self.children = Array.from({length: 10}, (_, i) => i+1).map(i => Widget.Button({
-    //             onClicked: () => hyprlandService.messageAsync(`dispatch workspace ${i}`),
-    //             class_name: activeId.as(id => `${id == i
-    //                 ? `${checkActiveWorkspace(i) ? 'focused_and_active' : 'focused'}`
-    //                 : `${checkActiveWorkspace(i) ? 'active' : 'empty'}`}`)
-    //         }))
-    //     }, 'client-added'),
-
-    //     onScrollDown: () => Utils.exec('hyprctl dispatch workspace +1'),
-    //     onScrollUp: () => Utils.exec('hyprctl dispatch workspace -1'),
-    // })
-
     return Widget.EventBox({
         child: Widget.Box({
             class_name: 'workspaces',
             spacing: 5,
-            children: Array.from({length: 10}, (_, i) => i+1).map(i => Widget.Button({
-                onClicked: () => hyprlandService.messageAsync(`dispatch workspace ${i}`),
-                class_name: activeId.as(id => `${id == i
-                    ? `${checkActiveWorkspace(i) ? 'focused_and_active' : 'focused'}`
-                    : `${checkActiveWorkspace(i) ? 'active' : 'empty'}`}`)
+
+            children: Array.from({length: 10}, (_, i) => i+1).map(i => Widget.Button().hook(hyprlandService, self => {
+                self.onClicked = () => hyprlandService.messageAsync(`dispatch workspace ${i}`);
+                let clasename = 'empty';
+
+                if (hyprlandService.active.workspace.bind('id')['emitter']['id'] == i) checkActiveWorkspace(i) ? clasename = 'focused_and_active' : clasename = 'focused';
+                else checkActiveWorkspace(i) ? clasename = 'active' : clasename = 'empty';
+
+                self.class_name = clasename
             }))
         }),
 
-        onScrollDown: () => Utils.exec('hyprctl dispatch workspace -1'),
-        onScrollUp: () => Utils.exec('hyprctl dispatch workspace +1'),
+        onScrollDown: () => Utils.exec('hyprctl dispatch workspace +1'),
+        onScrollUp: () => Utils.exec('hyprctl dispatch workspace -1'),
     })
 }
 
@@ -102,26 +86,30 @@ function clock() {
 function network() {
     return Widget.Box({
         children: [
-            Widget.Icon({
-                icon: networkService.wifi.bind('icon_name')
-            }),
+            Widget.Icon().hook(networkService.wifi, self => {
+                self.icon = networkService.wifi.bind('icon_name')['emitter']['icon-name']
+            })
         ],
 
         tooltip_text: networkService.wifi.bind('ssid'),
-        spacing: 5,
     })
 }
 
 function battery() {
-    return Widget.Box({
-        children: [
+    return Widget.Box().hook(batteryService, self => {
+        self.children = [
             Widget.Icon({
                 icon: batteryService.bind('icon_name'),
             }),
-        ],
+        ]
 
-        // tooltip_text: `${batteryService.bind('percent')}`,
-        spacing: 5
+        let tooltip = 'hehehe';
+
+        if (batteryService.bind('icon_name')['emitter']['charged'] == true) tooltip = 'Charged ' + batteryService.bind('icon_name')['emitter']['percent'].toString() + '%'
+        else if (batteryService.bind('icon_name')['emitter']['charging'] == true) tooltip = 'Charging ' + batteryService.bind('icon_name')['emitter']['percent'].toString() + '%'
+        else tooltip = 'Percentage ' + batteryService.bind('icon_name')['emitter']['percent'].toString() + '%'
+
+        self.tooltip_text = tooltip
     })
 }
 
@@ -134,17 +122,11 @@ const volumeIndicator = Widget.EventBox({
         let vol = audioService.speaker.volume * 100
         let mut = audioService.speaker.is_muted
 
-        if (mut == true) {
-            self.icon = 'audio-volume-muted-symbolic'
-        } else if (vol <= 15) {
-            self.icon = 'audio-volume-low-symbolic'
-        } else if (vol <= 25) {
-            self.icon = 'audio-volume-medium-symbolic'
-        } else if (vol <= 67) {
-            self.icon = 'audio-volume-high-symbolic'
-        } else {
-            self.icon = 'audio-volume-overamplified-symbolic'
-        }
+        if (mut == true) self.icon = 'audio-volume-muted-symbolic'
+        else if (vol <= 15) self.icon = 'audio-volume-low-symbolic'
+        else if (vol <= 25) self.icon = 'audio-volume-medium-symbolic'
+        else if (vol <= 67) self.icon = 'audio-volume-high-symbolic'
+        else self.icon = 'audio-volume-overamplified-symbolic'
 
         self.tooltip_text = `Volume ${Math.floor(vol)}%`;
     })
@@ -158,58 +140,55 @@ function volume() {
     })
 }
 
-function mediabox(player) {
-    return Widget.Box({
-        class_name: 'media',
-        children: [
-            Widget.CircularProgress().hook(player, hehe => {
-                setInterval(() => {
-                    if (player.play_back_status == 'Playing') {
-                        hehe.value = player.position / player.length;
-                    }
-                }, 1000);
-
-                hehe.start_at = 0.75;
-                hehe.class_name = 'media-progress';
-            }),
-
-            Widget.Label().hook(player, hehe => {
-                hehe.class_name = 'media-title'
-                hehe.label = ` ${player.track_title}`
-                hehe.truncate = 'end'
-                hehe.max_width_chars = 20
-            }),
-
-            Widget.Label().hook(player, hehe => {
-                hehe.class_name = 'media-artist';
-                hehe.label = ` • ${player.track_artists[0]} `;
-                hehe.truncate = 'end'
-                hehe.max_width_chars = 20
-            }),
-        ]
-    })
-}
-
-// function mediabox() {
-//     let progress = 0, title = '', artist = '', player = mprisService.bind('players')['emitter']['players'][0]
-
-//     setInterval(() => {
-//         player = mprisService.bind('players')['emitter']['players'][0]
-//         console.log('[IMPORTATN]:', player)
-//         progress = mprisService.bind('players')['emitter']['players'][0].position / mprisService.bind('players')['emitter']['players'][0].length;
-//         title = mprisService.bind('players')['emitter']['players'][0]['track-title'];
-//         artist = mprisService.bind('players')['emitter']['players'][0]['track-artist'];
-//     }, 1000)
-// }
-
 function media() {
     return Widget.EventBox({
         onPrimaryClick: () => Utils.exec('playerctl play-pause'),
-        child: Widget.Box({
-            children: mprisService.bind('players').as(hehe => hehe.map(player => (
-                mediabox(player)
-            )))
-        })
+
+        child: Widget.Box().hook(mprisService, self => {
+            const player = mprisService.bind('players')['emitter']['players'][0]
+
+            if (player != undefined) {
+                self.class_name = 'media';
+                self.children = [
+                    Widget.CircularProgress().hook(mprisService, self => {
+                        setInterval(() => {
+                            if (player['play-back-status'] == 'Playing') {
+                                self.value = player['position'] / player['length'];
+                            }
+                        }, 1000);
+                        
+                        self.start_at = 0.75,
+                        self.class_name = 'media-progress'
+                    }),
+    
+                    Widget.Label({
+                        class_name: 'media-title',
+                        label: ` ${player['track-title'] == '' ? '' : player['track-title']}`,
+                        truncate: 'end',
+                        maxWidthChars: 20
+                    }),
+    
+                    Widget.Label({
+                        class_name: 'media-artist',
+                        label: `${player['track-artists'][0] == '' ? 'No media playing' : ' • ' + player['track-artists'][0]}`,
+                        truncate: 'end',
+                        maxWidthChars: 20
+                    }),
+                ]                
+            } else {
+                self.class_name = 'media';
+                self.children = [
+                    Widget.CircularProgress({
+                        class_name: 'media-progress',
+                    }),
+    
+                    Widget.Label({
+                        class_name: 'media-artist',
+                        label: ' No media playing',
+                    }),
+                ];
+            }
+        }, 'player-changed')
     })
 }
 

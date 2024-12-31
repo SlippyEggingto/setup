@@ -100,11 +100,17 @@ window.Bar {
     padding: 0 4px 0 4px;
     background-color: rgba(255, 255, 255, .1);
     box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
-    font-size: 14px;
 }
 
 .media-title {
+    font-size: 14px;
     font-weight: 800;
+}
+
+.media-artist {
+    font-weight: 600;
+    font-size: 14px;
+    margin-right: 3px;
 }
 
 /* END OF BAR_MEDIA.H */
@@ -126,6 +132,7 @@ window.Bar {
     min-width: 20px;
     min-height: 20px;
     background-color: rgba(255, 255, 255, .2);
+    transition: none;
 }
 
 /* END OF MEDIA_PROGRESS.H */
