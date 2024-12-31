@@ -113,29 +113,27 @@ function battery() {
     })
 }
 
-const volumeIndicator = Widget.EventBox({
-    class_name: 'volume',
-    onPrimaryClick: () => audioService.speaker.is_muted = !audioService.speaker.is_muted,
-    onScrollUp: () => audioService.speaker.volume += 0.01,
-    onScrollDown: () => audioService.speaker.volume -= 0.01,
-    child: Widget.Icon().hook(audioService.speaker, self => {
-        let vol = audioService.speaker.volume * 100
-        let mut = audioService.speaker.is_muted
-
-        if (mut == true) self.icon = 'audio-volume-muted-symbolic'
-        else if (vol <= 15) self.icon = 'audio-volume-low-symbolic'
-        else if (vol <= 25) self.icon = 'audio-volume-medium-symbolic'
-        else if (vol <= 67) self.icon = 'audio-volume-high-symbolic'
-        else self.icon = 'audio-volume-overamplified-symbolic'
-
-        self.tooltip_text = `Volume ${Math.floor(vol)}%`;
-    })
-})
-
 function volume() {
     return Widget.Box({
         children: [
-            volumeIndicator,
+            Widget.EventBox({
+                class_name: 'volume',
+                onPrimaryClick: () => audioService.speaker.is_muted = !audioService.speaker.is_muted,
+                onScrollUp: () => audioService.speaker.volume += 0.01,
+                onScrollDown: () => audioService.speaker.volume -= 0.01,
+                child: Widget.Icon().hook(audioService.speaker, self => {
+                    let vol = audioService.speaker.volume * 100
+                    let mut = audioService.speaker.is_muted
+            
+                    if (mut == true) self.icon = 'audio-volume-muted-symbolic'
+                    else if (vol <= 15) self.icon = 'audio-volume-low-symbolic'
+                    else if (vol <= 25) self.icon = 'audio-volume-medium-symbolic'
+                    else if (vol <= 67) self.icon = 'audio-volume-high-symbolic'
+                    else self.icon = 'audio-volume-overamplified-symbolic'
+            
+                    self.tooltip_text = `Volume ${Math.floor(vol)}%`;
+                })
+            })
         ]
     })
 }
@@ -163,14 +161,20 @@ function media() {
     
                     Widget.Label({
                         class_name: 'media-title',
-                        label: ` ${player['track-title'] == '' ? '' : player['track-title']}`,
+                        label: `${player['track-title'] == ''
+                            ? `${player['track-artists'][0] == '' ? '' : ' Unknown title'}`
+                            : ' ' + player['track-title']
+                        }`,
                         truncate: 'end',
                         maxWidthChars: 20
                     }),
     
                     Widget.Label({
                         class_name: 'media-artist',
-                        label: `${player['track-artists'][0] == '' ? 'No media playing' : ' • ' + player['track-artists'][0]}`,
+                        label: `${player['track-artists'][0] == ''
+                            ? `${player['track-title'] == '' ? ' No media playing' : ' • Unknown artists'}`
+                            : ' • ' + player['track-artists'][0]
+                        }`,
                         truncate: 'end',
                         maxWidthChars: 20
                     }),
