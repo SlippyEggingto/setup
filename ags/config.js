@@ -265,8 +265,17 @@ App.config({
         Bar(),
     ],
 
-    style: './style.css'
+    style: './style.css',
 })
 
+Utils.monitorFile(
+    `${App.configDir}/../../.cache/wal/rgb-colors.css`,
+
+    function() {
+        console.log("Synced top_bar style")
+        App.resetCss()
+        App.applyCss(`${App.configDir}/style.css`)
+    },
+)
 
 export { };
