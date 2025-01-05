@@ -3,6 +3,7 @@ const hyprlandService = await Service.import('hyprland');
 const networkService = await Service.import('network');
 const audioService = await Service.import('audio')
 const mprisService = await Service.import('mpris');
+const bluetoothService = await Service.import('bluetooth');
 
 function workspaces() {
     function checkActiveWorkspace(a) {
@@ -66,6 +67,7 @@ const time_date = Variable('', {
 
 function clock() {
     return Widget.Box({
+        hpack: 'end',
         spacing: 4,
         children: [
             Widget.Label({
@@ -97,10 +99,22 @@ function network() {
 
 function battery() {
     return Widget.Box().hook(batteryService, self => {
+        self.class_name = 'media'
         self.children = [
-            Widget.Icon({
-                icon: batteryService.bind('icon_name'),
+            Widget.CircularProgress({
+                class_name: 'media-progress',
+                value: batteryService.bind('icon_name')['emitter']['percent']/100, 
+                start_at: 0.75,
+                child: Widget.Icon({
+                    icon: batteryService.bind('icon_name'),
+                    css: 'font-size: 12px;'
+                }),
             }),
+
+            Widget.Label({
+                label: ' '+batteryService.bind('icon_name')['emitter']['percent']+'%',
+                class_name: 'media-artist'
+            })
         ]
 
         let tooltip = 'hehehe';
@@ -144,6 +158,11 @@ function media() {
 
         child: Widget.Box().hook(mprisService, self => {
             const player = mprisService.bind('players')['emitter']['players'][0]
+            let media_icon = 'media-playback-start-symbolic';
+            let increase = 1/player['length'];
+
+            if (player['play-back-status'] == 'Playing') media_icon = 'media-playback-pause-symbolic';
+            else media_icon = 'media-playback-start-symbolic';
 
             if (player != undefined) {
                 self.class_name = 'media';
@@ -155,8 +174,14 @@ function media() {
                             }
                         }, 1000);
                         
+                        self.value = player['position'] / player['length'];
                         self.start_at = 0.75,
                         self.class_name = 'media-progress'
+                    }),
+
+                    Widget.Icon({
+                        icon: media_icon,
+                        css: 'margin-left: -20px; font-size: 8px;'
                     }),
     
                     Widget.Label({
@@ -176,7 +201,7 @@ function media() {
                             : ' • ' + player['track-artists'][0]
                         }`,
                         truncate: 'end',
-                        maxWidthChars: 20
+                        maxWidthChars: 15
                     }),
                 ]                
             } else {
@@ -196,6 +221,72 @@ function media() {
     })
 }
 
+const divide = ([total, free]) => free / total
+
+const cpu_usage = Variable(0, {
+    poll: [2000, 'top -b -n 1', out => divide([100, out.split('\n')
+        .find(line => line.includes('Cpu(s)'))
+        .split(/\s+/)[1]
+        .replace(',', '.')])],
+})
+
+const ram_usage = Variable(0, {
+    poll: [2000, 'free', out => divide(out.split('\n')
+        .find(line => line.includes('Mem:'))
+        .split(/\s+/)
+        .splice(1, 2))],
+})
+
+const swap_usage = Variable(0, {
+    poll: [2000, 'free', out => divide(out.split('\n')
+        .find(line => line.includes('Swap:'))
+        .split(/\s+/)
+        .splice(1, 2))],
+})
+
+// SVG files and SVG editor: https://iconduck.com and https://deeditor.com
+
+function usage() {
+    return Widget.Box({
+        class_name: 'chart',
+        spacing: 5,
+        children: [
+            Widget.CircularProgress({
+                class_name: 'media-progress',
+                start_at: 0.75,
+                value: cpu_usage.bind(),
+                tooltip_text: 'CPU Usage',
+                child: Widget.Icon({
+                    icon: `${App.configDir}/assests/cpu.svg`,
+                    css: 'font-size: 12px;'
+                })
+            }),
+
+            Widget.CircularProgress({
+                class_name: 'media-progress',
+                start_at: 0.75,
+                value: ram_usage.bind(),
+                tooltip_text: 'RAM Usage',
+                child: Widget.Icon({
+                    icon: `${App.configDir}/assests/ram.svg`,
+                    css: 'font-size: 12px;'
+                })
+            }), 
+
+            Widget.CircularProgress({
+                class_name: 'media-progress',
+                start_at: 0.75,
+                value: swap_usage.bind(),
+                tooltip_text: 'Swap Usage',
+                child: Widget.Icon({
+                    icon: `${App.configDir}/assests/swap.svg`,
+                    css: 'font-size: 12px;'
+                })
+            })
+        ]
+    })
+}
+
 function Left() {
     return Widget.Box({
         class_name: 'modules-left',
@@ -207,13 +298,37 @@ function Left() {
     })
 }
 
+function Center_Left() {
+    return Widget.Box({
+        hpack: 'end',
+        spacing: 5,
+        children: [
+            usage(),
+            clock()
+        ]
+    })
+}
+
+function Center_Right() {
+    return Widget.Box({
+        spacing: 5,
+        children: [
+            media(),
+            battery()
+        ]
+    })
+}
+
 function Center() {
     return Widget.Box({
+        spacing: 5,
         class_name: 'modules-center',
         children: [
+            usage(),
             clock(),
             workspaces(),
-            media()
+            media(),
+            battery()
         ]
     })
 }
@@ -224,7 +339,6 @@ function Right() {
         hpack: 'end',
         children: [
             network(),
-            battery(),
             volume()
         ],
 
@@ -232,10 +346,10 @@ function Right() {
     })
 }
 
-function Bar() {
+function top_bar() {
     return Widget.Window({
         name: 'top_bar',
-        class_name: 'Bar',
+        class_name: 'top-bar',
         layer: 'bottom',
         exclusivity: 'exclusive',
         anchor: ['top', 'left', 'right'],
@@ -259,10 +373,172 @@ const Calendar = () => Widget.Window({
     })
 })
 
+let utilities_mode = 'wifi';
+
+function utilities() {
+    return Widget.Box({
+        vertical: 1,
+        class_name: 'utilities',
+        children: [
+            Widget.Box({
+                class_name: 'utilities-chooser',
+                spacing: 5,
+                hpack: 'center',
+                children: [
+                    Widget.Button({
+                        onClicked: () => utilities_mode.setValue('bluetooth'),
+                        child: Widget.Icon().hook(networkService.wifi, self => {
+                            self.icon = networkService.wifi.bind('icon_name')['emitter']['icon-name']
+                        })
+                    }),
+
+                    Widget.Button({
+                        child: Widget.Icon().hook(bluetoothService, self => {
+                            self.icon = 'bluetooth-symbolic'
+                        })
+                    }),
+
+                    Widget.Button({
+                        child: Widget.Icon({
+                            icon: 'airplane-mode-symbolic'
+                        })
+                    }),
+
+                    Widget.Button({
+                        child: Widget.Icon({
+                            icon: 'weather-clear-night-symbolic'
+                        })
+                    }),
+
+                    Widget.Button({
+                        child: Widget.Icon({
+                            icon: 'system-shutdown-symbolic'
+                        })
+                    }),
+                ]
+            }),
+
+            Widget.Box({
+                class_name: 'utilities-slider',
+                hpack: 'center',
+                children: [
+                    Widget.Slider().hook(audioService, self => {
+                        self.class_name = 'audio-slider';
+                        self.min = 0;
+                        self.max = 100;
+                        self.value = audioService.speaker.volume * 100;
+                        self.onChange = ({value}) => audioService.speaker.volume = value/100;
+                        self.css = 'font-size: 0px;'
+                    })
+                ]
+            }),
+
+            Widget.Box().hook(networkService, self => {
+                self.vertical = 1;
+
+                if (utilities_mode.getValue() == 'wifi') {
+                    self.class_name = 'utilities-menu'
+                    self.children = [
+                        Widget.Box({
+                            hpack: 'center',
+                            spacing: 10,
+                            children: [
+                                Widget.Label({
+                                    label: 'Wifi on/off'
+                                }),
+
+                                Widget.Switch({
+                                    class_name: 'utilities-switch',
+                                    on_activate: ({active}) => networkService.wifi.toggleWifi
+                                }),
+                            ]
+                        }),
+
+                        Widget.Box({
+                            vertical: 1,
+                            children: networkService.wifi['access-points'].map(hehe => {
+                                return Widget.Button({
+                                    class_name: 'utilities_button',
+                                    child: Widget.Box({
+                                        children: [
+                                            Widget.Icon({
+                                                icon: hehe['iconName']
+                                            }),
+                
+                                            Widget.Label({
+                                                label: ` ${hehe['ssid']}`
+                                            })
+                                        ]
+                                    })
+                                })
+                            })
+                        })
+                    ]
+                } else if (utilities_mode == 'bluetooth') {
+                    self.class_name = 'utilities-menu'
+                    self.children = [
+                        Widget.Box({
+                            hpack: 'center',
+                            spacing: 10,
+                            children: [
+                                Widget.Label({
+                                    label: 'Bluetooth on/off'
+                                }),
+
+                                Widget.Switch({
+                                    class_name: 'utilities-switch',
+                                    on_activate: ({active}) => networkService.wifi.toggleWifi
+                                }),
+                            ]
+                        }),
+
+                        Widget.Box({
+                            vertical: 1,
+                            children: networkService.wifi['access-points'].map(hehe => {
+                                return Widget.Button({
+                                    class_name: 'utilities_button',
+                                    child: Widget.Box({
+                                        children: [
+                                            Widget.Icon({
+                                                icon: hehe['iconName']
+                                            }),
+                
+                                            Widget.Label({
+                                                label: ` ${hehe['ssid']}`
+                                            })
+                                        ]
+                                    })
+                                })
+                            })
+                        })
+                    ]
+                }
+            })
+        ]
+    })
+}
+
+function right_bar() {
+    return Widget.Window({
+        name: 'right_bar',
+        class_name: 'right-bar',
+        layer: 'top',
+        exclusivity: 'exclusive',
+        anchor: ['top', 'right'],
+        margins: [10],
+        child: Widget.Box({
+            children: [
+                utilities(),
+            ]
+        })
+    })
+}
+
 App.config({
     windows: [
         // Calendar(),
-        Bar(),
+        top_bar(),
+        // right_bar()
     ],
 
     style: './style.css',
@@ -272,7 +548,6 @@ Utils.monitorFile(
     `${App.configDir}/../../.cache/wal/rgb-colors.css`,
 
     function() {
-        console.log("Synced top_bar style")
         App.resetCss()
         App.applyCss(`${App.configDir}/style.css`)
     },

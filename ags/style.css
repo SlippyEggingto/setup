@@ -10,7 +10,7 @@
 
 /* START OF BAR_BASIC.H */
 
-window.Bar {
+window.top-bar {
     background-color: @color0-rgba;
     color: @color15;
     font-weight: 600;
@@ -28,7 +28,7 @@ window.Bar {
     border-radius: 100px;
     padding: 8px;
     /* font-size: 0px; */
-    margin: 6px;
+    margin: 6px 0 6px 0;
     background-color: rgba(255, 255, 255, .1);
     box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
 }
@@ -78,7 +78,7 @@ window.Bar {
 /* START OF BAR_CLOCK.H */
 
 .clock {
-    margin: 6px;
+    margin: 6px 0 6px 0;
     border-radius: 100px;
     padding: 0 8px 0 8px;
     background-color: rgba(255, 255, 255, .1);
@@ -90,12 +90,20 @@ window.Bar {
     font-weight: 800;
 }
 
+.chart {
+    margin: 6px 0 6px 0;
+    border-radius: 100px;
+    padding: 0 3px 0 3px;
+    background-color: rgba(255, 255, 255, .1);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
+}
+
 /* END OF BAR_CLOCK.H */
 
 /* START OF BAR_MEDIA.H */
 
 .media {
-    margin: 6px;
+    margin: 6px 0 6px 0;
     border-radius: 100px;
     padding: 0 4px 0 4px;
     background-color: rgba(255, 255, 255, .1);
@@ -128,11 +136,69 @@ window.Bar {
 /* START OF MEDIA_PROGRESS.H */
 
 .media-progress {
-    font-size: 3px;
+    font-size: 2px;
     min-width: 20px;
     min-height: 20px;
-    background-color: rgba(255, 255, 255, .2);
+    background-color: rgba(255, 255, 255, .1);
     transition: none;
 }
 
 /* END OF MEDIA_PROGRESS.H */
+
+/* START OF RIGHT_BAR_BASIC.H */
+
+window.right-bar {
+    background-color: @color0;
+    /* background-color: transparent; */
+    border-radius: 16px;
+    /* background-color: green; */
+}
+
+/* END OF RIGHT_BAR_BASIC.H */
+
+/* START OF UTILITIES.H */
+
+.utilities {
+    /* background-color: @color0-rgba; */
+    /* border-radius: 16px; */
+    padding: 10px;
+}
+
+.utilities-menu {
+    margin: 10px;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, .1);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
+    border-radius: 16px;
+}
+
+.utilities-chooser {
+    /* background-color: red; */
+}
+
+.utilities-chooser button {
+    border: none;
+    background-color: rgba(255, 255, 255, .1);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
+}
+
+.utilities-chooser button:active {
+    background-color: @color15-rgba;
+}
+
+.utilities-switch {
+    min-width: 10px;
+}
+
+.utilities_button {
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.audio-slider {
+    min-width: 250px;
+    margin: 10px;
+}
+
+/* END OF UTILITIES.H */
