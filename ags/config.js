@@ -152,19 +152,40 @@ function volume() {
     })
 }
 
+function bluetooth() {
+    return Widget.Box().hook(bluetoothService, self => {
+        let icon = 'bluetooth-disabled-symbolic'
+        if (bluetoothService.bind('connected-devices')['emitter']['connected-devices'].length > 0) icon = 'bluetooth-active-symbolic'
+        else icon = 'bluetooth-disabled-symbolic'
+
+        let tooltip = '';
+        for (let i=0; i<bluetoothService.bind('connected-devices')['emitter']['connected-devices'].length; i++) {
+            tooltip += bluetoothService.bind('connected-devices')['emitter']['connected-devices'][i]['alias'];
+            if (i<bluetoothService.bind('connected-devices')['emitter']['connected-devices'].length-1) tooltip += ' ';
+        }
+
+        self.children = [
+            Widget.Icon({
+                icon: icon
+            })
+        ]
+
+        self.tooltip_text = tooltip
+    })
+}
+
 function media() {
     return Widget.EventBox({
         onPrimaryClick: () => Utils.exec('playerctl play-pause'),
 
         child: Widget.Box().hook(mprisService, self => {
             const player = mprisService.bind('players')['emitter']['players'][0]
-            let media_icon = 'media-playback-start-symbolic';
-            let increase = 1/player['length'];
-
-            if (player['play-back-status'] == 'Playing') media_icon = 'media-playback-pause-symbolic';
-            else media_icon = 'media-playback-start-symbolic';
 
             if (player != undefined) {
+                let media_icon = 'media-playback-start-symbolic';
+                if (player['play-back-status'] == 'Playing') media_icon = 'media-playback-pause-symbolic';
+                else media_icon = 'media-playback-start-symbolic';
+
                 self.class_name = 'media';
                 self.children = [
                     Widget.CircularProgress().hook(mprisService, self => {
@@ -209,6 +230,12 @@ function media() {
                 self.children = [
                     Widget.CircularProgress({
                         class_name: 'media-progress',
+                        
+                    }),
+                    
+                    Widget.Icon({
+                        icon: 'media-playback-start-symbolic',
+                        css: 'margin-left: -20px; font-size: 8px;'
                     }),
     
                     Widget.Label({
@@ -339,6 +366,7 @@ function Right() {
         hpack: 'end',
         children: [
             network(),
+            bluetooth(),
             volume()
         ],
 
