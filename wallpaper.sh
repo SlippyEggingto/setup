@@ -1,7 +1,22 @@
 wallpaper="/home/$USER/Downloads/wallpapers/wall_40.webp"
+dark="true"
 # waybar="waybar -s ~/.config/waybar/original.css -c ~/.config/waybar/original.jsonc"
 # waybar="waybar -s ~/.config/waybar/old.css"
 waybar=waybar
+
+if [[ "$dark" == "false" ]];
+then
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
+else
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+fi
+
+printf "wallpaper: "
+printf $wallpaper | tee /home/$USER/Downloads/wallpapers/wallpaper
+printf "\nis dark scheme: "
+printf $dark | tee /home/$USER/Downloads/wallpapers/dark
+
+python3 ~/.cache/wal/color.py
 
 rm ~/.config/hypr/hyprpaper.conf
 touch ~/.config/hypr/hyprpaper.conf

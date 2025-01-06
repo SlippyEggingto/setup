@@ -5,7 +5,12 @@ const audioService = await Service.import('audio')
 const mprisService = await Service.import('mpris');
 const bluetoothService = await Service.import('bluetooth');
 
+// const wifipoll = Variable('', {
+//     poll: [20000, 'nmcli device wifi']
+// })
+
 function workspaces() {
+    // wifipoll.getValue()
     function checkActiveWorkspace(a) {
         for (let i = 0; i < hyprlandService.bind('clients').emitter.clients.length; i++) {
             if (a == hyprlandService.bind('clients').emitter.clients[i].workspace.id) return true;
@@ -306,7 +311,7 @@ function usage() {
                 value: swap_usage.bind(),
                 tooltip_text: 'Swap Usage',
                 child: Widget.Icon({
-                    icon: `${App.configDir}/assests/swap.svg`,
+                    icon: 'network-transmit-receive-symbolic',
                     css: 'font-size: 12px;'
                 })
             })
@@ -348,7 +353,7 @@ function Center_Right() {
 
 function Center() {
     return Widget.Box({
-        spacing: 5,
+        // spacing: 5,
         class_name: 'modules-center',
         children: [
             usage(),
@@ -401,7 +406,8 @@ const Calendar = () => Widget.Window({
     })
 })
 
-let utilities_mode = 'wifi';
+// let utilities_mode = 'wifi';
+const utilities_mode = Variable('wifi')
 
 function utilities() {
     return Widget.Box({
@@ -414,15 +420,20 @@ function utilities() {
                 hpack: 'center',
                 children: [
                     Widget.Button({
-                        onClicked: () => utilities_mode.setValue('bluetooth'),
+                        onClicked: () => utilities_mode.setValue('wifi'),
                         child: Widget.Icon().hook(networkService.wifi, self => {
                             self.icon = networkService.wifi.bind('icon_name')['emitter']['icon-name']
                         })
                     }),
 
                     Widget.Button({
+                        onClicked: () => utilities_mode.setValue('bluetooth'),
                         child: Widget.Icon().hook(bluetoothService, self => {
-                            self.icon = 'bluetooth-symbolic'
+                            let icon = 'bluetooth-disabled-symbolic'
+                            if (bluetoothService.bind('connected-devices')['emitter']['connected-devices'].length > 0) icon = 'bluetooth-active-symbolic'
+                            else icon = 'bluetooth-disabled-symbolic'
+
+                            self.icon = icon
                         })
                     }),
 
@@ -447,100 +458,159 @@ function utilities() {
             }),
 
             Widget.Box({
+                vertical: 1,
                 class_name: 'utilities-slider',
                 hpack: 'center',
                 children: [
-                    Widget.Slider().hook(audioService, self => {
-                        self.class_name = 'audio-slider';
-                        self.min = 0;
-                        self.max = 100;
-                        self.value = audioService.speaker.volume * 100;
-                        self.onChange = ({value}) => audioService.speaker.volume = value/100;
-                        self.css = 'font-size: 0px;'
-                    })
+                    Widget.Box({
+                        children: [
+                            Widget.Icon().hook(audioService.speaker, self => {
+                                let vol = audioService.speaker.volume * 100
+                                let mut = audioService.speaker.is_muted
+                        
+                                if (mut == true) self.icon = 'audio-volume-muted-symbolic'
+                                else if (vol <= 15) self.icon = 'audio-volume-low-symbolic'
+                                else if (vol <= 25) self.icon = 'audio-volume-medium-symbolic'
+                                else if (vol <= 67) self.icon = 'audio-volume-high-symbolic'
+                                else self.icon = 'audio-volume-overamplified-symbolic'
+                        
+                                self.tooltip_text = `Volume ${Math.floor(vol)}%`;
+                            }),
+
+                            Widget.Slider().hook(audioService, self => {
+                                self.class_name = 'audio-slider';
+                                self.min = 0;
+                                self.max = 100;
+                                self.value = audioService.speaker.volume * 100;
+                                self.onChange = ({value}) => audioService.speaker.volume = value/100;
+                                self.css = 'font-size: 0px;'
+                            })
+                        ]
+                    }),
+                    Widget.Box({
+                        children: [
+                            Widget.Icon().hook(audioService.speaker, self => {
+                                let vol = audioService.speaker.volume * 100
+                                let mut = audioService.speaker.is_muted
+                        
+                                if (mut == true) self.icon = 'audio-volume-muted-symbolic'
+                                else if (vol <= 15) self.icon = 'audio-volume-low-symbolic'
+                                else if (vol <= 25) self.icon = 'audio-volume-medium-symbolic'
+                                else if (vol <= 67) self.icon = 'audio-volume-high-symbolic'
+                                else self.icon = 'audio-volume-overamplified-symbolic'
+                        
+                                self.tooltip_text = `Volume ${Math.floor(vol)}%`;
+                            }),
+                            
+                            Widget.Slider().hook(audioService, self => {
+                                self.class_name = 'audio-slider';
+                                self.min = 0;
+                                self.max = 100;
+                                self.value = audioService.speaker.volume * 100;
+                                self.onChange = ({value}) => audioService.speaker.volume = value/100;
+                                self.css = 'font-size: 0px;'
+                            })
+                        ]
+                    }),
                 ]
             }),
 
-            Widget.Box().hook(networkService, self => {
-                self.vertical = 1;
+            Widget.Box({
+                vertical: 1,
+                children: [
 
-                if (utilities_mode.getValue() == 'wifi') {
-                    self.class_name = 'utilities-menu'
-                    self.children = [
-                        Widget.Box({
-                            hpack: 'center',
-                            spacing: 10,
-                            children: [
-                                Widget.Label({
-                                    label: 'Wifi on/off'
-                                }),
+                    // WIFI
 
-                                Widget.Switch({
-                                    class_name: 'utilities-switch',
-                                    on_activate: ({active}) => networkService.wifi.toggleWifi
-                                }),
-                            ]
-                        }),
+                    Widget.Box().hook(networkService, self=> {
+                        self.class_name = 'utilities-menu'
+                        self.vertical = 1
 
-                        Widget.Box({
-                            vertical: 1,
-                            children: networkService.wifi['access-points'].map(hehe => {
-                                return Widget.Button({
-                                    class_name: 'utilities_button',
-                                    child: Widget.Box({
-                                        children: [
-                                            Widget.Icon({
-                                                icon: hehe['iconName']
-                                            }),
-                
-                                            Widget.Label({
-                                                label: ` ${hehe['ssid']}`
-                                            })
-                                        ]
+                        self.children = [
+                            Widget.Box({
+                                hpack: 'center',
+                                spacing: 10,
+                                children: [
+                                    Widget.Label({
+                                        label: 'Wifi on/off'
+                                    }),
+    
+                                    Widget.Switch({
+                                        class_name: 'utilities-switch',
+                                        on_activate: ({active}) => networkService.wifi.toggleWifi
+                                    }),
+                                ]
+                            }),
+    
+                            Widget.Box({
+                                vertical: 1,
+                                children: networkService.wifi['access-points'].map(hehe => {
+                                    return Widget.Button({
+                                        class_name: 'utilities_button',
+                                        child: Widget.Box({
+                                            children: [
+                                                Widget.Icon({
+                                                    icon: hehe['iconName']
+                                                }),
+                    
+                                                Widget.Label({
+                                                    label: ` ${hehe['ssid']}`
+                                                })
+                                            ]
+                                        })
                                     })
                                 })
                             })
-                        })
-                    ]
-                } else if (utilities_mode == 'bluetooth') {
-                    self.class_name = 'utilities-menu'
-                    self.children = [
-                        Widget.Box({
-                            hpack: 'center',
-                            spacing: 10,
-                            children: [
-                                Widget.Label({
-                                    label: 'Bluetooth on/off'
-                                }),
+                        ]
+                    }),
 
-                                Widget.Switch({
-                                    class_name: 'utilities-switch',
-                                    on_activate: ({active}) => networkService.wifi.toggleWifi
-                                }),
-                            ]
-                        }),
+                    // BLUETOOTH
 
-                        Widget.Box({
-                            vertical: 1,
-                            children: networkService.wifi['access-points'].map(hehe => {
-                                return Widget.Button({
-                                    class_name: 'utilities_button',
-                                    child: Widget.Box({
-                                        children: [
-                                            Widget.Icon({
-                                                icon: hehe['iconName']
-                                            }),
-                
-                                            Widget.Label({
-                                                label: ` ${hehe['ssid']}`
-                                            })
-                                        ]
+                    Widget.Box().hook(bluetoothService, self => {
+                        self.class_name = 'utilities-menu'
+                        self.vertical = 1
+
+                        self.children = [
+                            Widget.Box({
+                                hpack: 'center',
+                                spacing: 10,
+                                children: [
+                                    Widget.Label({
+                                        label: 'Bluetooth on/off'
+                                    }),
+    
+                                    Widget.Switch({
+                                        class_name: 'utilities-switch',
+                                        // on_activate: ({active}) => networkService.wifi.toggleWifi
+                                    }),
+                                ]
+                            }),
+    
+                            Widget.Box({
+                                vertical: 1,
+                                children: bluetoothService.bind('connected-devices')['emitter']['devices'].map(hehe => {
+                                    let icon = 'bluetooth-disabled-symbolic'
+                                    if (hehe.connected == true) icon = 'bluetooth-active-symbolic'
+                                    else icon = 'bluetooth-disabled-symbolic'
+
+                                    return Widget.Button({
+                                        class_name: 'utilities_button',
+                                        child: Widget.Box({
+                                            children: [
+                                                Widget.Icon({
+                                                    icon: icon
+                                                }),
+                    
+                                                Widget.Label({
+                                                    label: ` ${hehe['alias']}`
+                                                })
+                                            ]
+                                        })
                                     })
                                 })
                             })
-                        })
-                    ]
-                }
+                        ]
+                    })
+                ]
             })
         ]
     })
