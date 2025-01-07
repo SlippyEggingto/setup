@@ -1,80 +1,163 @@
 wallpaper="/home/$USER/Downloads/wallpapers/wall_40.webp"
-dark="true"
-# waybar="waybar -s ~/.config/waybar/original.css -c ~/.config/waybar/original.jsonc"
-# waybar="waybar -s ~/.config/waybar/old.css"
+dark="false"
 waybar=waybar
-
-if [[ "$dark" == "false" ]];
-then
-    gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
-else
-    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-fi
 
 printf "wallpaper: "
 printf $wallpaper | tee /home/$USER/Downloads/wallpapers/wallpaper
 printf "\nis dark scheme: "
 printf $dark | tee /home/$USER/Downloads/wallpapers/dark
+printf "\n"
 
 python3 ~/.cache/wal/color.py
+wal -i $wallpaper -qnste
 
-rm ~/.config/hypr/hyprpaper.conf
-touch ~/.config/hypr/hyprpaper.conf
-echo "\$wallpaper = $wallpaper
-preload = \$wallpaper
-wallpaper = ,\$wallpaper" >> ~/.config/hypr/hyprpaper.conf
+echo "$(sed 's/#//g' /home/$USER/.cache/wal/colors)" > /home/$USER/.cache/wal/template-colors
 
-wal -i $wallpaper -q
+echo "background-color=$(sed '28q;d' ~/.cache/wal/materialyoucolor-python)
+text-color=$(sed '29q;d' ~/.cache/wal/materialyoucolor-python)
+border-size=0
+max-history=15
+sort=+time
+font="Montserrat"1
+max-visible=14
+height=250
+border-radius=16
+default-timeout=7000" > ~/setup/mako/config
 
-sed -i -E "s/#.*?/$(sed '5q;d' ~/.cache/wal/colors)/" ~/setup/mako/config
 makoctl reload
 notify-send "Changing colorscheme and wallpaper"
-
-rm /home/$USER/.cache/wal/hyprland-colors.conf
-rm /home/$USER/.cache/wal/template-colors
-touch /home/$USER/.cache/wal/hyprland-colors.conf
-touch /home/$USER/.cache/wal/template-colors
-echo "$(sed 's/#//g' /home/$USER/.cache/wal/colors)" >> /home/$USER/.cache/wal/template-colors
-
-for i in $(seq 1 16)
-do
-    echo "\$color$i = rgb($(sed "$i q;d" /home/$USER/.cache/wal/template-colors))" >> /home/$USER/.cache/wal/hyprland-colors.conf
-done
-
-swww img --transition-type grow --transition-pos 0.854,0.997 --transition-step 90 $wallpaper
 
 cd ~/.cache/wal/
 g++ color.cpp -o color && ./color
 cd ~
 
-rm ~/.cache/wal/colors-oomox
-touch ~/.cache/wal/colors-oomox
+if [[ "$dark" == "false" ]];
+then
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
+
 echo "NAME=wal
-BG=$(sed "1q;d" ~/.cache/wal/template-colors)
-FG=$(sed "16q;d" ~/.cache/wal/template-colors)
-MENU_BG=$(sed "1q;d" ~/.cache/wal/template-colors)
-MENU_FG=$(sed "16q;d" ~/.cache/wal/template-colors)
-SEL_BG=$(sed "5q;d" ~/.cache/wal/template-colors)
-SEL_FG=ffffff
-TXT_BG=$(sed "1q;d" ~/.cache/wal/template-colors)
-TXT_FG=$(sed "16q;d" ~/.cache/wal/template-colors)
-BTN_BG=$(sed "1q;d" ~/.cache/wal/template-colors)
-BTN_FG=$(sed "16q;d" ~/.cache/wal/template-colors)
-HDR_BG=$(sed "1q;d" ~/.cache/wal/template-colors)
-HDR_FG=$(sed "16q;d" ~/.cache/wal/template-colors)
+BG=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
+FG=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
+MENU_BG=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
+MENU_FG=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
+SEL_BG=$(sed '30q;d' ~/.cache/wal/template-materialyoucolor-python)
+SEL_FG=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
+TXT_BG=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
+TXT_FG=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
+BTN_BG=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
+BTN_FG=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
+HDR_BG=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
+HDR_FG=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
 GTK3_GENERATE_DARK=True
-ROUNDNESS=12
+ROUNDNESS=10
 SPACING=3
-GRADIENT=0.0" >> ~/.cache/wal/colors-oomox
+GRADIENT=0.0" > ~/.cache/wal/colors-oomox
+
+echo "[colors]
+foreground=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
+background=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
+
+regular0=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular1=$(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular2=ffffff
+regular3=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular4=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular5=ffffff
+regular6=$(sed '29q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular7=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+
+bright0=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+bright1=$(sed '54q;d' ~/.cache/wal/template-materialyoucolor-python)
+bright2=$(sed '52q;d' ~/.cache/wal/template-materialyoucolor-python)
+bright3=$(sed '40q;d' ~/.cache/wal/template-materialyoucolor-python)
+bright4=ffffff
+bright5=ffffff
+bright6=ffffff
+bright7=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
+
+selection-foreground=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
+selection-background=$(sed '30q;d' ~/.cache/wal/template-materialyoucolor-python)
+
+search-box-no-match=$(sed '40q;d' ~/.cache/wal/template-materialyoucolor-python) $(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
+search-box-match=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python) $(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
+
+jump-labels=ffffff ffffff
+urls=ffffff" > ~/.config/foot/theme
+
+else
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
+echo "NAME=wal
+BG=$(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
+FG=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
+MENU_BG=$(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
+MENU_FG=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
+SEL_BG=$(sed '30q;d' ~/.cache/wal/template-materialyoucolor-python)
+SEL_FG=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
+TXT_BG=$(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
+TXT_FG=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
+BTN_BG=$(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
+BTN_FG=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
+HDR_BG=$(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
+HDR_FG=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
+GTK3_GENERATE_DARK=True
+ROUNDNESS=10
+SPACING=3
+GRADIENT=0.0" > ~/.cache/wal/colors-oomox
+
+# reg0 = clock-foreground, time-foreground
+# reg1 = returned-number-background (127, 128,...)
+# reg2 = <>
+# reg3 = quoted ARGUMENTS, time-background
+# reg4 = dirs-background, true-command
+# reg5 = <>
+# reg6 = true-path, sub-command
+# reg7 = clock-background
+
+# bri0 = start-end borders, auto-complete
+# bri1 = wrong-command, failed-command-arrow
+# bri2 = true-command-arrow
+# bri3 = returned-number-foreground
+# bri4 = <>
+# bri5 = <>
+# bri6 = <>
+# bri7 = dirs-foreground
+
+echo "[colors]
+foreground=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
+background=$(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
+
+regular0=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular1=$(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular2=ffffff
+regular3=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular4=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular5=ffffff
+regular6=$(sed '29q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular7=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+
+bright0=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+bright1=$(sed '52q;d' ~/.cache/wal/template-materialyoucolor-python)
+bright2=$(sed '52q;d' ~/.cache/wal/template-materialyoucolor-python)
+bright3=$(sed '40q;d' ~/.cache/wal/template-materialyoucolor-python)
+bright4=ffffff
+bright5=ffffff
+bright6=ffffff
+bright7=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
+
+selection-foreground=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
+selection-background=$(sed '30q;d' ~/.cache/wal/template-materialyoucolor-python)
+
+search-box-no-match=$(sed '40q;d' ~/.cache/wal/template-materialyoucolor-python) $(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
+search-box-match=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python) $(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
+
+jump-labels=ffffff ffffff
+urls=ffffff" > ~/.config/foot/theme
+
+fi
+
+swww img --transition-type grow --transition-pos 0.854,0.997 --transition-step 90 $wallpaper
 
 oomox-cli ~/.cache/wal/colors-oomox -m gtk320
-
-# killall waybar
-# ags -q
-# killall hyprpaper
-# hyprctl dispatch exec $waybar
-# hyprctl dispatch exec ags
-# hyprctl dispatch exec hyprpaper
-# eww reload
 
 notify-send "Colorscheme and wallpaper changed" "Wallpaper: $wallpaper\n"

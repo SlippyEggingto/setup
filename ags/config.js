@@ -289,8 +289,9 @@ function usage() {
                 value: cpu_usage.bind(),
                 tooltip_text: 'CPU Usage',
                 child: Widget.Icon({
-                    icon: `${App.configDir}/assests/cpu.svg`,
-                    css: 'font-size: 12px;'
+                    // icon: `${App.configDir}/assests/cpu.svg`,
+                    icon: 'media-record',
+                    css: 'font-size: 8px;'
                 })
             }),
 
@@ -300,8 +301,9 @@ function usage() {
                 value: ram_usage.bind(),
                 tooltip_text: 'RAM Usage',
                 child: Widget.Icon({
-                    icon: `${App.configDir}/assests/ram.svg`,
-                    css: 'font-size: 12px;'
+                    // icon: `${App.configDir}/assests/ram.svg`,
+                    icon: 'media-record',
+                    css: 'font-size: 8px;'
                 })
             }), 
 
@@ -311,8 +313,25 @@ function usage() {
                 value: swap_usage.bind(),
                 tooltip_text: 'Swap Usage',
                 child: Widget.Icon({
-                    icon: 'network-transmit-receive-symbolic',
-                    css: 'font-size: 12px;'
+                    // icon: 'network-transmit-receive-symbolic',
+                    icon: 'media-record',
+                    css: 'font-size: 8px;'
+                })
+            })
+        ]
+    })
+}
+
+function tools() {
+    return Widget.Box({
+        class_name: 'chart',
+        css: 'padding: 0 6px 0 6px; margin: 6px 4px 6px 4px;',
+        children: [
+            Widget.EventBox({
+                onPrimaryClick: () => Utils.execAsync('hyprpicker -a'),
+                class_name: 'utilities_button',
+                child: Widget.Icon({
+                    icon: 'document-edit-symbolic',
                 })
             })
         ]
@@ -330,27 +349,6 @@ function Left() {
     })
 }
 
-function Center_Left() {
-    return Widget.Box({
-        hpack: 'end',
-        spacing: 5,
-        children: [
-            usage(),
-            clock()
-        ]
-    })
-}
-
-function Center_Right() {
-    return Widget.Box({
-        spacing: 5,
-        children: [
-            media(),
-            battery()
-        ]
-    })
-}
-
 function Center() {
     return Widget.Box({
         // spacing: 5,
@@ -360,7 +358,8 @@ function Center() {
             clock(),
             workspaces(),
             media(),
-            battery()
+            battery(),
+            tools()
         ]
     })
 }

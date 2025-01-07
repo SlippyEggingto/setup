@@ -1,6 +1,7 @@
 /* ////////////////////////////////////////////////////////////////////////////////////////////// */
 
 @import url('/home/nptanphuc/.cache/wal/colors.css');
+@import url('/home/nptanphuc/.cache/wal/std-materialyoucolor-python.css');
 
 :root {
     --custom-transition-time: 0.3s;
@@ -8,15 +9,15 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --custom-background-color: var(--color0);
+        --custom-background-color: var(--onSecondaryFixed);
         --custom-content-background-color: rgba(255, 255, 255, 0.1);
     }
 }
 
 @media (prefers-color-scheme: light) {
     :root {
-        --custom-background-color: #F0F0F4;
-        --custom-content-background-color: #ffffff;
+        --custom-background-color: var(--secondaryContainer);
+        --custom-content-background-color: rgba(255, 255, 255, 0.1);
     }
 }
 
@@ -31,6 +32,7 @@
 #urlbar:not([open]) .urlbar-input-container, .tab-background:not(:not([selected])),
 #tabs-newtab-button:hover {
     background-color: var(--custom-content-background-color) !important;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .4) !important;
 }
 
 #tabs-newtab-button:hover .toolbarbutton-icon[type="menu"] {
@@ -283,6 +285,7 @@ toolbarspring {
 
 #statuspanel-label {
     border-radius: 0 !important;
-    border-top-right-radius: 16px !important;
-    padding: 2px 10px 2px 0 !important;
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
+    padding: 2px 10px 2px 10 !important;
 }

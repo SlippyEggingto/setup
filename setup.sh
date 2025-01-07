@@ -5,6 +5,7 @@ mkdir -p ~/Desktop
 mkdir -p ~/Downloads
 mkdir -p ~/Documents
 mkdir -p ~/Pictures/Screenshots
+mkdir -p ~/.config/mako
 
 sudo rm /etc/pacman.conf
 sudo ln -s ~/setup/pacman.conf /etc
@@ -38,7 +39,6 @@ ln -s ~/setup/wofi ~/.config
 ln -s ~/setup/foot ~/.config
 ln -s ~/setup/ags ~/.config
 ln -s ~/setup/eww ~/.config
-ln -s ~/setup/mako ~/.config
 ln -s ~/setup/wallpaper.sh ~
 
 sudo chmod u+x ~/setup/eww/script/workspaces.sh

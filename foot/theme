@@ -1,0 +1,30 @@
+[colors]
+foreground=151b2c
+background=dadff6
+
+regular0=ffffff
+regular1=ba1a1a
+regular2=ffffff
+regular3=495d92
+regular4=495d92
+regular5=ffffff
+regular6=001848
+regular7=495d92
+
+bright0=495d92
+bright1=5a3d59
+bright2=e1bbdc
+bright3=ffffff
+bright4=ffffff
+bright5=ffffff
+bright6=ffffff
+bright7=ffffff
+
+selection-foreground=151b2c
+selection-background=b2c5ff
+
+search-box-no-match=ffffff ba1a1a
+search-box-match=151b2c dadff6
+
+jump-labels=ffffff ffffff
+urls=ffffff
