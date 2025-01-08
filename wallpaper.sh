@@ -1,5 +1,5 @@
 wallpaper="/home/$USER/Downloads/wallpapers/wall_40.webp"
-dark="false"
+dark="true"
 waybar=waybar
 
 printf "wallpaper: "
