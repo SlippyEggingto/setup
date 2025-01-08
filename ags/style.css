@@ -148,10 +148,9 @@ window.top-bar {
 /* START OF RIGHT_BAR_BASIC.H */
 
 window.right-bar {
-    background-color: @color0;
-    /* background-color: transparent; */
+    background-color: @primaryContainer;
+    color: @onPrimaryContainer;
     border-radius: 16px;
-    /* background-color: green; */
 }
 
 /* END OF RIGHT_BAR_BASIC.H */
@@ -159,7 +158,7 @@ window.right-bar {
 /* START OF UTILITIES.H */
 
 .utilities {
-    /* background-color: @color0-rgba; */
+    background-color: transparent;
     /* border-radius: 16px; */
     padding: 10px;
 }
@@ -188,6 +187,7 @@ window.right-bar {
 
 .utilities-switch {
     min-width: 10px;
+    border-radius: 12px;
 }
 
 .utilities_button {
@@ -201,4 +201,45 @@ window.right-bar {
     margin: 10px;
 }
 
+.audio-slider trough{
+    min-height: 8px;
+    background-color: rgba(255, 255, 255, .1);
+    border-radius: 100px;
+}
+
+.audio-slider highlight {
+    background-color: @onPrimaryContainer;
+    border-radius: 100px;
+}
+
 /* END OF UTILITIES.H */
+
+/* START OF MEDIA_WINDOW.H */
+
+window.media-window {
+    background: transparent;
+}
+
+.media-window {
+    background-color: @primaryContainer;
+    color: @onPrimaryContainer;
+    padding: 10px;
+    border-radius: 16px;
+}
+
+.media-slider {
+    font-size: 0px;
+}
+
+.media-slider trough{
+    min-height: 8px;
+    background-color: rgba(255, 255, 255, .1);
+    border-radius: 100px;
+}
+
+.media-slider highlight {
+    background-color: @onPrimaryContainer;
+    border-radius: 100px;
+}
+
+/* END OF MEDIA_WINDOW.H */
