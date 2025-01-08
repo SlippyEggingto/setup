@@ -4,10 +4,10 @@ background=dadff6
 
 regular0=ffffff
 regular1=ba1a1a
-regular2=ffffff
+regular2=8b6a88
 regular3=495d92
 regular4=495d92
-regular5=ffffff
+regular5=8b6a88
 regular6=001848
 regular7=495d92
 
@@ -15,9 +15,9 @@ bright0=495d92
 bright1=5a3d59
 bright2=e1bbdc
 bright3=ffffff
-bright4=ffffff
-bright5=ffffff
-bright6=ffffff
+bright4=0000ff
+bright5=ffff00
+bright6=001848
 bright7=ffffff
 
 selection-foreground=151b2c

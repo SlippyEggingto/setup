@@ -22,7 +22,7 @@ font="Montserrat"1
 max-visible=14
 height=250
 border-radius=16
-default-timeout=7000" > ~/setup/mako/config
+default-timeout=7000" > ~/.config/mako/config
 
 makoctl reload
 notify-send "Changing colorscheme and wallpaper"
@@ -53,16 +53,25 @@ ROUNDNESS=10
 SPACING=3
 GRADIENT=0.0" > ~/.cache/wal/colors-oomox
 
+# #ff0000
+# #00ff00
+# #0000ff
+# #ffff00
+# #ff00ff
+# #00ffff
+# #987654
+# #246357
+
 echo "[colors]
 foreground=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
 background=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
 
 regular0=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular1=$(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular2=ffffff
+regular2=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular3=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular4=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular5=ffffff
+regular5=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular6=$(sed '29q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular7=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
 
@@ -70,9 +79,9 @@ bright0=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
 bright1=$(sed '54q;d' ~/.cache/wal/template-materialyoucolor-python)
 bright2=$(sed '52q;d' ~/.cache/wal/template-materialyoucolor-python)
 bright3=$(sed '40q;d' ~/.cache/wal/template-materialyoucolor-python)
-bright4=ffffff
-bright5=ffffff
-bright6=ffffff
+bright4=0000ff
+bright5=ffff00
+bright6=$(sed '29q;d' ~/.cache/wal/template-materialyoucolor-python)
 bright7=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
 
 selection-foreground=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
@@ -107,10 +116,10 @@ GRADIENT=0.0" > ~/.cache/wal/colors-oomox
 
 # reg0 = clock-foreground, time-foreground
 # reg1 = returned-number-background (127, 128,...)
-# reg2 = <>
+# reg2 = console-message
 # reg3 = quoted ARGUMENTS, time-background
 # reg4 = dirs-background, true-command
-# reg5 = <>
+# reg5 = console-crital
 # reg6 = true-path, sub-command
 # reg7 = clock-background
 
@@ -120,7 +129,7 @@ GRADIENT=0.0" > ~/.cache/wal/colors-oomox
 # bri3 = returned-number-foreground
 # bri4 = <>
 # bri5 = <>
-# bri6 = <>
+# bri6 = ~ character of true-path
 # bri7 = dirs-foreground
 
 echo "[colors]
@@ -129,10 +138,10 @@ background=$(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
 
 regular0=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular1=$(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular2=ffffff
+regular2=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular3=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular4=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular5=ffffff
+regular5=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular6=$(sed '29q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular7=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
 
@@ -142,7 +151,7 @@ bright2=$(sed '52q;d' ~/.cache/wal/template-materialyoucolor-python)
 bright3=$(sed '40q;d' ~/.cache/wal/template-materialyoucolor-python)
 bright4=ffffff
 bright5=ffffff
-bright6=ffffff
+bright6=$(sed '29q;d' ~/.cache/wal/template-materialyoucolor-python)
 bright7=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
 
 selection-foreground=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
