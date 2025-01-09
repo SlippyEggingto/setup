@@ -4,6 +4,7 @@ const networkService = await Service.import('network');
 const audioService = await Service.import('audio')
 const mprisService = await Service.import('mpris');
 const bluetoothService = await Service.import('bluetooth');
+const systrayService = await Service.import('systemtray');
 
 // const wifipoll = Variable('', {
 //     poll: [20000, 'nmcli device wifi']
@@ -95,6 +96,14 @@ function network() {
         children: [
             Widget.Icon().hook(networkService.wifi, self => {
                 self.icon = networkService.wifi.bind('icon_name')['emitter']['icon-name']
+
+                const wow = setInterval(() => {
+                    if (networkService.wifi['internet'] == 'connected') {
+                        self.icon = networkService.wifi.bind('icon_name')['emitter']['icon-name']
+                        clearInterval(wow)
+                    }
+                }, 1000);
+
             })
         ],
 
@@ -325,19 +334,54 @@ function usage() {
 
 function tools() {
     return Widget.Box({
+        spacing: 5,
         class_name: 'chart',
-        css: 'padding: 0 6px 0 6px; margin: 6px 4px 6px 4px;',
+        css: 'margin: 6px 4px 6px 4px;',
         children: [
             Widget.EventBox({
                 onPrimaryClick: () => Utils.execAsync('hyprpicker -a'),
                 class_name: 'utilities_button',
                 child: Widget.Icon({
+                    class_name: 'tools-icon',
                     icon: 'document-edit-symbolic',
+                })
+            }),
+
+            Widget.EventBox({
+                onPrimaryClick: () => Utils.execAsync("notify-send '(> ω <)'"),
+                class_name: 'utilities_button',
+                child: Widget.Icon({
+                    class_name: 'tools-icon',
+                    icon: 'find-location-symbolic',
                 })
             })
         ]
     })
 }
+
+
+/** @param {import('types/service/systemtray').TrayItem} item */
+const SysTrayItem = item => Widget.Button({
+    css: 'padding: 0; font-size: 18px;',
+    class_name: 'utilities_button',
+    child: Widget.Icon().bind('icon', item, 'icon'),
+    tooltipMarkup: item.bind('tooltip_markup'),
+    onPrimaryClick: (_, event) => item.activate(event),
+    onSecondaryClick: (_, event) => item.openMenu(event),
+});
+
+const sysTray = Widget.Box({
+    children: systrayService.bind('items').as(i => i.map(SysTrayItem)),
+    spacing: 5,
+    setup: self => {
+        function update() {
+            if (systrayService.bind('items')['emitter']['items'].length > 0) self.class_name = 'chart'
+            else self.class_name = ''
+        }
+
+        self.hook(systrayService, update, 'changed')
+    }
+})
 
 function Left() {
     return Widget.Box({
@@ -352,7 +396,6 @@ function Left() {
 
 function Center() {
     return Widget.Box({
-        // spacing: 5,
         class_name: 'modules-center',
         children: [
             usage(),
@@ -370,6 +413,7 @@ function Right() {
         class_name: 'modules-right',
         hpack: 'end',
         children: [
+            sysTray,
             network(),
             bluetooth(),
             volume()
@@ -665,7 +709,6 @@ export function MediaWindow() {
                 let media_icon = 'media-playback-start-symbolic';
                 if (player['play-back-status'] == 'Playing') media_icon = 'media-playback-pause-symbolic';
                 else media_icon = 'media-playback-start-symbolic';
-                console.log(player)
 
                 self.children = [
                     Widget.Box({

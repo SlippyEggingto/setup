@@ -9,6 +9,7 @@ printf $dark | tee /home/$USER/Downloads/wallpapers/dark
 printf "\n"
 
 python3 ~/.cache/wal/color.py
+python3 ~/.cache/wal/light_bar.py
 wal -i $wallpaper -qnste
 
 echo "$(sed 's/#//g' /home/$USER/.cache/wal/colors)" > /home/$USER/.cache/wal/template-colors
@@ -93,7 +94,8 @@ search-box-match=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python) $(
 jump-labels=ffffff ffffff
 urls=ffffff" > ~/.config/foot/theme
 
-else
+elif [[ "$dark" == "true" ]];
+then
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
 echo "NAME=wal

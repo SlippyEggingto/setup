@@ -2,6 +2,7 @@
 @import url('/home/nptanphuc/.cache/wal/colors-waybar.css');
 @import url('/home/nptanphuc/.cache/wal/rgb-colors.css');
 @import url('/home/nptanphuc/.cache/wal/materialyoucolor-python.css');
+@import url('/home/nptanphuc/.cache/wal/rgb-materialyoucolor-python.css');
 
 * {
     transition: 0.3s;
@@ -37,7 +38,7 @@ window.top-bar {
 .workspaces button {
     min-height: 0px;
     min-width: 4px;
-    background-color: @color14-rgba;
+    background-color: @secondaryFixedDim;
     border: none;
 }
 
@@ -98,6 +99,13 @@ window.top-bar {
     box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
 }
 
+.tools-icon {
+    background-color: @secondaryFixedDim-rgba;
+    margin: 2px 0 2px 0;
+    padding: 0 4px 0 4px;
+    border-radius: 100px;
+}
+
 /* END OF BAR_CLOCK.H */
 
 /* START OF BAR_MEDIA.H */
@@ -139,7 +147,7 @@ window.top-bar {
     font-size: 2px;
     min-width: 20px;
     min-height: 20px;
-    background-color: @color14-rgba;
+    background-color: @secondaryFixedDim;
     transition: none;
 }
 
