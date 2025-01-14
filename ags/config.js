@@ -21,6 +21,7 @@ function workspaces() {
     }
 
     return Widget.EventBox({
+        class_name: 'workspaces-event-box',
         child: Widget.Box({
             class_name: 'workspaces',
             spacing: 5,
@@ -147,8 +148,8 @@ function volume() {
             Widget.EventBox({
                 class_name: 'volume',
                 onPrimaryClick: () => audioService.speaker.is_muted = !audioService.speaker.is_muted,
-                onScrollUp: () => audioService.speaker.volume += 0.01,
-                onScrollDown: () => audioService.speaker.volume -= 0.01,
+                onScrollUp: () => audioService.speaker.volume += 0.03,
+                onScrollDown: () => audioService.speaker.volume -= 0.03,
                 child: Widget.Icon().hook(audioService.speaker, self => {
                     let vol = audioService.speaker.volume * 100
                     let mut = audioService.speaker.is_muted
@@ -188,9 +189,38 @@ function bluetooth() {
     })
 }
 
+let media_appear = false
+
 function media() {
     return Widget.EventBox({
-        onPrimaryClick: () => Utils.exec('playerctl play-pause'),
+        class_name: 'media-event-box',
+        onPrimaryClick: () => {
+            if (media_appear) {
+                App.applyCss(`
+                    .media-window {
+                        margin-top: -500px;
+                    }
+
+                    .media-event-box .media {
+                        background-color: @primaryContainer;
+                        color: @onPrimaryContainer;
+                    }
+                `)
+            } else {
+                App.applyCss(`
+                    .media-window {
+                        margin-top: 0;
+                    }
+
+                    .media-event-box .media {
+                        background-color: @onPrimaryContainer;
+                        color: @primaryContainer;
+                    }
+                `)
+            }
+
+            media_appear = !media_appear
+        },
 
         child: Widget.Box().hook(mprisService, self => {
             const player = mprisService.bind('players')['emitter']['players'][0]
@@ -217,7 +247,7 @@ function media() {
 
                     Widget.Icon({
                         icon: media_icon,
-                        css: 'margin-left: -20px; font-size: 8px;'
+                        css: 'margin-left: -20px; font-size: 8px; transition: none;'
                     }),
     
                     Widget.Label({
@@ -250,7 +280,7 @@ function media() {
                     
                     Widget.Icon({
                         icon: 'media-playback-start-symbolic',
-                        css: 'margin-left: -20px; font-size: 8px;'
+                        css: 'margin-left: -20px; font-size: 8px; transition: none;'
                     }),
     
                     Widget.Label({
@@ -691,7 +721,9 @@ function intToTime(a) {
     else return hh + h.toString() + ':' + mm + m.toString() + ':' + ss+s.toString();
 }
 
-export function MediaWindow() {
+let media_position = 0;
+
+function media_window() {
     return Widget.Window({
         name: 'media_window',
         class_name: 'media-window',
@@ -699,233 +731,160 @@ export function MediaWindow() {
         anchor: ['top'],
         margins: [10],
 
-        child: Widget.Box().hook(mprisService, self => {
-            const player = mprisService.bind('players')['emitter']['players'][0]
+        child: Widget.Box({
+            vertical: 1,
+            children: [
+                Widget.Label({
+                    label: 'This window could not appear without this label, will be fixed (soon)',
+                    css: 'font-size: 1px; margin-top: -2px;'
+                }),
 
-            self.class_name = 'media-window'
-            self.spacing = 10
+                Widget.Box({
+                    spacing: 10,
+                    class_name: 'media-window',
+                    children: [
+                        Widget.Box().hook(mprisService, self => {
+                            let player = mprisService.bind('players')['emitter']['players'][0];
+                            if (player != undefined) self.css = `background-image: url('${player['track-cover-url'].replace('file://', '')}'); min-width: 120px; min-height: 120px; background-size: 100% 100%; border-radius: 12px; box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);`
+                            else self.css = `background-image: url('${App.configDir}/assests/note.svg'); min-width: 120px; min-height: 120px; background-size: 100% 100%; border-radius: 12px; box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);`
+                        }),
 
-            if (player != undefined) {
-                let media_icon = 'media-playback-start-symbolic';
-                if (player['play-back-status'] == 'Playing') media_icon = 'media-playback-pause-symbolic';
-                else media_icon = 'media-playback-start-symbolic';
+                        Widget.Box({
+                            vertical: 1,
+                            vpack: 'center',
+                            spacing: 20,
+                            children: [
+                                Widget.Box({
+                                    css: 'margin-left: 10px;',
+                                    vertical: 1,
+                                    children: [
+                                        Widget.Label().hook(mprisService, self => {
+                                            self.hpack = 'start',
+                                            self.css = 'font-weight: 800;'
+                                            let player = mprisService.bind('players')['emitter']['players'][0];
+                                            if (player != undefined) self.label = `${player['track-title'] == ''
+                                                ? `${player['track-artists'][0] == '' ? 'Hmmm...' : 'Unknown title'}`
+                                                : player['track-title']
+                                            }`
 
-                self.children = [
-                    Widget.Box({
-                        css: `background-image: url('${player['track-cover-url'].replace('file://', '')}'); min-width: 120px; min-height: 120px; background-size: 100% 100%; border-radius: 12px; box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);`,
-                    }),
-    
-                    Widget.Box({
-                        vertical: 1,
-                        vpack: 'center',
-                        spacing: 20,
-                        children: [
-                            Widget.Box({
-                                css: 'margin-left: 10px;',
-                                vertical: 1,
-                                children: [
-                                    Widget.Label({
-                                        hpack: 'start',
-                                        css: 'font-weight: 800;',
-                                        label: `${player['track-title'] == ''
-                                            ? `${player['track-artists'][0] == '' ? 'Hmmm,...' : 'Unknown title'}`
-                                            : player['track-title']
-                                        }`,
-                                    }),
-            
-                                    Widget.Label({
-                                        hpack: 'start',
-                                        label: `${player['track-artists'][0] == ''
-                                            ? `${player['track-title'] == '' ? 'No media playing' : 'Unknown artists'}`
-                                            : player['track-artists'][0]
-                                        }`,
-                                    })
-                                ]
-                            }),
-    
-                            Widget.Box({
-                                vertical: 1,
-                                css: 'min-width: 300px;',
-                                spacing: 5,
-                                children: [
-                                    Widget.Slider({
-                                        min: 0,
-                                        max: 100,
-                                        class_name: 'media-slider',
-                                        onChange: ({value}) => player['position'] = value/100 * player['length'],
-                                        setup: self => {
-                                            function update() {
-                                                self.value = player['position'] / player['length'] * 100
-                                            }
+                                            else self.label = 'Hmmm...'
+                                        }),
 
-                                            self.hook(player, update, 'position')
-                                            self.poll(1000, update)
-                                        }
-                                    }),
-    
-                                    Widget.CenterBox({
-                                        spacing: 10,
-                                        start_widget: Widget.Label({
-                                            hpack: 'end',
+                                        Widget.Label().hook(mprisService, self => {
+                                            self.hpack = 'start'
+                                            let player = mprisService.bind('players')['emitter']['players'][0];
+                                            if (player != undefined) self.label = `${player['track-artists'][0] == ''
+                                                ? `${player['track-title'] == '' ? 'No media playing' : 'Unknown artists'}`
+                                                : player['track-artists'][0]
+                                            }`
+                                            
+                                            else self.label = 'No media playing'
+                                        })
+                                    ]
+                                }),
+
+                                Widget.Box({
+                                    vertical: 1,
+                                    css: 'min-width: 300px;',
+                                    spacing: 5,
+                                    children: [
+                                        Widget.Slider({
+                                            min: 0,
+                                            max: 100,
+                                            class_name: 'media-slider',
+
                                             setup: self => {
-                                                function update() {
-                                                    self.label = intToTime(player['position']);
+                                                let player = mprisService.bind('players')['emitter']['players'][0]
+                                                let a = 0;
+                                                if (player != undefined) a = player['position'];
+                                                function callback() {
+                                                    let player = mprisService.bind('players')['emitter']['players'][0]
+                                                    if (player != undefined) {
+                                                        self.onChange = ({value}) => {
+                                                            player['position'] = value/100 * player['length']
+                                                            media_position = value
+                                                            a = value/100 * player['length']
+                                                        }
+                                                        if (player['play-back-status'] == 'Playing') {
+                                                            a = player['position'];
+                                                            self.value = player['position'] / player['length'] * 100
+                                                        } else self.value = a / player['length'] * 100;
+                                                        media_position = self.value / 100 * player['length']
+                                                    }
                                                 }
 
-                                                self.hook(player, update, 'position')
-                                                self.poll(1000, update)
+                                                self.hook(mprisService, callback, 'player-changed')
+                                                self.poll(1000, callback)
                                             }
                                         }),
 
-                                        center_widget: Widget.Box({
-                                            spacing: 5,
-                                            children: [
-                                                Widget.Button({
-                                                    onClicked: () => player.shuffle(),
-                                                    child: Widget.Icon({
-                                                        icon: 'media-playlist-shuffle'
-                                                    })
-                                                }),
+                                        Widget.CenterBox({
+                                            spacing: 10,
+                                            start_widget: Widget.Label({
+                                                hpack: 'end',
 
-                                                Widget.Button({
-                                                    onClicked: () => player.previous(),
-                                                    child: Widget.Icon({
-                                                        icon: 'media-skip-backward-symbolic'
-                                                    })
-                                                }),
+                                                setup: self => {
+                                                    let player = mprisService.bind('players')['emitter']['players'][0]
+                                                    let a = 0;
+                                                    if (player != undefined) a = player['position'];
+                                                    function callback() {
+                                                        let player = mprisService.bind('players')['emitter']['players'][0]
+                                                        if (player != undefined) {
+                                                            if (player['play-back-status'] == 'Playing') self.label = intToTime(player['position']);
+                                                            else self.label = intToTime(media_position);
+                                                        } else self.label = '00:00'
+                                                    }
+
+                                                    self.hook(mprisService, callback, 'player-changed')
+                                                    self.poll(1000, callback)
+                                                }
+                                            }),
     
-                                                Widget.Button({
-                                                    onClicked: () => player.playPause(),
-                                                    child: Widget.Icon({
-                                                        icon: media_icon
-                                                    })
-                                                }),
+                                            center_widget: Widget.Box({
+                                                spacing: 5,
+                                                children: [        
+                                                    Widget.Button({
+                                                        onClicked: () => mprisService.bind('players')['emitter']['players'][0].previous(),
+                                                        child: Widget.Icon({
+                                                            icon: 'media-skip-backward-symbolic'
+                                                        })
+                                                    }),
+        
+                                                    Widget.Button({
+                                                        onClicked: () => mprisService.bind('players')['emitter']['players'][0].playPause(),
+                                                        child: Widget.Icon().hook(mprisService, self => {
+                                                            let player = mprisService.bind('players')['emitter']['players'][0];
+                                                            if (player != undefined) {
+                                                                if (player['play-back-status'] == 'Playing') self.icon = 'media-playback-pause-symbolic'
+                                                                else self.icon = 'media-playback-start-symbolic'
+                                                            } else self.icon = 'media-playback-start-symbolic'
+                                                        })
+                                                    }),
+        
+                                                    Widget.Button({
+                                                        onClicked: () => mprisService.bind('players')['emitter']['players'][0].next(),
+                                                        child: Widget.Icon({
+                                                            icon: 'media-skip-forward-symbolic'
+                                                        })
+                                                    }),
+                                                ]
+                                            }),
     
-                                                Widget.Button({
-                                                    onClicked: () => player.next(),
-                                                    child: Widget.Icon({
-                                                        icon: 'media-skip-forward-symbolic'
-                                                    })
-                                                }),
-
-                                                Widget.Button({
-                                                    onClicked: () => player.loop(),
-                                                    child: Widget.Icon({
-                                                        icon: 'media-playlist-repeat'
-                                                    })
-                                                }),
-                                            ]
-                                        }),
-
-                                        end_widget: Widget.Label().hook(mprisService, self => {
-                                            self.hpack = 'start'
-                                            self.label = intToTime(player['length']);
+                                            end_widget: Widget.Label().hook(mprisService, self => {
+                                                let player = mprisService.bind('players')['emitter']['players'][0];
+                                                self.hpack = 'start'
+                                                if (player != undefined) self.label = intToTime(player['length']);
+                                                else self.label = '00:00'
+                                            })
                                         })
-                                    })
-                                ]
-                            })
-                        ]
-                    })
-                ]
-            } else {
-                self.children = [
-                    Widget.Box({
-                        css: `background-image: url(''); min-width: 120px; min-height: 120px; background-size: 100% 100%; border-radius: 12px; box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);`,
-                    }),
-    
-                    Widget.Box({
-                        vertical: 1,
-                        vpack: 'center',
-                        spacing: 20,
-                        children: [
-                            Widget.Box({
-                                css: 'margin-left: 10px;',
-                                vertical: 1,
-                                children: [
-                                    Widget.Label({
-                                        hpack: 'start',
-                                        css: 'font-weight: 800;',
-                                        label: 'Hmmm...'
-                                    }),
-            
-                                    Widget.Label({
-                                        hpack: 'start',
-                                        label: 'No media playing'
-                                    })
-                                ]
-                            }),
-    
-                            Widget.Box({
-                                vertical: 1,
-                                css: 'min-width: 300px;',
-                                spacing: 5,
-                                children: [
-                                    Widget.Slider({
-                                        min: 0,
-                                        max: 100,
-                                        class_name: 'media-slider',
-                                        value: 0,
-                                    }),
-    
-                                    Widget.CenterBox({
-                                        spacing: 10,
-                                        start_widget: Widget.Label({
-                                            hpack: 'end',
-                                            label: '00:00'
-                                        }),
-
-                                        center_widget: Widget.Box({
-                                            spacing: 5,
-                                            children: [
-                                                Widget.Button({
-                                                    onClicked: () => player.shuffle(),
-                                                    child: Widget.Icon({
-                                                        icon: 'media-playlist-shuffle'
-                                                    })
-                                                }),
-
-                                                Widget.Button({
-                                                    onClicked: () => player.previous(),
-                                                    child: Widget.Icon({
-                                                        icon: 'media-skip-backward-symbolic'
-                                                    })
-                                                }),
-    
-                                                Widget.Button({
-                                                    onClicked: () => player.playPause(),
-                                                    child: Widget.Icon({
-                                                        icon: 'media-playback-pause-symbolic'
-                                                    })
-                                                }),
-    
-                                                Widget.Button({
-                                                    onClicked: () => player.next(),
-                                                    child: Widget.Icon({
-                                                        icon: 'media-skip-forward-symbolic'
-                                                    })
-                                                }),
-
-                                                Widget.Button({
-                                                    onClicked: () => player.loop(),
-                                                    child: Widget.Icon({
-                                                        icon: 'media-playlist-repeat'
-                                                    })
-                                                }),
-                                            ]
-                                        }),
-
-                                        end_widget: Widget.Label().hook(mprisService, self => {
-                                            self.hpack = 'start'
-                                            self.label = '00:00'
-                                        })
-                                    })
-                                ]
-                            })
-                        ]
-                    })
-                ]
-            }
-        }, 'player-changed')
+                                    ]
+                                })
+                            ]
+                        })
+                    ]
+                })
+            ]
+        })
     })
 }
 
@@ -933,7 +892,7 @@ App.config({
     windows: [
         // Calendar(),
         top_bar(),
-        // MediaWindow(),
+        media_window()
         // right_bar(),
     ],
 
