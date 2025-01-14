@@ -49,7 +49,7 @@
 
 #toolbar-menubar,
 #firefox-view-button, #alltabs-button, #new-tab-button,
-#sidebar-header, #sidebar-splitter,
+#sidebar-splitter,
 .tab-icon-sound-label,
 label[data-l10n-id="private-browsing-indicator-label"],
 #save-to-pocket-button,
@@ -212,17 +212,9 @@ scrollbox[part="scrollbox"] * {
 /* ////////////////////////////////////////////////////////////////////////////////////////////// */
 
 #sidebar-box {
-    width: 0px !important;
-    min-width: 0px !important;
-    border: none !important;
-    padding: none !important;
-    position: relative;
-    z-index: 1;
-}
-
-#sidebar-box[sidebarcommand="viewBookmarksSidebar"] > #sidebar,
-#sidebar-box[sidebarcommand="viewHistorySidebar"] > #sidebar{
-    min-width: 300px !important;
+    position: absolute;
+    z-index: 40000;
+    height: calc(100vh - 62px) !important;
 }
 
 /* ////////////////////////////////////////////////////////////////////////////////////////////// */
