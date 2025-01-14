@@ -1,0 +1,403 @@
+@import url('/home/nptanphuc/.cache/wal/std-materialyoucolor-python.css');
+@import url('/home/nptanphuc/.cache/wal/rgb-materialyoucolor-python.css');
+
+:root {
+    --bg: var(--onSecondaryFixed);
+    --fg: var(--secondaryFixed);
+    --menu-bg: var(--onSecondaryFixed);
+    --menu-fg: var(--secondaryFixed);
+    --sel-bg: var(--inversePrimary);
+    --sel-fg: var(--secondaryFixed);
+    --txt-bg: var(--onSecondaryFixed);
+    --txt-fg: var(--secondaryFixed);
+    --btn-bg: var(--onSecondary);
+    --btn-fg: var(--secondaryFixed);
+    --btn-disabled-bg: var(--surfaceContainerHigh);
+    --btn-disabled-fg: var(--outline);
+    --btn-checked-bg: var(--onPrimaryContainer);
+    --btn-checked-fg: var(--primaryContainer);
+    --btn-func-bg: var(--inversePrimary);
+    --hdr-bg: var(--onSecondaryFixed);
+    --hdr-fg: var(--secondaryFixed);
+    --entry-bg: var(--secondaryContainer);
+    --entry-fg: var(--onSurface);
+    --entry-disabled-bg: var(--surfaceContainerHigh);
+    --entry-disabled-fg: var(--outline);
+    --menu-bg: var(--onSecondary);
+    --menu-fg: var(--secondaryFixed);
+    --switch-bg: var(--primaryContainer);
+    --switch-fg: var(--onPrimaryContainer);
+    --border-radius: 10px;
+    --border: 1px solid var(--outline);
+    --box-shadow: 0 0 2px rgba(0, 0, 0, .4);
+}
+
+entry, button, list box, switch, spinbutton, sort-indicator {
+    margin: 3px;
+}
+
+headerbar {
+    margin-top: 5px;
+}
+
+label:disabled {
+    color: var(--entry-disabled-fg);
+}
+
+.background {
+    background-color: var(--bg);
+    color: var(--fg);
+}
+
+button {
+    background-color: var(--btn-bg);
+    color: var(--btn-fg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 7px 10px 7px 10px;
+    transition: 0.3s;
+}
+
+button:checked {
+    background-color: var(--btn-checked-bg);
+    color: var(--btn-checked-fg);
+}
+
+button:disabled {
+    background-color: var(--btn-disabled-bg);
+    color: var(--btn-disabled-fg);
+}
+
+check, radio {
+    background-color: var(--btn-bg);
+    border-radius: 5px;
+    padding: 3px;
+    margin-right: 4px;
+    box-shadow: var(--box-shadow);
+}
+
+radio {
+    border-radius: 100px;
+}
+
+check:checked, radio:checked {
+    background-color: var(--btn-bg);
+    -gtk-icon-source: -gtk-icontheme("emblem-ok-symbolic");
+}
+
+radio:checked {
+    -gtk-icon-source: -gtk-icontheme("media-record-symbolic");
+}
+
+check:indeterminate, radio:indeterminate {
+    background-color: var(--btn-bg);
+    -gtk-icon-source: -gtk-icontheme("list-remove-symbolic");
+}
+
+check:disabled, radio:disabled {
+    background-color: var(--btn-disabled-bg);
+}
+
+checkbutton:disabled.text-button, radiobutton:disabled.text-button {
+    color: var(--btn-disabled-fg);
+}
+
+headerbar button {
+    margin: 0 3px 0 3px;
+}
+
+entry {
+    padding: 5px 7px 5px 7px;
+    background-color: var(--entry-bg);
+    color: var(--entry-fg);
+    border-radius: var(--border-radius);
+}
+
+entry:disabled {
+    background-color: var(--entry-disabled-bg);
+    color: var(--entry-disabled-fg);
+}
+
+@keyframes spin {
+    to {
+        -gtk-icon-transform: rotate(1turn);
+    }
+}
+
+spinner:checked {
+    -gtk-icon-source: -gtk-icontheme("process-working-symbolic");
+    animation: spin 1s linear infinite;
+}
+
+spinner:disabled {
+    opacity: 0.3;
+}
+
+arrow {
+    -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
+}
+
+arrow.left {
+    -gtk-icon-source: -gtk-icontheme("pan-start-symbolic");
+}
+
+arrow.right {
+    -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+}
+
+arrow.up {
+    -gtk-icon-source: -gtk-icontheme("pan-up-symbolic");
+}
+
+arrow.down {
+    -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
+}
+
+sort-indicator.ascending {
+    -gtk-icon-source: -gtk-icontheme("pan-up-symbolic");
+}
+
+sort-indicator.descending {
+    -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
+}
+
+switch {
+    transition: 0.3s;
+    background-color: var(--switch-disabled-bg);
+    min-height: 25px;
+    min-width: 50px;
+    border-radius: 100px;
+}
+
+switch slider {
+    border-radius: 100px;
+    background-color: var(--switch-checked-bg);
+}
+
+switch:disabled {
+    background-color: var(--switch-disabled-bg);
+}
+
+switch:disabled slider {
+    background-color: var(--switch-disabled-fg);
+}
+
+switch:checked {
+    background-color: var(--switch-bg);
+}
+
+button.font > box > box > label{
+    margin: 0 0 0 5px;
+    font-weight: bold;
+}
+
+spinbutton {
+    border-radius: var(--border-radius);
+    padding: 2px 0 2px 0;
+    background-color: var(--btn-bg);
+}
+
+spinbutton:disabled {
+    background-color: var(--btn-disabled-bg);
+}
+
+spinbutton text {
+    margin: 0 7px 0 7px;
+}
+
+spinbutton button {
+    margin: 0 2px 0 2px;
+    padding: 2px;
+    background-color: var(--entry-bg);
+}
+
+spinbutton button:disabled {
+    background-color: var(--btn-bg);
+}
+
+scale, levelbar, progressbar {
+    padding: 7px;
+}
+
+scale trough, progressbar trough {
+    background-color: var(--btn-bg);
+    min-height: 7px;
+    min-width: 7px;
+    border-radius: var(--border-radius);
+}
+
+scale highlight, progressbar progress{
+    min-width: 7px;
+    min-height: 7px;
+    border-radius: 100px;
+    background-color: var(--btn-checked-bg);
+}
+
+scale trough:disabled {
+    background-color: var(--btn-disabled-bg);
+}
+
+scale highlight:disabled {
+    background-color: var(--btn-bg);
+}
+
+scale slider {
+    background-color: var(--btn-func-bg);
+    min-width: 10px;
+    min-height: 10px;
+    border-radius: 100px;
+    margin: -8px;
+}
+
+scale marks {
+    min-width: 10px;
+    min-height: 10px;
+    margin-top: 6px;
+}
+
+marks mark {
+    min-height: 6px;
+    min-width: 1px;
+    background-color: var(--btn-checked-bg);
+}
+
+levelbar trough {
+    min-width: 7px;
+    min-height: 7px;
+    border-radius: 100px;
+}
+
+levelbar block:first-child {
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+}
+
+levelbar block:last-child {
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+}
+
+levelbar block {
+    margin: 0 1px 0 1px;
+}
+
+levelbar block.filled {
+    background-color: var(--btn-checked-bg);
+}
+
+levelbar block.empty {
+    background-color: var(--btn-bg);
+}
+
+treeview, textview {
+    padding: 3px;
+    border-radius: var(--border-radius);
+    background-color: var(--menu-bg);
+}
+
+treeview button {
+    border-radius: 0;
+    background-color: var(--menu-bg);
+    border-bottom: var(--border);
+}
+
+popover.menu {
+    background-color: var(--bg);
+    padding: 5px;
+    border-radius: var(--border-radius);
+    border: var(--border);
+    box-shadow: var(--box-shadow);
+}
+
+popover.menu modelbutton{
+    margin: 2px;
+    border-radius: var(--border-radius);
+    padding: 5px 10px 5px 10px;
+}
+
+popover.menu modelbutton:hover {
+    background-color: var(--btn-checked-bg);
+    color: var(--btn-checked-fg);
+}
+
+popover.menu modelbutton:hover check {
+    color: var(--btn-checked-bg);
+}
+
+popover.menu modelbutton:hover radio {
+    color: var(--btn-checked-bg);
+}
+
+notebook {
+    background-color: var(--menu-bg);
+    border-radius: var(--border-radius);
+}
+
+notebook > header {
+    /* background-color: var(--entry-bg); */
+}
+
+notebook > header > tabs > tab {
+    border: none;
+    margin: 5px;
+    padding: 5px;
+}
+
+notebook > header > tabs > tab:checked {
+    background-color: var(--btn-checked-bg);
+    color: var(--btn-checked-fg);
+    border-radius: 5px;
+}
+
+list box {
+    padding: 5px;
+}
+
+notebook > header.top {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    border-bottom: var(--border);
+}
+
+notebook > header.right {
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    border-left: var(--border);
+}
+
+notebook > header.bottom {
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    border-top: var(--border);
+}
+
+notebook > header.left {
+    border-top-left-radius: var(--border-radius);
+    border-bottom-left-radius: var(--border-radius);
+    border-right: var(--border);
+}
+
+header button {
+    margin: 7px 10px 7px 10px;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+image {
+    margin: 0 5px 0 5px;
+}
+
+
+.NautilusPathBar {
+    background-color: yellow;
+}
+
+.top-bar entry {
+    margin: 0;
+}
+
+windowhandle {
+    padding: 0;
+    margin: 0;
+}
