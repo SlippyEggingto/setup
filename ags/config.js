@@ -190,7 +190,6 @@ function bluetooth() {
 }
 
 let media_appear = false
-let media_position = 0;
 
 function media() {
     return Widget.EventBox({
@@ -237,18 +236,9 @@ function media() {
                         class_name: 'media-progress',
                         start_at: 0.75,
                         setup: self => {
-                            let player = mprisService.bind('players')['emitter']['players'][0]
-                            let a = 0;
-                            if (player != undefined) a = player['position'];
                             function callback() {
                                 let player = mprisService.bind('players')['emitter']['players'][0]
-                                if (player != undefined) {
-                                    if (player['play-back-status'] == 'Playing') {
-                                        a = player['position'];
-                                        self.value = player['position'] / player['length']
-                                    } else self.value = a / player['length'];
-                                    media_position = self.value / 100 * player['length']
-                                } else self.value = 0
+                                self.value = player['position'] / player['length']
                             }
 
                             self.hook(mprisService, callback, 'player-changed')
@@ -803,23 +793,10 @@ function media_window() {
                                             class_name: 'media-slider',
 
                                             setup: self => {
-                                                let player = mprisService.bind('players')['emitter']['players'][0]
-                                                let a = 0;
-                                                if (player != undefined) a = player['position'];
                                                 function callback() {
                                                     let player = mprisService.bind('players')['emitter']['players'][0]
-                                                    if (player != undefined) {
-                                                        self.onChange = ({value}) => {
-                                                            player['position'] = value/100 * player['length']
-                                                            media_position = value
-                                                            a = value/100 * player['length']
-                                                        }
-                                                        if (player['play-back-status'] == 'Playing') {
-                                                            a = player['position'];
-                                                            self.value = player['position'] / player['length'] * 100
-                                                        } else self.value = a / player['length'] * 100;
-                                                        media_position = self.value / 100 * player['length']
-                                                    } else self.value = 0
+                                                    self.onChange = ({value}) => player['position'] = value/100 * player['length']
+                                                    self.value = player['position'] / player['length'] * 100
                                                 }
 
                                                 self.hook(mprisService, callback, 'player-changed')
@@ -833,15 +810,8 @@ function media_window() {
                                                 hpack: 'end',
 
                                                 setup: self => {
-                                                    let player = mprisService.bind('players')['emitter']['players'][0]
-                                                    let a = 0;
-                                                    if (player != undefined) a = player['position'];
                                                     function callback() {
-                                                        let player = mprisService.bind('players')['emitter']['players'][0]
-                                                        if (player != undefined) {
-                                                            if (player['play-back-status'] == 'Playing') self.label = intToTime(player['position']);
-                                                            else self.label = intToTime(media_position);
-                                                        } else self.label = '00:00'
+                                                        self.label = intToTime(mprisService.bind('players')['emitter']['players'][0]['position'])
                                                     }
 
                                                     self.hook(mprisService, callback, 'player-changed')
@@ -862,11 +832,8 @@ function media_window() {
                                                     Widget.Button({
                                                         onClicked: () => mprisService.bind('players')['emitter']['players'][0].playPause(),
                                                         child: Widget.Icon().hook(mprisService, self => {
-                                                            let player = mprisService.bind('players')['emitter']['players'][0];
-                                                            if (player != undefined) {
-                                                                if (player['play-back-status'] == 'Playing') self.icon = 'media-playback-pause-symbolic'
-                                                                else self.icon = 'media-playback-start-symbolic'
-                                                            } else self.icon = 'media-playback-start-symbolic'
+                                                            if (mprisService.bind('players')['emitter']['players'][0]['play-back-status'] == 'Playing') self.icon = 'media-playback-pause-symbolic'
+                                                            else self.icon = 'media-playback-start-symbolic'
                                                         })
                                                     }),
         
@@ -880,10 +847,8 @@ function media_window() {
                                             }),
     
                                             end_widget: Widget.Label().hook(mprisService, self => {
-                                                let player = mprisService.bind('players')['emitter']['players'][0];
                                                 self.hpack = 'start'
-                                                if (player != undefined) self.label = intToTime(player['length']);
-                                                else self.label = '00:00'
+                                                self.label = intToTime(mprisService.bind('players')['emitter']['players'][0]['length']);
                                             })
                                         })
                                     ]
