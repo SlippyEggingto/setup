@@ -190,6 +190,7 @@ function bluetooth() {
 }
 
 let media_appear = false
+let media_position = 0;
 
 function media() {
     return Widget.EventBox({
@@ -198,7 +199,7 @@ function media() {
             if (media_appear) {
                 App.applyCss(`
                     .media-window {
-                        margin-top: -500px;
+                        margin-top: -150px;
                     }
 
                     .media-event-box .media {
@@ -209,7 +210,7 @@ function media() {
             } else {
                 App.applyCss(`
                     .media-window {
-                        margin-top: 0;
+                        margin-top: 0px;
                     }
 
                     .media-event-box .media {
@@ -236,12 +237,22 @@ function media() {
                         class_name: 'media-progress',
                         start_at: 0.75,
                         setup: self => {
-                            function update() {
-                                self.value = player['position'] / player['length']
+                            let player = mprisService.bind('players')['emitter']['players'][0]
+                            let a = 0;
+                            if (player != undefined) a = player['position'];
+                            function callback() {
+                                let player = mprisService.bind('players')['emitter']['players'][0]
+                                if (player != undefined) {
+                                    if (player['play-back-status'] == 'Playing') {
+                                        a = player['position'];
+                                        self.value = player['position'] / player['length']
+                                    } else self.value = a / player['length'];
+                                    media_position = self.value / 100 * player['length']
+                                } else self.value = 0
                             }
 
-                            self.hook(player, update, 'position')
-                            self.poll(1000, update)
+                            self.hook(mprisService, callback, 'player-changed')
+                            self.poll(1000, callback)
                         }
                     }),
 
@@ -721,8 +732,6 @@ function intToTime(a) {
     else return hh + h.toString() + ':' + mm + m.toString() + ':' + ss+s.toString();
 }
 
-let media_position = 0;
-
 function media_window() {
     return Widget.Window({
         name: 'media_window',
@@ -735,7 +744,7 @@ function media_window() {
             vertical: 1,
             children: [
                 Widget.Label({
-                    label: 'This window could not appear without this label, will be fixed (soon)',
+                    label: 'This window could not appear without this label, i don\'t know how to fix this bug :)',
                     css: 'font-size: 1px; margin-top: -2px;'
                 }),
 
@@ -745,7 +754,7 @@ function media_window() {
                     children: [
                         Widget.Box().hook(mprisService, self => {
                             let player = mprisService.bind('players')['emitter']['players'][0];
-                            if (player != undefined) self.css = `background-image: url('${player['track-cover-url'].replace('file://', '')}'); min-width: 120px; min-height: 120px; background-size: 100% 100%; border-radius: 12px; box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);`
+                            if (player != undefined) self.css = `background-image: url('${player['track-cover-url'].replace('file://', '')}'); min-width: 120px; min-height: 120px; background-size: auto 100%; background-repeat: no-repeat; background-clip: content-box; background-position: 50% 50%; border-radius: 12px; box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);`
                             else self.css = `background-image: url('${App.configDir}/assests/note.svg'); min-width: 120px; min-height: 120px; background-size: 100% 100%; border-radius: 12px; box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);`
                         }),
 
@@ -810,7 +819,7 @@ function media_window() {
                                                             self.value = player['position'] / player['length'] * 100
                                                         } else self.value = a / player['length'] * 100;
                                                         media_position = self.value / 100 * player['length']
-                                                    }
+                                                    } else self.value = 0
                                                 }
 
                                                 self.hook(mprisService, callback, 'player-changed')

@@ -237,11 +237,12 @@ window.media-window {
 }
 
 .media-window {
+    transition: cubic-bezier(.6,.77,.06,1.2) .5s;
     background-color: @primaryContainer;
     color: @onPrimaryContainer;
     padding: 10px;
     border-radius: 16px;
-    margin-top: -500px;
+    margin-top: -150px;
 }
 
 .media-window button {
