@@ -22,7 +22,8 @@ ags_v2/@girs/
 ags_v2/tsconfig.json
 ags_v2/style.scss
 ags_v2/env.d.ts
-wallappers/wallapper
-wallappers/ags
-wallappers/dark
-wallappers/opacity
+wallpapers/wallpaper
+wallpapers/ags
+wallpapers/dark
+wallpapers/opacity
+foot/theme
