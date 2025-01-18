@@ -1,4 +1,4 @@
-wallpaper="/home/$USER/Downloads/wallpapers/wall_40.webp"
+wallpaper=$(zenity --file-selection)
 dark="true"
 waybar=waybar
 
@@ -10,9 +10,7 @@ printf "\n"
 
 python3 ~/.cache/wal/color.py
 python3 ~/.cache/wal/light_bar.py
-wal -i $wallpaper -qnste
-
-echo "$(sed 's/#//g' /home/$USER/.cache/wal/colors)" > /home/$USER/.cache/wal/template-colors
+printf ags | tee /home/$USER/Downloads/wallpapers/ags
 
 echo "background-color=$(sed '28q;d' ~/.cache/wal/materialyoucolor-python)
 text-color=$(sed '29q;d' ~/.cache/wal/materialyoucolor-python)
@@ -26,15 +24,28 @@ border-radius=16
 default-timeout=7000" > ~/.config/mako/config
 
 makoctl reload
-notify-send "Changing colorscheme and wallpaper"
-
-cd ~/.cache/wal/
-g++ color.cpp -o color && ./color
-cd ~
 
 if [[ "$dark" == "false" ]];
 then
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
+
+echo "@define-color accent_color @primaryFixedDim;
+@define-color accent_fg_color @onPrimaryFixed;
+@define-color accent_bg_color @primaryFixedDim;
+@define-color window_bg_color @secondaryContainer;
+@define-color window_fg_color @onSecondaryContainer;
+@define-color headerbar_bg_color @secondaryContainer;
+@define-color headerbar_fg_color @onSecondaryContainer;
+@define-color popover_bg_color @secondaryContainer;
+@define-color popover_fg_color @onSecondaryContainer;
+@define-color view_bg_color color-mix(in srgb, @secondaryContainer 95%, @onSecondaryContainer);
+@define-color view_fg_color @onSecondaryContainer;
+@define-color card_bg_color color-mix(in srgb, @secondaryContainer 95%, @onSecondaryContainer);
+@define-color card_fg_color @onSecondaryContainer;
+@define-color sidebar_bg_color @window_bg_color;
+@define-color sidebar_fg_color @window_fg_color;
+@define-color sidebar_border_color @window_bg_color;
+@define-color sidebar_backdrop_color @window_bg_color;" > ~/.cache/wal/gtk4.css
 
 echo "NAME=wal
 BG=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
@@ -97,6 +108,24 @@ urls=ffffff" > ~/.config/foot/theme
 elif [[ "$dark" == "true" ]];
 then
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
+echo "@define-color accent_color @primaryFixedDim;
+@define-color accent_fg_color @onPrimaryFixed;
+@define-color accent_bg_color @primaryFixedDim;
+@define-color window_bg_color @onSecondaryFixed;
+@define-color window_fg_color @secondaryFixed;
+@define-color headerbar_bg_color @onSecondaryFixed;
+@define-color headerbar_fg_color @secondaryFixed;
+@define-color popover_bg_color @onSecondaryFixed;
+@define-color popover_fg_color @secondaryFixed;
+@define-color view_bg_color color-mix(in srgb, @onSecondaryFixed 95%, @secondaryFixed);
+@define-color view_fg_color @secondaryFixed;
+@define-color card_bg_color color-mix(in srgb, @onSecondaryFixed 95%, @secondaryFixed);
+@define-color card_fg_color @secondaryFixed;
+@define-color sidebar_bg_color @window_bg_color;
+@define-color sidebar_fg_color @window_fg_color;
+@define-color sidebar_border_color @window_bg_color;
+@define-color sidebar_backdrop_color @window_bg_color;" > ~/.cache/wal/gtk4.css
 
 echo "NAME=wal
 BG=$(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
@@ -170,5 +199,3 @@ fi
 swww img --transition-type grow --transition-pos 0.854,0.997 --transition-step 90 $wallpaper
 
 oomox-cli ~/.cache/wal/colors-oomox -m gtk320
-
-notify-send "Colorscheme and wallpaper changed" "Wallpaper: $wallpaper\n"

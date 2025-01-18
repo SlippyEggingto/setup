@@ -874,7 +874,7 @@ App.config({
 })
 
 Utils.monitorFile(
-    `${App.configDir}/../../.cache/wal/rgb-colors.css`,
+    `${App.configDir}/../../Downloads/wallpapers/ags`,
 
     function() {
         App.resetCss()

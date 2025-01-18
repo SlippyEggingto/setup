@@ -1,6 +1,4 @@
 /* START OF BASIC.H */
-@import url('/home/nptanphuc/.cache/wal/colors-waybar.css');
-@import url('/home/nptanphuc/.cache/wal/rgb-colors.css');
 @import url('/home/nptanphuc/.cache/wal/materialyoucolor-python.css');
 @import url('/home/nptanphuc/.cache/wal/rgb-materialyoucolor-python.css');
 
@@ -198,7 +196,7 @@ window.right-bar {
 }
 
 .utilities-chooser button:active {
-    background-color: @color15-rgba;
+    background-color: @secondaryFixedDim;
 }
 
 .utilities-switch {
