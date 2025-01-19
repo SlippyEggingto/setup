@@ -205,6 +205,10 @@ function media() {
                         background-color: @primaryContainer;
                         color: @onPrimaryContainer;
                     }
+
+                    .media-event-box .media-progress {
+                        background-color: alpha(@onPrimaryContainer, .16);
+                    }
                 `)
             } else {
                 App.applyCss(`
@@ -216,6 +220,10 @@ function media() {
                         background-color: @onPrimaryContainer;
                         color: @primaryContainer;
                     }
+
+                    .media-event-box .media-progress {
+                        background-color: alpha(@primaryContainer, .2);
+                    }
                 `)
             }
 
@@ -224,73 +232,46 @@ function media() {
 
         child: Widget.Box().hook(mprisService, self => {
             const player = mprisService.bind('players')['emitter']['players'][0]
+            let media_icon = 'media-playback-start-symbolic';
+            if (player['play-back-status'] == 'Playing') media_icon = 'media-playback-pause-symbolic';
+            else media_icon = 'media-playback-start-symbolic';
 
-            if (player != undefined) {
-                let media_icon = 'media-playback-start-symbolic';
-                if (player['play-back-status'] == 'Playing') media_icon = 'media-playback-pause-symbolic';
-                else media_icon = 'media-playback-start-symbolic';
-
-                self.class_name = 'media';
-                self.children = [
-                    Widget.CircularProgress({
-                        class_name: 'media-progress',
-                        start_at: 0.75,
-                        setup: self => {
-                            function callback() {
-                                let player = mprisService.bind('players')['emitter']['players'][0]
-                                self.value = player['position'] / player['length']
-                            }
-
-                            self.hook(mprisService, callback, 'player-changed')
-                            self.poll(1000, callback)
+            self.class_name = 'media';
+            self.children = [
+                Widget.CircularProgress({
+                    class_name: 'media-progress',
+                    start_at: 0.75,
+                    setup: self => {
+                        function callback() {
+                            let player = mprisService.bind('players')['emitter']['players'][0]
+                            self.value = player['position'] / player['length']
                         }
-                    }),
 
-                    Widget.Icon({
-                        icon: media_icon,
-                        css: 'margin-left: -20px; font-size: 8px; transition: none;'
-                    }),
-    
-                    Widget.Label({
-                        class_name: 'media-title',
-                        label: `${player['track-title'] == ''
-                            ? `${player['track-artists'][0] == '' ? '' : ' Unknown title'}`
-                            : ' ' + player['track-title']
-                        }`,
-                        truncate: 'end',
-                        maxWidthChars: 20
-                    }),
-    
-                    Widget.Label({
-                        class_name: 'media-artist',
-                        label: `${player['track-artists'][0] == ''
-                            ? `${player['track-title'] == '' ? ' No media playing' : ' • Unknown artists'}`
-                            : ' • ' + player['track-artists'][0]
-                        }`,
-                        truncate: 'end',
-                        maxWidthChars: 15
-                    }),
-                ]                
-            } else {
-                self.class_name = 'media';
-                self.children = [
-                    Widget.CircularProgress({
-                        class_name: 'media-progress',
-                        
-                    }),
-                    
-                    Widget.Icon({
-                        icon: 'media-playback-start-symbolic',
-                        css: 'margin-left: -20px; font-size: 8px; transition: none;'
-                    }),
-    
-                    Widget.Label({
-                        class_name: 'media-artist',
-                        label: ' No media playing',
-                    }),
-                ];
-            }
-        }, 'player-changed')
+                        self.hook(mprisService, callback, 'player-changed')
+                        self.poll(1000, callback)
+                    }
+                }),
+
+                Widget.Icon({
+                    icon: media_icon,
+                    css: 'margin-left: -20px; font-size: 8px; transition: none;'
+                }),
+
+                Widget.Label({
+                    class_name: 'media-title',
+                    label: player['track-title'],
+                    truncate: 'end',
+                    maxWidthChars: 20
+                }),
+
+                Widget.Label({
+                    class_name: 'media-artist',
+                    label: ` • ${player['track-artists'][0]}`,
+                    truncate: 'end',
+                    maxWidthChars: 15
+                }),
+            ]
+        })
     })
 }
 
@@ -708,7 +689,7 @@ function right_bar() {
 }
 
 function intToTime(a) {
-    if (a==0) return '00:00'
+    if (a==-1) return '00:00'
     let h = Math.floor(a/3600);
     let m = Math.floor((a-h*3600)/60);
     let s = Math.floor(a-h*3600-m*60);
@@ -720,6 +701,32 @@ function intToTime(a) {
     if (s<10) ss = '0';
     if (h==0) return mm + m.toString() + ':' + ss + s.toString();
     else return hh + h.toString() + ':' + mm + m.toString() + ':' + ss+s.toString();
+}
+
+function split_title(a) {
+    let s = '', count=0, wordlen=0;
+    for (let i=0; i<a.length; i++) {
+        count++;
+        s+=a[i];
+        wordlen++;
+        
+        if (i>75) {
+            s+='...';
+            return s;
+        } if (wordlen>=40) {
+            s+='-\n';
+            wordlen=0;
+        } if (a[i]==' ') {
+            wordlen = 0;
+
+            if (count>=40) {
+                s+='\n';
+                count=0;
+            }
+        }
+    }
+
+    return s;
 }
 
 function media_window() {
@@ -743,9 +750,7 @@ function media_window() {
                     class_name: 'media-window',
                     children: [
                         Widget.Box().hook(mprisService, self => {
-                            let player = mprisService.bind('players')['emitter']['players'][0];
-                            if (player != undefined) self.css = `background-image: url('${player['track-cover-url'].replace('file://', '')}'); min-width: 120px; min-height: 120px; background-size: auto 100%; background-repeat: no-repeat; background-clip: content-box; background-position: 50% 50%; border-radius: 12px; box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);`
-                            else self.css = `background-image: url('${App.configDir}/assests/note.svg'); min-width: 120px; min-height: 120px; background-size: 100% 100%; border-radius: 12px; box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);`
+                            self.css = `background-image: url('${mprisService.bind('players')['emitter']['players'][0]['track-cover-url'].replace('file://', '')}'); min-width: 120px; min-height: 120px; background-size: auto 100%; background-repeat: no-repeat; background-clip: content-box; background-position: 50% 50%; border-radius: 12px; box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);`
                         }),
 
                         Widget.Box({
@@ -760,24 +765,12 @@ function media_window() {
                                         Widget.Label().hook(mprisService, self => {
                                             self.hpack = 'start',
                                             self.css = 'font-weight: 800;'
-                                            let player = mprisService.bind('players')['emitter']['players'][0];
-                                            if (player != undefined) self.label = `${player['track-title'] == ''
-                                                ? `${player['track-artists'][0] == '' ? 'Hmmm...' : 'Unknown title'}`
-                                                : player['track-title']
-                                            }`
-
-                                            else self.label = 'Hmmm...'
+                                            self.label = split_title(mprisService.bind('players')['emitter']['players'][0]['track-title'])
                                         }),
 
                                         Widget.Label().hook(mprisService, self => {
                                             self.hpack = 'start'
-                                            let player = mprisService.bind('players')['emitter']['players'][0];
-                                            if (player != undefined) self.label = `${player['track-artists'][0] == ''
-                                                ? `${player['track-title'] == '' ? 'No media playing' : 'Unknown artists'}`
-                                                : player['track-artists'][0]
-                                            }`
-                                            
-                                            else self.label = 'No media playing'
+                                            self.label = mprisService.bind('players')['emitter']['players'][0]['track-artists'][0]
                                         })
                                     ]
                                 }),

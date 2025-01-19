@@ -1,6 +1,5 @@
 /* START OF BASIC.H */
 @import url('/home/nptanphuc/.cache/wal/materialyoucolor-python.css');
-@import url('/home/nptanphuc/.cache/wal/rgb-materialyoucolor-python.css');
 
 * {
     transition: 0.3s;
@@ -36,7 +35,7 @@ window.top-bar {
 .workspaces button {
     min-height: 0px;
     min-width: 4px;
-    background-color: @secondaryFixedDim;
+    background-color: alpha(@onPrimaryContainer, .2);
     border: none;
 }
 
@@ -98,7 +97,7 @@ window.top-bar {
 }
 
 .tools-icon {
-    background-color: @secondaryFixedDim-rgba;
+    background-color: alpha(@onPrimaryContainer, .12);
     margin: 2px 0 2px 0;
     padding: 0 4px 0 4px;
     border-radius: 100px;
@@ -118,7 +117,7 @@ window.top-bar {
 
 .media-title {
     font-size: 14px;
-    /* font-weight: 800; */
+    margin-left: 3px;
 }
 
 .media-artist {
@@ -153,7 +152,7 @@ window.top-bar {
     font-size: 2px;
     min-width: 20px;
     min-height: 20px;
-    background-color: @secondaryFixedDim;
+    background-color: alpha(@onPrimaryContainer, .16);
     transition: none;
 }
 
@@ -268,6 +267,7 @@ window.media-window {
 }
 
 .media-slider highlight {
+    background-color: @onPrimaryContainer;
     border-radius: 100px;
 }
 

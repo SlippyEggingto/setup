@@ -8,6 +8,8 @@ printf "\nis dark scheme: "
 printf $dark | tee /home/$USER/Downloads/wallpapers/dark
 printf "\n"
 
+swww img --transition-type grow --transition-pos 0.854,0.997 --transition-step 90 $wallpaper
+
 python3 ~/.cache/wal/color.py
 python3 ~/.cache/wal/light_bar.py
 printf ags | tee /home/$USER/Downloads/wallpapers/ags
@@ -195,7 +197,5 @@ jump-labels=ffffff ffffff
 urls=ffffff" > ~/.config/foot/theme
 
 fi
-
-swww img --transition-type grow --transition-pos 0.854,0.997 --transition-step 90 $wallpaper
 
 oomox-cli ~/.cache/wal/colors-oomox -m gtk320

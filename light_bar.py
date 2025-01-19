@@ -6,9 +6,7 @@ from materialyoucolor.hct import Hct
 from materialyoucolor.scheme.scheme_tonal_spot import SchemeTonalSpot
 
 wall = open("/home/nptanphuc/Downloads/wallpapers/wallpaper")
-opac = open("/home/nptanphuc/Downloads/wallpapers/opacity")
 wallpaper = wall.readline()
-opacity = opac.readline().replace("\n", "")
 
 
 image = Image.open(wallpaper)
@@ -31,12 +29,9 @@ scheme = SchemeTonalSpot(
 )
 
 f = open("/home/nptanphuc/.cache/wal/materialyoucolor-python.css", "w")
-k = open("/home/nptanphuc/.cache/wal/rgb-materialyoucolor-python.css", "w")
 
 for color in vars(MaterialDynamicColors).keys():
     color_name = getattr(MaterialDynamicColors, color)
     if hasattr(color_name, "get_hct"):
         t = "@define-color " + str(color) + " rgb(" + str(color_name.get_hct(scheme).to_rgba()[0]) + ", " + str(color_name.get_hct(scheme).to_rgba()[1]) + ", " + str(color_name.get_hct(scheme).to_rgba()[2]) + ");\n"
-        z = "@define-color " + str(color) + "-rgba" + " rgba(" + str(color_name.get_hct(scheme).to_rgba()[0]) + ", " + str(color_name.get_hct(scheme).to_rgba()[1]) + ", " + str(color_name.get_hct(scheme).to_rgba()[2]) + ", " + opacity + ");\n"
         f.write(t)
-        k.write(z)
