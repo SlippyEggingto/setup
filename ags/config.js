@@ -190,6 +190,8 @@ function bluetooth() {
 }
 
 let media_appear = false
+let media_position = -1;
+let media_length = mprisService.bind('players')['emitter']['players'][0]['length'];
 
 function media() {
     return Widget.EventBox({
@@ -244,7 +246,7 @@ function media() {
                     setup: self => {
                         function callback() {
                             let player = mprisService.bind('players')['emitter']['players'][0]
-                            self.value = player['position'] / player['length']
+                            self.value = media_position / media_length
                         }
 
                         self.hook(mprisService, callback, 'player-changed')
@@ -786,10 +788,17 @@ function media_window() {
                                             class_name: 'media-slider',
 
                                             setup: self => {
+                                                let a = -1;
                                                 function callback() {
+                                                    a = self.value;
+
                                                     let player = mprisService.bind('players')['emitter']['players'][0]
-                                                    self.onChange = ({value}) => player['position'] = value/100 * player['length']
-                                                    self.value = player['position'] / player['length'] * 100
+                                                    if (player['play-back-status'] == 'Playing') media_position = player['position']
+                                                    else if (player['play-back-status'] == null) media_position = 0
+                                                    self.onChange = ({value}) => player['position'] = value/100 * media_length
+                                                    self.value = media_position / media_length * 100
+
+                                                    if (self.value < a) media_length = Math.round(Number(Utils.exec('playerctl metadata mpris:length')/1000000))
                                                 }
 
                                                 self.hook(mprisService, callback, 'player-changed')
@@ -801,15 +810,7 @@ function media_window() {
                                             spacing: 10,
                                             start_widget: Widget.Label({
                                                 hpack: 'end',
-
-                                                setup: self => {
-                                                    function callback() {
-                                                        self.label = intToTime(mprisService.bind('players')['emitter']['players'][0]['position'])
-                                                    }
-
-                                                    self.hook(mprisService, callback, 'player-changed')
-                                                    self.poll(1000, callback)
-                                                }
+                                                setup: self => self.poll(1000, () => {self.label = intToTime(media_position)})
                                             }),
     
                                             center_widget: Widget.Box({
@@ -838,10 +839,10 @@ function media_window() {
                                                     }),
                                                 ]
                                             }),
-    
-                                            end_widget: Widget.Label().hook(mprisService, self => {
-                                                self.hpack = 'start'
-                                                self.label = intToTime(mprisService.bind('players')['emitter']['players'][0]['length']);
+
+                                            end_widget: Widget.Label({
+                                                hpack: 'start',
+                                                setup: self => self.poll(1000, () => {self.label = intToTime(media_length)})
                                             })
                                         })
                                     ]
