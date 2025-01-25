@@ -190,6 +190,7 @@ function bluetooth() {
 }
 
 let media_appear = false
+let osv_appear = false
 let media_position = -1;
 let media_length = mprisService.bind('players')['emitter']['players'][0]['length'];
 
@@ -200,7 +201,7 @@ function media() {
             if (media_appear) {
                 App.applyCss(`
                     .media-window {
-                        margin-top: -150px;
+                        margin-top: -175px;
                     }
 
                     .media-event-box .media {
@@ -212,6 +213,14 @@ function media() {
                         background-color: alpha(@onPrimaryContainer, .16);
                     }
                 `)
+
+                if (osv_appear) {
+                    App.applyCss(`
+                        .on-screen-volume {
+                            margin-top: 0px;
+                        }    
+                    `)
+                }
             } else {
                 App.applyCss(`
                     .media-window {
@@ -227,6 +236,14 @@ function media() {
                         background-color: alpha(@primaryContainer, .2);
                     }
                 `)
+
+                if (osv_appear) {
+                    App.applyCss(`
+                        .on-screen-volume {
+                            margin-top: 150px;
+                        }    
+                    `)
+                }
             }
 
             media_appear = !media_appear
@@ -691,7 +708,7 @@ function right_bar() {
 }
 
 function intToTime(a) {
-    if (a==-1) return '00:00'
+    if (a==-1 || isNaN(a)) return '00:00'
     let h = Math.floor(a/3600);
     let m = Math.floor((a-h*3600)/60);
     let s = Math.floor(a-h*3600-m*60);
@@ -780,7 +797,7 @@ function media_window() {
                                 Widget.Box({
                                     vertical: 1,
                                     css: 'min-width: 300px;',
-                                    spacing: 5,
+                                    spacing: 10,
                                     children: [
                                         Widget.Slider({
                                             min: 0,
@@ -798,7 +815,7 @@ function media_window() {
                                                     self.onChange = ({value}) => player['position'] = value/100 * media_length
                                                     self.value = media_position / media_length * 100
 
-                                                    if (self.value < a) media_length = Math.round(Number(Utils.exec('playerctl metadata mpris:length')/1000000))
+                                                    media_length = Math.round(Number(Utils.exec('playerctl metadata mpris:length')/1000000))
                                                 }
 
                                                 self.hook(mprisService, callback, 'player-changed')
@@ -856,11 +873,97 @@ function media_window() {
     })
 }
 
+var timeOuts = []
+
+function onScreenVolume() {
+    return Widget.Window({
+        name: 'on_screen_volume',
+        class_name: 'on-screen-volume',
+        layer: 'top',
+        anchor: ['top'],
+        margins: [10],
+
+        child: Widget.Box({
+            vertical: 1,
+            spacing: 3,
+            children: [
+                Widget.Box({
+                    class_name: 'on-screen-volume',
+                    spacing: 5,
+                    vertical: 1,
+                    children: [
+                        Widget.CenterBox({
+                            start_widget: Widget.Box({
+                                spacing: 5,
+                                children: [
+                                    Widget.Label({
+                                        label: 'Speaker volume'
+                                    })
+                                ]
+                            }),
+
+                            end_widget: Widget.Label().hook(audioService.speaker, self => {
+                                self.hpack ='end'
+                                self.class_name = 'osv-label'
+                                self.label = `${Math.floor(audioService.speaker.volume * 100)}%`
+                            })
+                        }),
+
+                        Widget.Box({
+                            children: [
+                                Widget.LevelBar().hook(audioService.speaker, self => {
+                                    for (var i=0; i<timeOuts.length; i++) clearTimeout(timeOuts[i])
+                                    osv_appear = true
+                
+                                    if (media_appear) {
+                                        App.applyCss(`
+                                            .on-screen-volume {
+                                                margin-top: 150px;
+                                            }
+                                        `)
+                                    } else {
+                                        App.applyCss(`
+                                            .on-screen-volume {
+                                                margin-top: 0px;
+                                            }
+                                        `)
+                                    }
+                
+                                    timeOuts.push(
+                                        setTimeout(() => {
+                                            osv_appear = false
+                                            App.applyCss(`
+                                                .on-screen-volume {
+                                                    margin-top: -70px;
+                                                }
+                                            `)
+                                        }, 2000)
+                                    )
+                
+                                    self.class_name = 'osv-bar'
+                                    self.widthRequest = 175
+                                    self.value = audioService.speaker.volume
+                                }),
+                            ]
+                        })
+                    ]
+                }),
+
+                Widget.Label({
+                    label: 'This window could not disappear without this label, i don\'t know how to fix this bug :)',
+                    css: 'font-size: 1px; margin-top: -10px; color: transparent;'
+                }),
+            ]
+        })
+    })
+}
+
 App.config({
     windows: [
         // Calendar(),
         top_bar(),
-        media_window()
+        onScreenVolume(),
+        media_window(),
         // right_bar(),
     ],
 

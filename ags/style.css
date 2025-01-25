@@ -189,7 +189,8 @@ window.right-bar {
 }
 
 .utilities-chooser button {
-    border: none;
+    /* border: none; */
+    color: @onPrimaryContainer;
     background-color: rgba(255, 255, 255, .1);
     box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
 }
@@ -207,6 +208,7 @@ window.right-bar {
     border: none;
     background-color: transparent;
     box-shadow: none;
+    color: @onPrimaryContainer;
 }
 
 .audio-slider {
@@ -229,22 +231,48 @@ window.right-bar {
 
 /* START OF MEDIA_WINDOW.H */
 
-window.media-window {
+window.media-window, window.on-screen-volume {
     background: transparent;
 }
 
-.media-window {
+.media-window, .on-screen-volume {
     transition: cubic-bezier(.6,.77,.06,1.2) .5s;
     background-color: @primaryContainer;
     color: @onPrimaryContainer;
     padding: 10px;
     border-radius: 16px;
-    margin-top: -150px;
+    margin-top: -175px;
+}
+
+.on-screen-volume {
+    padding: 8px 10px 10px 10px;
+}
+
+.osv-bar trough {
+    background-color: alpha(@onPrimaryContainer, .15);
+    border: none;
+}
+
+.osv-bar trough block.filled {
+    background-color: @onPrimaryContainer;
+    min-height: 12px;
+}
+
+.osv-label {
+    font-size: 20px;
+    font-weight: 800;
 }
 
 .media-window button {
-    background-color: @surfaceContainerLowest;
+    transition: none;
+    background-color: alpha(@onPrimaryContainer, .1);
     color: @onPrimaryContainer;
+}
+
+.media-window button:hover {
+    background-color: @onPrimaryContainer;
+    color: @primaryContainer;
+    border: 1px solid @onPrimaryContainer;
 }
 
 .media-window button:active {
@@ -258,7 +286,7 @@ window.media-window {
 
 .media-slider trough{
     min-height: 8px;
-    background-color: @surfaceContainerLowest;
+    background-color: alpha(@onPrimaryContainer, .15);
     border-radius: 100px;
 }
 
