@@ -1,4 +1,9 @@
-wallpaper=$(zenity --file-selection)
+wallpaper=$(yad --file --add-preview --large-preview --workdir=/home/$USER/Downloads/wallpapers/)
+
+if [[ "$wallpaper" == "" ]]; then
+    exit 1
+fi
+
 dark="true"
 waybar=waybar
 
