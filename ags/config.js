@@ -191,8 +191,10 @@ function bluetooth() {
 
 let media_appear = false
 let osv_appear = false
+let osb_appear = false
 let media_position = -1;
 let media_length = mprisService.bind('players')['emitter']['players'][0]['length'];
+let media_line = 1
 
 function media() {
     return Widget.EventBox({
@@ -221,6 +223,14 @@ function media() {
                         }    
                     `)
                 }
+
+                if (osb_appear) {
+                    App.applyCss(`
+                        .on-screen-brightness {
+                            margin-top: 0px;
+                        }    
+                    `)
+                }
             } else {
                 App.applyCss(`
                     .media-window {
@@ -240,7 +250,15 @@ function media() {
                 if (osv_appear) {
                     App.applyCss(`
                         .on-screen-volume {
-                            margin-top: 150px;
+                            margin-top: ${140 + 14*media_line}px;
+                        }    
+                    `)
+                }
+
+                if (osb_appear) {
+                    App.applyCss(`
+                        .on-screen-brightness {
+                            margin-top: ${140 + 14*media_line}px;
                         }    
                     `)
                 }
@@ -723,6 +741,7 @@ function intToTime(a) {
 }
 
 function split_title(a) {
+    media_line = 1
     let s = '', count=0, wordlen=0;
     for (let i=0; i<a.length; i++) {
         count++;
@@ -735,11 +754,13 @@ function split_title(a) {
         } if (wordlen>=40) {
             s+='-\n';
             wordlen=0;
+            media_line++;
         } if (a[i]==' ') {
             wordlen = 0;
 
             if (count>=40) {
                 s+='\n';
+                media_line++;
                 count=0;
             }
         }
@@ -873,24 +894,84 @@ function media_window() {
     })
 }
 
-var timeOuts = []
+var volumeTimeOuts = [], brightnessTimeOuts = [],
+    volWinTimesOut = [], brightWinTimeOuts = []
+const screen = Utils.exec(`bash -c "ls -w1 /sys/class/backlight | head -1"`)
+const screenWidth = Number(Utils.exec(`bash -c "xrandr | grep -Po '(?<=current ).*?(?= x)'"`))
 
 function onScreenVolume() {
     return Widget.Window({
         name: 'on_screen_volume',
         class_name: 'on-screen-volume',
         layer: 'top',
-        anchor: ['top'],
-        margins: [10],
+        anchor: ['top', 'left'],
+        margins: [10, 10, 10, screenWidth/2 + - 195/2],
 
+        setup: self => {
+            Utils.monitorFile(
+                `/sys/class/backlight/${screen}/brightness`,
+                
+                function() {
+                    for (var i=0; i<volWinTimesOut.length; i++) clearTimeout(volWinTimesOut[i])
+                    self.anchor = ['top', 'left']
+                    self.margins = [10, 10, 10, screenWidth/2 + 5],
+                
+                    volWinTimesOut.push(
+                        setTimeout(() => {
+                            self.margins = [10, 10, 10, screenWidth/2 - 195/2]
+                        }, 2000)
+                    )
+                }
+            )
+
+            function callback() {
+                for (var i=0; i<volumeTimeOuts.length; i++) clearTimeout(volumeTimeOuts[i])
+                osv_appear = true
+
+                if (media_appear) {
+                    App.applyCss(`
+                        .on-screen-volume {
+                            margin-top: ${140 + 14*media_line}px;
+                        }
+                    `)
+                } else {
+                    App.applyCss(`
+                        .on-screen-volume {
+                            margin-top: 0px;
+                        }
+                    `)
+                }
+
+                volumeTimeOuts.push(
+                    setTimeout(() => {
+                        osv_appear = false
+                        App.applyCss(`
+                            .on-screen-volume {
+                                margin-top: -70px;
+                            }
+                        `)
+                        self
+                    }, 2000)
+                )
+            }
+
+            self.hook(audioService, callback)
+        },
+        
         child: Widget.Box({
             vertical: 1,
-            spacing: 3,
             children: [
+                Widget.Label({
+                    label: 'a',
+                    css: 'font-size: 1px; margin-top: -2px; color: green;',
+                    maxWidthChars: 0,
+                    truncate: 'end',
+                }),
+
                 Widget.Box({
+                    vertical: 1,
                     class_name: 'on-screen-volume',
                     spacing: 5,
-                    vertical: 1,
                     children: [
                         Widget.CenterBox({
                             start_widget: Widget.Box({
@@ -912,34 +993,7 @@ function onScreenVolume() {
                         Widget.Box({
                             children: [
                                 Widget.LevelBar().hook(audioService.speaker, self => {
-                                    for (var i=0; i<timeOuts.length; i++) clearTimeout(timeOuts[i])
-                                    osv_appear = true
-                
-                                    if (media_appear) {
-                                        App.applyCss(`
-                                            .on-screen-volume {
-                                                margin-top: 150px;
-                                            }
-                                        `)
-                                    } else {
-                                        App.applyCss(`
-                                            .on-screen-volume {
-                                                margin-top: 0px;
-                                            }
-                                        `)
-                                    }
-                
-                                    timeOuts.push(
-                                        setTimeout(() => {
-                                            osv_appear = false
-                                            App.applyCss(`
-                                                .on-screen-volume {
-                                                    margin-top: -70px;
-                                                }
-                                            `)
-                                        }, 2000)
-                                    )
-                
+
                                     self.class_name = 'osv-bar'
                                     self.widthRequest = 175
                                     self.value = audioService.speaker.volume
@@ -947,11 +1001,126 @@ function onScreenVolume() {
                             ]
                         })
                     ]
+                })
+            ]
+        })
+    })
+}
+
+function onScreenBrightness() {
+    return Widget.Window({
+        name: 'on_screen_brightness',
+        class_name: 'on-screen-brightness',
+        layer: 'top',
+        anchor: ['top', 'left'],
+        margins: [10, 10, 10, screenWidth/2 - 195/2],
+        
+        setup: self => {
+            Utils.monitorFile(
+                `/sys/class/backlight/${screen}/brightness`,
+                
+                function() {
+                    for (var i=0; i<brightnessTimeOuts.length; i++) clearTimeout(brightnessTimeOuts[i])
+                    osb_appear = true
+
+                    if (media_appear) {
+                        App.applyCss(`
+                            .on-screen-brightness {
+                                margin-top: ${140 + 14*media_line}px;
+                            }
+                        `)
+                    } else {
+                        App.applyCss(`
+                            .on-screen-brightness {
+                                margin-top: 0px;
+                            }
+                        `)
+                    }
+
+                    brightnessTimeOuts.push(
+                        setTimeout(() => {
+                            osb_appear = false
+                            App.applyCss(`
+                                .on-screen-brightness {
+                                    margin-top: -70px;
+                                }
+                            `)
+                        }, 2000)
+                    )
+                }
+            )
+
+            function callback() {
+                for (var i=0; i<brightWinTimeOuts.length; i++) clearTimeout(brightWinTimeOuts[i])
+                self.margins = [10, 10, 10, screenWidth/2 - 195 - 5],
+                
+                brightWinTimeOuts.push(
+                    setTimeout(() => {
+                        // let step = (-195/2 + 195 + 5) / 300
+
+                        // const heheInterval = setInterval(() => {
+                        //     step += (-195/2 + 195 + 5) / 300;
+                        //     self.margins = [10, 10, 10, screenWidth/2 - 195 - 5 + step]
+
+                        //     if (screenWidth/2 - 195 - 5 + step >= screenWidth/2 - 195/2) clearInterval(heheInterval);
+                        // }, 1)
+
+                        self.margins = [10, 10, 10, screenWidth/2 - 195/2]
+                    }, 2000)
+                )
+            }
+
+            self.hook(audioService.speaker, callback)
+        },
+        
+        child: Widget.Box({
+            vertical: 1,
+            children: [
+                Widget.Label({
+                    label: 'a',
+                    css: 'font-size: 1px; margin-top: -2px; color: green;',
+                    maxWidthChars: 0,
+                    truncate: 'end',
                 }),
 
-                Widget.Label({
-                    label: 'This window could not disappear without this label, i don\'t know how to fix this bug :)',
-                    css: 'font-size: 1px; margin-top: -10px; color: transparent;'
+                Widget.Box({
+                    class_name: 'on-screen-brightness',
+                    spacing: 5,
+                    vertical: 1,
+                    children: [
+                        Widget.CenterBox({
+                            start_widget: Widget.Box({
+                                spacing: 5,
+                                children: [
+                                    Widget.Label({
+                                        label: 'Screen brightness'
+                                    })
+                                ]
+                            }),
+
+                            end_widget: Widget.Label({
+                                hpack: 'end',
+                                class_name: 'osv-label',
+                                label: `${Math.round((Number(Utils.exec('brightnessctl get')) / Number(Utils.exec('brightnessctl max')))*100).toString()}%`,
+
+                                setup: self => {
+                                    self.label = `${Math.round((Number(Utils.exec('brightnessctl get')) / Number(Utils.exec('brightnessctl max')))*100).toString()}%`
+                                    Utils.monitorFile(`/sys/class/backlight/${screen}/brightness`, () => self.label = `${Math.round((Number(Utils.exec('brightnessctl get')) / Number(Utils.exec('brightnessctl max')))*100).toString()}%`)
+                                }
+                            })
+                        }),
+
+                        Widget.Box({
+                            children: [
+                                Widget.LevelBar().hook(bluetoothService, self => {
+                                    self.class_name = 'osv-bar'
+                                    self.widthRequest = 175
+                                    self.value = Number(Utils.exec('brightnessctl get')) / Number(Utils.exec('brightnessctl max'))
+                                    Utils.monitorFile(`/sys/class/backlight/${screen}/brightness`, () => self.value = Number(Utils.exec('brightnessctl get')) / Number(Utils.exec('brightnessctl max')))
+                                }),
+                            ]
+                        })
+                    ]
                 }),
             ]
         })
@@ -963,6 +1132,7 @@ App.config({
         // Calendar(),
         top_bar(),
         onScreenVolume(),
+        onScreenBrightness(),
         media_window(),
         // right_bar(),
     ],
