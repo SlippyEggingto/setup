@@ -3,6 +3,7 @@
 
 * {
     transition: 0.3s;
+    -gtk-icon-theme: 'Adwaita';
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Symbols Nerd Font Mono";
 }
 /* END OF BASIC.H */
@@ -301,3 +302,100 @@ window.media-window, window.on-screen-volume, window.on-screen-brightness {
 }
 
 /* END OF MEDIA_WINDOW.H */
+
+/* START OF LOGOUT_WINDOW.H*/
+
+.logout-eventbox:active {
+    background-color: rgba(0, 0, 0, .1);
+    border: none;
+    box-shadow: none;
+}
+
+.logout-image {
+    background-position: 59% 57%;
+    min-width: 400px;
+    min-height: 400px;
+    background-clip: border-box;
+    border-top-left-radius: 26px;
+    border-bottom-left-radius: 26px;
+}
+
+.logout-right-pane {
+    background-color: alpha(@primary, .5);
+    color: @onPrimary;
+    min-width: 380px;
+    min-height: 380px;
+    border-top-right-radius: 26px;
+    border-bottom-right-radius: 26px;
+    padding: 20px 20px 20px 0;
+}
+
+.logout-right-pane button {
+    padding: 0;
+    border-radius: 16px;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+}
+
+.logout-right-pane button:active {
+    background-color: unset;
+}
+
+.logout-right-pane button label {
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 16px;
+    transition-delay: 0.3s;
+}
+
+.logout-icon {
+    background-repeat: no-repeat;
+    background-position: center;
+    min-width: 0;
+    min-height: 0;
+    color: transparent;
+    margin-left: 20px;
+    background-size: 50%;
+    border-radius: 16px;
+    transition-delay: 0s;
+}
+
+.logout-right-pane button:hover .logout-icon {
+    min-height: 25px;
+    min-width: 25px;
+    padding: 10px;
+    transition-delay: 0.1s;
+}
+
+.logout-right-pane button:hover label {
+    margin-left: 10px;
+    transition-delay: 0s;
+}
+
+.logout-right-pane button:nth-child(1) label, .logout-right-pane button:nth-child(1) .logout-icon {
+    background-color: #89b4fa;
+    color: #313244;
+}
+
+.logout-right-pane button:nth-child(2) label, .logout-right-pane button:nth-child(2) .logout-icon {
+    background-color: #f38ba8;
+    color: #313244;
+}
+
+.logout-right-pane button:nth-child(3) label, .logout-right-pane button:nth-child(3) .logout-icon {
+    background-color: #a6e3a1;
+    color: #313244;
+}
+
+.logout-right-pane button:nth-child(4) label, .logout-right-pane button:nth-child(4) .logout-icon {
+    background-color: #f9e2af;
+    color: #313244;
+}
+
+.logout-right-pane button:nth-child(5) label, .logout-right-pane button:nth-child(5) .logout-icon {
+    background-color: #cba6f7;
+    color: #313244;
+}
+
+/* END OF LOGOUT_WINDOW.H */

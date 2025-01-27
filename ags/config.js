@@ -280,7 +280,6 @@ function media() {
                     start_at: 0.75,
                     setup: self => {
                         function callback() {
-                            let player = mprisService.bind('players')['emitter']['players'][0]
                             self.value = media_position / media_length
                         }
 
@@ -826,17 +825,18 @@ function media_window() {
                                             class_name: 'media-slider',
 
                                             setup: self => {
-                                                let a = -1;
-                                                function callback() {
-                                                    a = self.value;
+                                                self.onChange = ({value}) => {
+                                                    let player = mprisService.bind('players')['emitter']['players'][0]
+                                                    player['position'] = value/100 * media_length
+                                                    media_position = player['position']
+                                                }
 
+                                                function callback() {
                                                     let player = mprisService.bind('players')['emitter']['players'][0]
                                                     if (player['play-back-status'] == 'Playing') media_position = player['position']
-                                                    else if (player['play-back-status'] == null) media_position = 0
-                                                    self.onChange = ({value}) => player['position'] = value/100 * media_length
-                                                    self.value = media_position / media_length * 100
-
                                                     media_length = Math.round(Number(Utils.exec('playerctl metadata mpris:length')/1000000))
+                                                    if (isNaN(media_length)) media_length = -1
+                                                    self.value = media_position / media_length * 100
                                                 }
 
                                                 self.hook(mprisService, callback, 'player-changed')
@@ -848,7 +848,14 @@ function media_window() {
                                             spacing: 10,
                                             start_widget: Widget.Label({
                                                 hpack: 'end',
-                                                setup: self => self.poll(1000, () => {self.label = intToTime(media_position)})
+                                                setup: self => {
+                                                    function callback() {
+                                                        self.label = intToTime(media_position)
+                                                    }
+    
+                                                    self.hook(mprisService, callback, 'player-changed')
+                                                    self.poll(1000, callback)
+                                                }
                                             }),
     
                                             center_widget: Widget.Box({
@@ -880,7 +887,14 @@ function media_window() {
 
                                             end_widget: Widget.Label({
                                                 hpack: 'start',
-                                                setup: self => self.poll(1000, () => {self.label = intToTime(media_length)})
+                                                setup: self => {
+                                                    function callback() {
+                                                        self.label = intToTime(media_length)
+                                                    }
+    
+                                                    self.hook(mprisService, callback, 'player-changed')
+                                                    self.poll(1000, callback)
+                                                }
                                             })
                                         })
                                     ]
@@ -1127,6 +1141,131 @@ function onScreenBrightness() {
     })
 }
 
+function logoutWindow() {
+    return Widget.Window({
+        name: 'logout_window',
+        class_name: 'logout-window',
+        layer: 'top',
+        anchor: ['top', 'left', 'right', 'bottom'],
+        css: 'background-color: rgba(0, 0, 0, .1);',
+        keymode: 'on-demand',
+
+        child: Widget.EventBox({
+            setup: self => {
+                self.keybind('Escape', () => App.closeWindow('logout_window'),)
+            },
+
+            class_name: 'logout-eventbox',
+            onPrimaryClick: () => App.closeWindow('logout_window'),
+            child: Widget.Box({
+                hpack: 'center',
+                vpack: 'center',
+                children: [
+                    Widget.Box({
+                        css: `background-image: url('${App.configDir}/../../Downloads/wallpapers/wall_43.webp');`,
+                        class_name: 'logout-image'
+                    }),
+
+                    Widget.CenterBox({
+                        class_name: 'logout-right-pane',
+                        vertical: 1,
+                        center_widget: Widget.Box({
+                            vertical: 1,
+                            spacing: 15,
+                            children: [
+                                Widget.Button({
+                                    onPrimaryClick: () => Utils.exec(`bash -c "poweroff"`),
+                                    child: Widget.Box({
+                                        children: [
+                                            Widget.Box({
+                                                css: `background-image: -gtk-icontheme('system-shutdown-symbolic');`,
+                                                class_name: 'logout-icon'
+                                            }),
+
+                                            Widget.Label({
+                                                label: 'Poweroff',
+                                                hexpand: true
+                                            })
+                                        ]
+                                    })
+                                }),
+
+                                Widget.Button({
+                                    onPrimaryClick: () => Utils.exec(`bash -c "reboot"`),
+                                    child: Widget.Box({
+                                        children: [
+                                            Widget.Box({
+                                                css: `background-image: -gtk-icontheme('system-reboot-symbolic');`,
+                                                class_name: 'logout-icon'
+                                            }),
+
+                                            Widget.Label({
+                                                label: 'Reboot',
+                                                hexpand: true
+                                            })
+                                        ]
+                                    })
+                                }),
+                                
+                                Widget.Button({
+                                    onPrimaryClick: () => Utils.exec(`bash -c "systemctl suspend"`),
+                                    child: Widget.Box({
+                                        children: [
+                                            Widget.Box({
+                                                css: `background-image: -gtk-icontheme('media-playback-pause-symbolic');`,
+                                                class_name: 'logout-icon'
+                                            }),
+
+                                            Widget.Label({
+                                                label: 'Suspend',
+                                                hexpand: true
+                                            })
+                                        ]
+                                    })
+                                }),
+                                
+                                Widget.Button({
+                                    onPrimaryClick: () => Utils.exec(`bash -c "systemctl suspend"`),
+                                    child: Widget.Box({
+                                        children: [
+                                            Widget.Box({
+                                                css: `background-image: -gtk-icontheme('list-remove-symbolic');`,
+                                                class_name: 'logout-icon'
+                                            }),
+
+                                            Widget.Label({
+                                                label: 'Hibernate',
+                                                hexpand: true
+                                            })
+                                        ]
+                                    })
+                                }),
+                                
+                                Widget.Button({
+                                    onPrimaryClick: () => Utils.exec(`bash -c "notify-send 'Additional button' 'hehe'"`),
+                                    child: Widget.Box({
+                                        children: [
+                                            Widget.Box({
+                                                css: `background-image: -gtk-icontheme('weather-clear-symbolic');`,
+                                                class_name: 'logout-icon'
+                                            }),
+
+                                            Widget.Label({
+                                                label: 'Additional button',
+                                                hexpand: true
+                                            })
+                                        ]
+                                    })
+                                })
+                            ]
+                        })
+                    })
+                ]
+            })
+        })
+    })
+}
+
 App.config({
     windows: [
         // Calendar(),
@@ -1134,11 +1273,15 @@ App.config({
         onScreenVolume(),
         onScreenBrightness(),
         media_window(),
+        logoutWindow()
         // right_bar(),
     ],
 
     style: './style.css',
 })
+
+
+App.closeWindow('logout_window')
 
 Utils.monitorFile(
     `${App.configDir}/../../Downloads/wallpapers/ags`,
