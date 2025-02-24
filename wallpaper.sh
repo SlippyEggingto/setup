@@ -1,11 +1,11 @@
-wallpaper=$(yad --file --add-preview --large-preview --workdir=/home/$USER/Downloads/wallpapers/)
+# wallpaper=$(yad --file --add-preview --large-preview --workdir=/home/$USER/Downloads/wallpapers/)
+wallpaper=~/Downloads/wallpapers/wall_44.webp
 
 if [[ "$wallpaper" == "" ]]; then
     exit 1
 fi
 
-dark="true"
-waybar=waybar
+dark=true
 
 printf "wallpaper: "
 printf $wallpaper | tee /home/$USER/Downloads/wallpapers/wallpaper
@@ -16,7 +16,7 @@ printf "\n"
 swww img --transition-type grow --transition-pos 0.854,0.997 --transition-step 90 $wallpaper
 
 python3 ~/.cache/wal/color.py
-python3 ~/.cache/wal/light_bar.py
+#python3 ~/.cache/wal/light_bar.py
 printf ags | tee /home/$USER/Downloads/wallpapers/ags
 
 echo "background-color=$(sed '28q;d' ~/.cache/wal/materialyoucolor-python)
@@ -85,14 +85,14 @@ echo "[colors]
 foreground=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
 background=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
 
-regular0=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular0=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular1=$(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular2=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular3=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular3=$(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular4=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular5=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular6=$(sed '29q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular7=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular7=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
 
 bright0=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
 bright1=$(sed '54q;d' ~/.cache/wal/template-materialyoucolor-python)
@@ -152,14 +152,19 @@ ROUNDNESS=10
 SPACING=3
 GRADIENT=0.0" > ~/.cache/wal/colors-oomox
 
-# reg0 = clock-foreground, time-foreground
+# reg0 = clock-foreground, time-foreground, cmus-album-foreground, cmus-timer-foreground
 # reg1 = returned-number-background (127, 128,...)
 # reg2 = console-message
 # reg3 = quoted ARGUMENTS, time-background
-# reg4 = dirs-background, true-command
+# reg4 = dirs-background, true-command, cmus-background
 # reg5 = console-crital
 # reg6 = true-path, sub-command
-# reg7 = clock-background
+# reg7 = clock-background, cmus-foreground, cmus-album-background, cmus-timer-background
+
+# keep reg4
+# => reg0 contrast reg7
+# => reg7 contrast reg4
+# => reg0 contrast reg3
 
 # bri0 = start-end borders, auto-complete
 # bri1 = wrong-command, failed-command-arrow
@@ -174,14 +179,14 @@ echo "[colors]
 foreground=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
 background=$(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
 
-regular0=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular0=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular1=$(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular2=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular3=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular3=$(sed '41q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular4=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular5=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular6=$(sed '29q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular7=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular7=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
 
 bright0=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
 bright1=$(sed '52q;d' ~/.cache/wal/template-materialyoucolor-python)
