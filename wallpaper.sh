@@ -1,5 +1,4 @@
-# wallpaper=$(yad --file --add-preview --large-preview --workdir=/home/$USER/Downloads/wallpapers/)
-wallpaper=~/Downloads/wallpapers/wall_44.webp
+wallpaper=$(yad --file --add-preview --large-preview --workdir=/home/$USER/Downloads/wallpapers/)
 
 if [[ "$wallpaper" == "" ]]; then
     exit 1
@@ -12,25 +11,6 @@ printf $wallpaper | tee /home/$USER/Downloads/wallpapers/wallpaper
 printf "\nis dark scheme: "
 printf $dark | tee /home/$USER/Downloads/wallpapers/dark
 printf "\n"
-
-swww img --transition-type grow --transition-pos 0.854,0.997 --transition-step 90 $wallpaper
-
-python3 ~/.cache/wal/color.py
-#python3 ~/.cache/wal/light_bar.py
-printf ags | tee /home/$USER/Downloads/wallpapers/ags
-
-echo "background-color=$(sed '28q;d' ~/.cache/wal/materialyoucolor-python)
-text-color=$(sed '29q;d' ~/.cache/wal/materialyoucolor-python)
-border-size=0
-max-history=15
-sort=+time
-font="Montserrat"1
-max-visible=14
-height=250
-border-radius=16
-default-timeout=7000" > ~/.config/mako/config
-
-makoctl reload
 
 if [[ "$dark" == "false" ]];
 then
@@ -81,27 +61,29 @@ GRADIENT=0.0" > ~/.cache/wal/colors-oomox
 # #987654
 # #246357
 
+echo "0.8" > ~/Downloads/wallpapers/opacity
+
 echo "[colors]
 foreground=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
 background=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
 
-regular0=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular0=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular1=$(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular2=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular3=$(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular4=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular3=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular4=$(sed '30q;d' ~/.cache/wal/rgb-template-materialyoucolor-python)
 regular5=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular6=$(sed '29q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular7=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular7=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
 
 bright0=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
-bright1=$(sed '54q;d' ~/.cache/wal/template-materialyoucolor-python)
+bright1=$(sed '52q;d' ~/.cache/wal/template-materialyoucolor-python)
 bright2=$(sed '52q;d' ~/.cache/wal/template-materialyoucolor-python)
 bright3=$(sed '40q;d' ~/.cache/wal/template-materialyoucolor-python)
-bright4=0000ff
-bright5=ffff00
-bright6=$(sed '29q;d' ~/.cache/wal/template-materialyoucolor-python)
-bright7=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
+bright4=ffffff
+bright5=ffffff
+bright6=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
+bright7=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
 
 selection-foreground=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
 selection-background=$(sed '30q;d' ~/.cache/wal/template-materialyoucolor-python)
@@ -166,6 +148,9 @@ GRADIENT=0.0" > ~/.cache/wal/colors-oomox
 # => reg7 contrast reg4
 # => reg0 contrast reg3
 
+# keep reg7
+# => bri6 = fg
+
 # bri0 = start-end borders, auto-complete
 # bri1 = wrong-command, failed-command-arrow
 # bri2 = true-command-arrow
@@ -175,18 +160,20 @@ GRADIENT=0.0" > ~/.cache/wal/colors-oomox
 # bri6 = ~ character of true-path
 # bri7 = dirs-foreground
 
+echo "1.4" > ~/Downloads/wallpapers/opacity
+
 echo "[colors]
 foreground=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
 background=$(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
 
-regular0=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular0=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular1=$(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular2=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular3=$(sed '41q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular4=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular3=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular4=$(sed '30q;d' ~/.cache/wal/rgb-template-materialyoucolor-python)
 regular5=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular6=$(sed '29q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular7=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
+regular7=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
 
 bright0=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
 bright1=$(sed '52q;d' ~/.cache/wal/template-materialyoucolor-python)
@@ -194,8 +181,8 @@ bright2=$(sed '52q;d' ~/.cache/wal/template-materialyoucolor-python)
 bright3=$(sed '40q;d' ~/.cache/wal/template-materialyoucolor-python)
 bright4=ffffff
 bright5=ffffff
-bright6=$(sed '29q;d' ~/.cache/wal/template-materialyoucolor-python)
-bright7=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
+bright6=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
+bright7=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
 
 selection-foreground=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
 selection-background=$(sed '30q;d' ~/.cache/wal/template-materialyoucolor-python)
@@ -207,5 +194,24 @@ jump-labels=ffffff ffffff
 urls=ffffff" > ~/.config/foot/theme
 
 fi
+
+swww img --transition-type grow --transition-pos 0.854,0.997 --transition-step 90 $wallpaper
+
+python3 ~/.cache/wal/color.py
+python3 ~/.cache/wal/light_bar.py
+printf ags | tee /home/$USER/Downloads/wallpapers/ags
+
+echo "background-color=$(sed '28q;d' ~/.cache/wal/materialyoucolor-python)
+text-color=$(sed '29q;d' ~/.cache/wal/materialyoucolor-python)
+border-size=0
+max-history=15
+sort=+time
+font="Montserrat"1
+max-visible=14
+height=250
+border-radius=16
+default-timeout=7000" > ~/.config/mako/config
+
+makoctl reload
 
 oomox-cli ~/.cache/wal/colors-oomox -m gtk320
