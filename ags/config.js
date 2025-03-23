@@ -1,6 +1,6 @@
 const batteryService = await Service.import('battery');
 const hyprlandService = await Service.import('hyprland');
-const networkService = await Service.import('network');
+// const networkService = await Service.import('network');
 const audioService = await Service.import('audio')
 const mprisService = await Service.import('mpris');
 const bluetoothService = await Service.import('bluetooth');
@@ -462,7 +462,7 @@ function Right() {
         hpack: 'end',
         children: [
             sysTray,
-            network(),
+            // network(),
             bluetooth(),
             volume()
         ],
