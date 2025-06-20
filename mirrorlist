@@ -28,10 +28,18 @@
 # Server = https://mirror.aktkn.sg/archlinux/$repo/os/$arch
 # Server = https://download.nus.edu.sg/mirror/archlinux/$repo/os/$arch
 
-Server = https://mirrors.huongnguyen.dev/arch/$repo/os/$arch
-Server = https://mirrors.nguyenhoang.cloud/archlinux/$repo/os/$arch
+#Server = https://mirrors.huongnguyen.dev/arch/$repo/os/$arch
+#Server = https://mirrors.nguyenhoang.cloud/archlinux/$repo/os/$arch
+#Server = http://mirror.bizflycloud.vn/archlinux/$repo/os/$arch
+#Server = http://mirror.kirbee.tech/archlinux/$repo/os/$arch
+#Server = https://mirror.kirbee.tech/archlinux/$repo/os/$arch
+#Server = http://mirrors.twilight.fyi/archlinux/$repo/os/$arch
+#Server = https://mirrors.twilight.fyi/archlinux/$repo/os/$arch
+
 Server = http://mirror.bizflycloud.vn/archlinux/$repo/os/$arch
-Server = http://mirror.kirbee.tech/archlinux/$repo/os/$arch
-Server = https://mirror.kirbee.tech/archlinux/$repo/os/$arch
+Server = https://mirrors.huongnguyen.dev/arch/$repo/os/$arch
+Server = https://mirror.meowsmp.net/arch/$repo/os/$arch
+Server = https://mirrors.nguyenhoang.cloud/archlinux/$repo/os/$arch
 Server = http://mirrors.twilight.fyi/archlinux/$repo/os/$arch
 Server = https://mirrors.twilight.fyi/archlinux/$repo/os/$arch
+
