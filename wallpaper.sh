@@ -12,6 +12,12 @@ printf "\nis dark scheme: "
 printf $dark | tee /home/$USER/Downloads/wallpapers/dark
 printf "\n"
 
+swww img --transition-type grow --transition-pos 0.854,0.997 --transition-step 90 $wallpaper
+
+python3 ~/.cache/wal/color.py
+python3 ~/.cache/wal/light_bar.py
+printf ags | tee /home/$USER/Downloads/wallpapers/ags
+
 if [[ "$dark" == "false" ]];
 then
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
@@ -47,7 +53,7 @@ BTN_BG=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
 BTN_FG=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
 HDR_BG=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
 HDR_FG=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
-GTK3_GENERATE_DARK=True
+GTK3_GENERATE_DARK=False
 ROUNDNESS=10
 SPACING=3
 GRADIENT=0.0" > ~/.cache/wal/colors-oomox
@@ -71,7 +77,7 @@ regular0=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular1=$(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular2=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular3=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular4=$(sed '30q;d' ~/.cache/wal/rgb-template-materialyoucolor-python)
+regular4=$(sed '30q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular5=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular6=$(sed '29q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular7=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
@@ -170,7 +176,7 @@ regular0=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular1=$(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular2=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular3=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular4=$(sed '30q;d' ~/.cache/wal/rgb-template-materialyoucolor-python)
+regular4=$(sed '30q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular5=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular6=$(sed '29q;d' ~/.cache/wal/template-materialyoucolor-python)
 regular7=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
@@ -195,12 +201,6 @@ urls=ffffff" > ~/.config/foot/theme
 
 fi
 
-swww img --transition-type grow --transition-pos 0.854,0.997 --transition-step 90 $wallpaper
-
-python3 ~/.cache/wal/color.py
-python3 ~/.cache/wal/light_bar.py
-printf ags | tee /home/$USER/Downloads/wallpapers/ags
-
 echo "background-color=$(sed '28q;d' ~/.cache/wal/materialyoucolor-python)
 text-color=$(sed '29q;d' ~/.cache/wal/materialyoucolor-python)
 border-size=0
@@ -208,7 +208,8 @@ max-history=15
 sort=+time
 font=Segoe UI 12
 max-visible=14
-height=250
+height=1000
+width=400
 border-radius=16
 default-timeout=7000" > ~/.config/mako/config
 

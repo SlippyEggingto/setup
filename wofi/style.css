@@ -1,8 +1,11 @@
 @import '/home/nptanphuc/.cache/wal/colors-waybar.css';
+@import url('/home/nptanphuc/.cache/wal/materialyoucolor-python.css');
 
 window {
     margin: 0px;
-    border-radius: 15px;
+    /* border-radius: 15px; */
+    background-color: alpha(@onSecondaryFixed, 0.8);
+    border: 1px solid @primaryFixedDim;
 }
 
 #input {
@@ -15,10 +18,17 @@ window {
     margin: 10px;
     min-height: 30px;
     border: @foreground solid 2px;
+    background-color: @primaryFixedDim;
 }
 
 #input:focus {
     border: @color4 solid 2px;
+}
+
+#selected {
+    /* background-color: red; */
+    border-radius: 15px;
+    border: none;
 }
 
 #inner-box {
@@ -37,7 +47,11 @@ window {
 
 #text {
     margin-left: 10px;
-    color: white;
+    color: @secondaryFixed;
+}
+
+#text:selected {
+    background-color: transparent;
 }
 
 #entry {
@@ -48,7 +62,8 @@ window {
 }
 
 #entry:selected {
-    background-color: @color4;
+    /* background-color: alpha(@onSecondaryFixed, 0.32); */
+    background-color: alpha(@secondaryFixed, 0.3);
 }
 
 #img {
