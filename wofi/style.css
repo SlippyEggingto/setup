@@ -3,9 +3,9 @@
 
 window {
     margin: 0px;
-    /* border-radius: 15px; */
     background-color: alpha(@onSecondaryFixed, 0.8);
     border: 1px solid @primaryFixedDim;
+    border-radius: 15px;
 }
 
 #input {
@@ -13,12 +13,13 @@ window {
     margin: 4px;
     padding-left: 20px;
     font-weight: bold;
-   	outline: none;
+    outline: none;
     border-radius: 15px;
     margin: 10px;
     min-height: 30px;
     border: @foreground solid 2px;
-    background-color: @primaryFixedDim;
+    background-color: alpha(@primaryFixedDim, 0.3);
+    color: @onPrimaryFixedDim;
 }
 
 #input:focus {
@@ -58,7 +59,8 @@ window {
     margin: 0px 0px;
     border: none;
     border-radius: 15px;
-    background-color: transparent;
+    margin: 3px;
+    padding: 5px 5px 5px 10px;
 }
 
 #entry:selected {
