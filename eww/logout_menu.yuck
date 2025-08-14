@@ -1,0 +1,102 @@
+
+
+(defwidget logoutImage []
+    (image :path "/home/nptanphuc/setup/eww/icons/icon_3.jpg"
+           :class "logout-image"
+           :image-width 350
+           :image-height 350
+    )
+)
+
+(defwidget logoutButtons []
+    (box :orientation "vertical"
+         :class "logout-buttons"
+         :height 350
+         :spacing 10
+
+         (button :class "poweroff"
+                 :onclick "poweroff"
+                 :width 350
+
+                 (label :class "button-label"
+                        :text "‎     Poweroff"
+                        :halign "start"
+                 )
+         )
+
+         (button :class "reboot"
+                 :onclick "reboot"
+                 :width 350
+
+                 (label :class "button-label"
+                        :text "‎     Reboot"
+                        :halign "start"
+                 )
+         )
+
+         (button :class "suspend"
+                 :onclick "systemctl suspend"
+                 :width 350
+
+                 (label :class "button-label"
+                        :text "‎     Suspend"
+                        :halign "start"
+                 )
+         )
+
+         (button :class "hibernate"
+                 :onclick "systemctl hibernate"
+                 :width 350
+
+                 (label :class "button-label"
+                        :text "‎     Hibernate"
+                        :halign "start"
+                 )
+         )
+
+         (button :class "lock"
+                 :onclick "eww close logoutWindow"
+                 :width 350
+
+                 (label :class "button-label"
+                        :text " Close window"
+                        :halign "start"
+                 )
+         )
+
+         (button :class "uwu"
+                 :onclick "notify-send '(> ω <)'"
+                 :width 350
+
+                 (label :class "button-label"
+                        :text "(> ω <) Click here!"
+                        :halign "start"
+                 )
+         )
+    )
+)
+
+(defwidget logout []
+    (box :class "logout"
+         :orientation "horizontal"
+         :space-evenly false
+         :spacing 25
+
+         (logoutImage)
+         (logoutButtons)
+    )
+)
+
+(defwindow logoutWindow
+        :monitor 0
+        :geometry (geometry :x "0"
+                            :y "0"
+                            :width "725px"
+                            :height "400px"
+                            :anchor "center"
+                  )
+
+        :stacking "fg"
+
+    (logout)
+)

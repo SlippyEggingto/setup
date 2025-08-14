@@ -1,0 +1,82 @@
+@import '../../.cache/wal/colors-waybar.css';
+@import '../../.cache/wal/rgb-colors.css';
+
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Symbols Nerd Font Mono";
+    font-weight: 600;
+}
+
+button {
+    border: transparent;
+}
+
+#workspaces, #clock, #custom-colorpicker, #network, #battery, #pulseaudio {
+    
+}
+
+.modules-left, .modules-center, .modules-right {
+    padding: 3px 10px 3px 10px;
+}
+
+#workspaces {
+    padding: 9px;
+    border-radius: 100px;
+}
+
+window#waybar {
+    background-color: transparent;
+    color: @foreground;
+}
+
+#workspaces button {
+    background: @foreground;
+    border-radius: 100px;
+    transition: 0.3s;
+    min-width: 10px;
+    min-height: 0;
+    font-size: 0;
+}
+
+#workspaces button.empty {
+    background-color: rgba(255, 255, 255, .2);
+}
+
+#workspaces button:hover, #workspaces button.active, #workspaces button.empty:hover {
+    min-width: 35px;
+}
+
+#workspaces button:not(:first-child) {
+    margin-left: 5px;
+}
+
+#clock {
+    font-weight: 700;
+    padding: 7px 15px 7px 15px;
+    border-radius: 100px;
+}
+
+#custom-colorpicker {
+    min-width: 34px;
+    border-radius: 100px;
+}
+
+#network, #battery, #pulseaudio {
+    min-width: 32px;
+    font-size: 18px;
+}
+
+#network {
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    padding-left: 5px;
+}
+
+#battery {
+
+}
+
+#pulseaudio {
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    padding-right: 5px;
+}

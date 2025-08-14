@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /Personalization/gnome-shell
 /Personalization/gtk-2.0
 /Personalization/gtk-3.0
@@ -5,3 +6,34 @@
 /Personalization/gtk-4.0/gtk-dark.css
 /Personalization/index.theme
 /quickshell
+=======
+ags/types
+ags/tsconfig.json
+ags/README.md
+ags/build/
+ags/example/
+ags/nix/
+ags/node_modules/
+ags/src/
+ags/subprojects/
+ags/LICENSE
+ags/version
+ags/meson.build
+ags/package-lock.json
+ags/package.json
+ags/flake.lock
+ags/CHANGELOG.md
+ags/TODO.md
+ags/flake.nix
+ags/post_install.sh
+ags/meson_options.txt
+ags_v2/@girs/
+ags_v2/tsconfig.json
+ags_v2/style.scss
+ags_v2/env.d.ts
+wallpapers/wallpaper
+wallpapers/ags
+wallpapers/dark
+wallpapers/opacity
+foot/theme
+>>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd

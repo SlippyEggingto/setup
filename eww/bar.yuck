@@ -1,0 +1,348 @@
+; (deflisten workspaces :initial "(box :class \"workspaces\" :orientation \"horizontal\" :spacing 5 :space-evenly \"false\" (button :onclick \"hyprctl dispatch workspace 1\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 2\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 3\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 4\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 5\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 6\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 7\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 8\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 9\" :class \"button\") (button :onclick \"hyprctl dispatch workspace 10\" :class \"button\"))" "scripts/workspaces.sh")
+
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
+(defwidget workspaces []
+  (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}"
+    (box :space-evenly false :spacing 5 :class "workspaces-widget"
+      (label :text "${workspaces}${current_workspace}" :visible false)
+      (for workspace in workspaces
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+          (box :class "workspace-entry ${workspace.windows > 0 ? "occupied" : "empty"}"
+            (label :text "" :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""}" )
+            )
+          )
+        )
+      )
+    )
+  )
+
+(deflisten window :initial "..." "sh ~/.config/eww/scripts/get-window-title")
+(defwidget windows[]
+    (box :class "windows"
+        (label :text "${window}" :show-truncated true :limit-width 45)
+    )
+)
+
+(defpoll time :interval "1s"
+         `date +"%H:%M • %a, %b %d"`
+)
+
+(defwidget clock[]
+    (box :class "clock"
+         :orientation "vertical"
+
+         time
+    )
+)
+
+(deflisten hehe :initial ""
+    "playerctl --follow metadata --format '{{ title }} • {{ artist }}' || true"
+)
+
+(defwidget music[]
+    (box :class "music"
+         :orientation "horizontal"
+
+         (label
+            :text {hehe != "" ? "‎          ${hehe}" : ""}
+            :show-truncated true
+            :limit-width 50
+         )
+    )
+)
+
+(defwidget colorpicker[]
+    (box :class "colorpicker"
+         :space-evenly "false"
+         :spacing 4
+         :orientation "horizontal"
+         :tooltip "Colorpicker"
+
+             (eventbox
+                :class "colorpicker-icon"
+                :onclick "notify-send $(hyprpicker -a)"
+                ""
+             )
+    )
+)
+
+(defvar cpu_reveal false)
+
+(defwidget cpu[]
+    (eventbox
+        :onhover "eww update cpu_reveal=true"
+        :onhoverlost "eww update cpu_reveal=false"
+
+        (box :class "cpu"
+            :space-evenly "false"
+            :spacing 4
+            :orientation "horizontal"
+            :tooltip "CPU Usage"
+
+            (circular-progress
+                :class "cpu-chart"
+                :value {EWW_CPU.avg}
+                :thickness 3
+                :start-at 75
+
+                (label
+                    :class "cpu-icon"
+                    :text ""
+                )
+            )
+
+            (revealer
+                :transition "slideleft"
+                :reveal cpu_reveal
+                :duration "400ms"
+
+                (label
+                    :class "cpu-label"
+                    :text "${round(EWW_CPU.avg, 0)}%"
+                )
+            )
+        )
+    )
+)
+
+(defvar ram_reveal false)
+
+(defwidget ram[]
+    (eventbox
+        :onhover "eww update ram_reveal=true"
+        :onhoverlost "eww update ram_reveal=false"
+
+        (box :class "ram"
+            :space-evenly "false"
+            :spacing 4
+            :orientation "horizontal"
+            :tooltip "RAM Usage"
+
+            (circular-progress
+                :class "ram-chart"
+                :value {EWW_RAM.used_mem * 100 / EWW_RAM.total_mem}
+                :thickness 3
+                :start-at 75
+
+                (label
+                    :class "ram-icon"
+                    :text ""
+                )
+            )
+            
+            (revealer
+                :transition "slideleft"
+                :reveal ram_reveal
+                :duration "400ms"
+
+                (label
+                    :class "ram-label"
+                    :text "${round(EWW_RAM.used_mem * 100 / EWW_RAM.total_mem, 0)}%"
+                )
+            )
+        )
+    )
+)
+
+(defvar battery_reveal false)
+
+(defwidget battery[]
+    (eventbox
+        :onhover "eww update battery_reveal=true"
+        :onhoverlost "eww update battery_reveal=false"
+
+        (box :class "battery"
+            :orientation "horizontal"
+            :space-evenly "false"
+            :spacing 4
+            :tooltip "Battery Percentage"
+
+            (circular-progress
+                :value {EWW_BATTERY.BAT0.capacity}
+                :thickness 3
+                :start-at 75
+
+                (label
+                    :class "battery-icon"
+                    :text "󰁹"
+                )
+            )
+
+            (revealer
+                :transition "slideleft"
+                :reveal battery_reveal
+                :duration "400ms"
+                
+                (label
+                    :class "battery-label"
+                    :text "${round(EWW_BATTERY.BAT0.capacity, 0)}%"
+                )   
+            )
+        )
+    )
+)
+
+(defvar vol_reveal false)
+(defpoll volume_percent :interval "1s" "pamixer --get-volume")
+
+(defwidget volume[]
+    (eventbox
+        :onhover "eww update vol_reveal=true"
+        :onhoverlost "eww update vol_reveal=false"
+
+        (box
+            :class "volume"
+            :orientation "h"
+            :space-evenly "false"
+
+            (box :class "volume-icon" :onclick "" "${vol_reveal ? volume_percent : ""}")
+
+            (revealer
+                :transition "slideleft"
+                :reveal vol_reveal
+                :duration "400ms"
+
+                (scale
+                    :class "volume-scale"
+                    :value volume_percent
+                    :max 100
+                    :min 0
+                    :onchange "pamixer --set-volume {}"
+                )
+            )
+        )
+    )
+)
+
+(defvar bright_reveal false)
+(defpoll max_brightness :interval "1h" :initial "0" "brightnessctl max")
+(defpoll brightness_percent :interval "1s" "brightnessctl get")
+
+(defwidget brightness[]
+    (eventbox
+        :onhover "eww update bright_reveal=true"
+        :onhoverlost "eww update bright_reveal=false"
+
+        (box
+            :class "brightness"
+            :orientation "h"
+            :space-evenly "false"
+
+            (box :class "volume-icon" :onclick "" "${bright_reveal ? round(brightness_percent/max_brightness*100, 0) : ""}")
+
+            (revealer
+                :transition "slideleft"
+                :reveal bright_reveal
+                :duration "400ms"
+
+                (scale
+                    :class "volume-scale"
+                    :max max_brightness
+                    :min 0
+                    :value brightness_percent
+                    :onchange "brightnessctl set {}"
+                )
+            )
+        )
+    )
+)
+
+(defvar wifi_reveal false)
+(defpoll wifi_ssid :interval "1s" "nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d\: -f2")
+
+(defwidget wifi[]
+    (eventbox
+        :onhover "eww update wifi_reveal=true"
+        :onhoverlost "eww update wifi_reveal=false"
+
+        (box
+            :class "wifi"
+            :orientation "h"
+            :space-evenly "false"
+
+            (box :class "volume-icon" :onclick "" "${wifi_ssid!="" ? "󰤨" : ""}")
+
+            (revealer
+                :transition "slideleft"
+                :reveal wifi_reveal
+                :duration "400ms"
+
+                (label :text "‎ ${wifi_ssid}")
+            )
+        )
+    )
+)
+
+(defwidget left []
+    (box :class "modules-left"
+         :orientation "horizontal"
+         :halign "start"
+         :space-evenly false
+
+        ;  (windows)
+         (workspaces)
+    )
+)
+
+(defwidget center []
+    (box :class "modules-center"
+         :orientation "horizontal"
+         :halign "center"
+         :space-evenly false
+         :spacing 3
+
+         (clock)
+         (music)
+    )
+)
+
+(defwidget right []
+    (box :class "modules-right"
+         :orientation "horizontal"
+         :halign "end"
+         :spacing 12
+         :space-evenly "false"
+
+         (colorpicker)
+         
+        ;  (box
+        ;      :space-evenly "false"
+        ;      :spacing 5
+
+        ;      (cpu)
+        ;      (ram)
+        ;      (battery)
+        ;  )
+
+         (wifi)
+         (brightness)
+         (volume)
+    )
+)
+
+(defwidget bar []
+    (centerbox :class "bar"
+               :orientation "h"
+
+               (left)
+               (center)
+               (right)
+    )
+)
+
+(defwindow example
+        :monitor 0
+        :geometry (geometry :x "0px"
+                            :y "0px"
+                            :width "100%"
+                            :height "40px"
+                            :anchor "top center"
+                    )
+        :stacking "fg"
+        :exclusive true
+        :focusable false
+        :namespace "example"
+
+    (bar)
+)

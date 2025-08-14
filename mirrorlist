@@ -42,3 +42,7 @@ Server = https://mirror.meowsmp.net/arch/$repo/os/$arch
 Server = https://mirrors.nguyenhoang.cloud/archlinux/$repo/os/$arch
 Server = http://mirrors.twilight.fyi/archlinux/$repo/os/$arch
 Server = https://mirrors.twilight.fyi/archlinux/$repo/os/$arch
+<<<<<<< HEAD
+=======
+
+>>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd

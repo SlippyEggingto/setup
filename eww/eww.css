@@ -1,0 +1,178 @@
+@import url('/home/${USER}/.cache/wal/colors-waybar.css');
+@import url('/home/${USER}/.cache/wal/rgb-colors.css');
+
+* {
+    transition: .3s;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Symbols Nerd Font Mono";
+}
+
+button {
+    border: none;
+}
+
+window {
+    background: rgba(0, 0, 0, 0);
+    border-radius: 16px;
+}
+
+.bar {
+    padding: 0 20px 0 20px;
+}
+
+.volume-icon {
+    background-color: transparent;
+    min-width: 0px;
+    font-size: 17px;
+}
+
+.volume-scale {
+    min-width: 100px;
+}
+
+.volume-scale highlight {
+    background-color: @theme_fg_color;
+}
+
+.volume-scale trough {
+    background-color: @color0-rgba;
+}
+
+.windows {
+    font-weight: 700;
+}
+
+.workspaces-widget {
+    min-height: 0px;
+    padding: 12px 0 12px 0;
+}
+
+.workspace-entry {
+    font-size: 0;
+    border-radius: 100px;
+    min-width: 16px;
+    min-height: 0px;
+}
+
+.workspace-entry.empty{
+    background-color: @color0-rgba;
+}
+
+.workspace-entry.current {
+    background-color: @theme_fg_color;
+    min-width: 40px;
+}
+
+.workspace-entry.occupied {
+    background-color: @theme_fg_color;
+}
+
+.clock, .music {
+    font-weight: 700;
+}
+
+.wifi, .brightness, .volume {
+    font-weight: 700;
+}
+
+.cpu-chart, .ram-chart, .battery-chart {
+    background-color: @color0-rgba;
+}
+
+.cpu-label, .ram-label, .battery-label {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.ram-icon, .cpu-icon, .battery-icon {
+    font-size: 14px;
+    padding: 7px;
+}
+
+.colorpicker-icon {
+    border-radius: 100px;
+    background-color: transparent;
+    min-width: 34px;
+    min-height: 20px;
+}
+
+.cpu-widget, .ram-widget, .swap-widget {
+    background-color: rgba(50, 50, 50, 0.4);
+    border-radius: 100px;
+}
+
+.poweroff, .reboot, .suspend, .hibernate, .lock, .uwu {
+    border: none;
+    background-color: rgba(50, 50, 50, 0.8);
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: 20px 15px;
+}
+
+.poweroff {
+    background-image: url('./icons/shutdown.png');
+}
+
+.reboot {
+    background-image: url('./icons/reboot.png');
+}
+
+.suspend {
+    background-image: url('./icons/suspend.png');
+}
+
+.hibernate {
+    background-image: url('./icons/hibernate.png');
+}
+
+/* .lock {
+    background-image: url('./icons/lock.png');
+} */
+
+.poweroff:hover, .reboot:hover, .suspend:hover, .hibernate:hover, .lock:hover, .uwu:hover {
+    margin-left: 25px;
+    background-color: @color3;
+}
+
+.logout-image {
+    border-radius: 20px;
+}
+
+.logout {
+    padding: 25px;
+    border-radius: 20px;
+    background-color: @theme_bg_color;
+}
+
+.logout-image-button {
+    border-radius: 0;
+}
+
+.button-label {
+    margin-left: 25px;
+}
+
+.right-bar {
+    margin-right: 10px;
+    background-color: @theme_bg_color;
+    border-radius: 26px;
+    padding: 20px;
+}
+
+.tool-button-wifi, .tool-button-bluetooth, .tool-button-speaker, .tool-button-battery, .tool-button-settings {
+    border: none;
+    border-radius: 100px;
+}
+
+.tools {
+    background-color: green;
+    padding: 10px;
+    border-radius: 1000px;
+}
+
+.notification-cell {
+    padding: 5px 10px 5px 10px;
+}
+
+.notification-cell-label-summary {
+    font-weight: 800;
+}

@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 @import url('/home/nptanphuc/Personalization/type4.css');
+=======
+@import '/home/nptanphuc/.cache/wal/colors-waybar.css';
+@import url('/home/nptanphuc/.cache/wal/materialyoucolor-python.css');
+>>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
 
 window {
     margin: 0px;
@@ -16,16 +21,28 @@ window {
     border-radius: 15px;
     margin: 10px;
     min-height: 30px;
+<<<<<<< HEAD
     border: @onSecondaryFixed solid 2px;
+=======
+    border: @foreground solid 2px;
+>>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
     background-color: alpha(@primaryFixedDim, 0.3);
     color: @onPrimaryFixedDim;
 }
 
 #input:focus {
+<<<<<<< HEAD
     border: @onSecondaryFixed solid 2px;
 }
 
 #selected {
+=======
+    border: @color4 solid 2px;
+}
+
+#selected {
+    /* background-color: red; */
+>>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
     border-radius: 15px;
     border: none;
 }
@@ -62,6 +79,10 @@ window {
 }
 
 #entry:selected {
+<<<<<<< HEAD
+=======
+    /* background-color: alpha(@onSecondaryFixed, 0.32); */
+>>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
     background-color: alpha(@secondaryFixed, 0.3);
 }
 
