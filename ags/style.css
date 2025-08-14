@@ -1,18 +1,10 @@
 /* START OF BASIC.H */
-<<<<<<< HEAD
 /* @import url('/home/nptanphuc/.cache/wal/materialyoucolor-python.css'); */
 @import url('/home/nptanphuc/Personalization/type4.css');
 
 * {
     transition: 0.3s;
     /* -gtk-icon-theme: 'Adwaita'; */
-=======
-@import url('/home/nptanphuc/.cache/wal/materialyoucolor-python.css');
-
-* {
-    transition: 0.3s;
-    -gtk-icon-theme: 'Adwaita';
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Symbols Nerd Font Mono";
 }
 /* END OF BASIC.H */
@@ -35,18 +27,12 @@ window.top-bar {
 
 .workspaces {
     border-radius: 100px;
-<<<<<<< HEAD
     padding: 8px 8px 8px 8px;
-=======
-    padding: 8px;
-    /* font-size: 0px; */
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
     margin: 6px 4px 6px 4px;
     background-color: rgba(255, 255, 255, .1);
     box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
 }
 
-<<<<<<< HEAD
 .workspaces box {
     min-height: 10px;
     min-width: 10px;
@@ -75,20 +61,6 @@ window.top-bar {
 } */
 
 /* .workspaces .focused {
-=======
-.workspaces button {
-    min-height: 0px;
-    min-width: 4px;
-    background-color: alpha(@onPrimaryContainer, .2);
-    border: none;
-}
-
-.workspaces .active {
-    background-color: @onPrimaryContainer;
-}
-
-.workspaces .focused {
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
     min-width: 30px;
 }
 
@@ -100,11 +72,7 @@ window.top-bar {
     background-color: @onPrimaryContainer;
     min-width: 30px;
     border: none;
-<<<<<<< HEAD
 } */
-=======
-}
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
 
 /* END OF BAR_WORKSPACES.H */
 
@@ -116,11 +84,7 @@ window.top-bar {
 
 .window-title {
     font-size: 15px;
-<<<<<<< HEAD
     font-weight: 800;
-=======
-    /* font-weight: 800; */
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
     margin-top: -3px;
 }
 
@@ -138,11 +102,7 @@ window.top-bar {
 }
 
 .time-time {
-<<<<<<< HEAD
     font-weight: 800;
-=======
-    /* font-weight: 800; */
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
 }
 
 .chart {
@@ -207,18 +167,12 @@ window.top-bar {
 
 .media-progress {
     font-size: 2px;
-<<<<<<< HEAD
     min-width: 18px;
     min-height: 18px;
-=======
-    min-width: 20px;
-    min-height: 20px;
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
     background-color: alpha(@onPrimaryContainer, .16);
     transition: none;
 }
 
-<<<<<<< HEAD
 .media-progress-outer {
     padding: 4px 0 4px 0;
     margin-right: 1px;
@@ -230,8 +184,6 @@ window.top-bar {
     transition: none;
 }
 
-=======
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
 /* END OF MEDIA_PROGRESS.H */
 
 /* START OF RIGHT_BAR_BASIC.H */

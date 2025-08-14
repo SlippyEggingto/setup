@@ -1,14 +1,9 @@
-<<<<<<< HEAD
 wallpaper=$(yad --title="Open file" --file --add-preview --large-preview --workdir=/home/$USER/Downloads/wallpapers/)
-=======
-wallpaper=$(yad --file --add-preview --large-preview --workdir=/home/$USER/Downloads/wallpapers/)
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
 
 if [[ "$wallpaper" == "" ]]; then
     exit 1
 fi
 
-<<<<<<< HEAD
 dark=dark
 light_bar=true
 
@@ -18,19 +13,10 @@ printf "\nis dark scheme: "
 printf $dark | tee /home/$USER/Personalization/color_scheme
 printf "\nis light bar: "
 printf $light_bar | tee /home/$USER/Personalization/light_bar
-=======
-dark=true
-
-printf "wallpaper: "
-printf $wallpaper | tee /home/$USER/Downloads/wallpapers/wallpaper
-printf "\nis dark scheme: "
-printf $dark | tee /home/$USER/Downloads/wallpapers/dark
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
 printf "\n"
 
 swww img --transition-type grow --transition-pos 0.854,0.997 --transition-step 90 $wallpaper
 
-<<<<<<< HEAD
 
 python3 ~/Personalization/color.py
 if [[ "$light_bar" == "true" ]];
@@ -45,17 +31,6 @@ then
 
 echo "@import url('/home/nptanphuc/Personalization/type4.css');
 @define-color accent_color @primaryFixedDim;
-=======
-python3 ~/.cache/wal/color.py
-python3 ~/.cache/wal/light_bar.py
-printf ags | tee /home/$USER/Downloads/wallpapers/ags
-
-if [[ "$dark" == "false" ]];
-then
-    gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
-
-echo "@define-color accent_color @primaryFixedDim;
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
 @define-color accent_fg_color @onPrimaryFixed;
 @define-color accent_bg_color @primaryFixedDim;
 @define-color window_bg_color @secondaryContainer;
@@ -71,7 +46,6 @@ echo "@define-color accent_color @primaryFixedDim;
 @define-color sidebar_bg_color @window_bg_color;
 @define-color sidebar_fg_color @window_fg_color;
 @define-color sidebar_border_color @window_bg_color;
-<<<<<<< HEAD
 @define-color sidebar_backdrop_color @window_bg_color;" > ~/Personalization/gtk4.css
 
 # echo "NAME=wal
@@ -91,27 +65,6 @@ echo "@define-color accent_color @primaryFixedDim;
 # ROUNDNESS=10
 # SPACING=3
 # GRADIENT=0.0" > ~/.cache/wal/colors-oomox
-=======
-@define-color sidebar_backdrop_color @window_bg_color;" > ~/.cache/wal/gtk4.css
-
-echo "NAME=wal
-BG=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
-FG=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
-MENU_BG=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
-MENU_FG=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
-SEL_BG=$(sed '30q;d' ~/.cache/wal/template-materialyoucolor-python)
-SEL_FG=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
-TXT_BG=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
-TXT_FG=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
-BTN_BG=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
-BTN_FG=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
-HDR_BG=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
-HDR_FG=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
-GTK3_GENERATE_DARK=False
-ROUNDNESS=10
-SPACING=3
-GRADIENT=0.0" > ~/.cache/wal/colors-oomox
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
 
 # #ff0000
 # #00ff00
@@ -122,7 +75,6 @@ GRADIENT=0.0" > ~/.cache/wal/colors-oomox
 # #987654
 # #246357
 
-<<<<<<< HEAD
 echo "[colors]
 foreground=$(sed '34q;d' ~/Personalization/type1)
 background=$(sed '33q;d' ~/Personalization/type1)
@@ -150,55 +102,16 @@ selection-background=$(sed '30q;d' ~/Personalization/type1)
 
 search-box-no-match=$(sed '40q;d' ~/Personalization/type1) $(sed '39q;d' ~/Personalization/type1)
 search-box-match=$(sed '34q;d' ~/Personalization/type1) $(sed '33q;d' ~/Personalization/type1)
-=======
-echo "0.8" > ~/Downloads/wallpapers/opacity
-
-echo "[colors]
-foreground=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
-background=$(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
-
-regular0=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular1=$(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular2=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular3=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular4=$(sed '30q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular5=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular6=$(sed '29q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular7=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
-
-bright0=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
-bright1=$(sed '52q;d' ~/.cache/wal/template-materialyoucolor-python)
-bright2=$(sed '52q;d' ~/.cache/wal/template-materialyoucolor-python)
-bright3=$(sed '40q;d' ~/.cache/wal/template-materialyoucolor-python)
-bright4=ffffff
-bright5=ffffff
-bright6=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
-bright7=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
-
-selection-foreground=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python)
-selection-background=$(sed '30q;d' ~/.cache/wal/template-materialyoucolor-python)
-
-search-box-no-match=$(sed '40q;d' ~/.cache/wal/template-materialyoucolor-python) $(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
-search-box-match=$(sed '34q;d' ~/.cache/wal/template-materialyoucolor-python) $(sed '33q;d' ~/.cache/wal/template-materialyoucolor-python)
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
 
 jump-labels=ffffff ffffff
 urls=ffffff" > ~/.config/foot/theme
 
-<<<<<<< HEAD
 elif [[ "$dark" == "dark" ]];
 then
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
 echo "@import url('/home/nptanphuc/Personalization/type4.css');
 @define-color accent_color @primaryFixedDim;
-=======
-elif [[ "$dark" == "true" ]];
-then
-    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-
-echo "@define-color accent_color @primaryFixedDim;
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
 @define-color accent_fg_color @onPrimaryFixed;
 @define-color accent_bg_color @primaryFixedDim;
 @define-color window_bg_color @onSecondaryFixed;
@@ -214,7 +127,6 @@ echo "@define-color accent_color @primaryFixedDim;
 @define-color sidebar_bg_color @window_bg_color;
 @define-color sidebar_fg_color @window_fg_color;
 @define-color sidebar_border_color @window_bg_color;
-<<<<<<< HEAD
 @define-color sidebar_backdrop_color @window_bg_color;" > ~/Personalization/gtk4.css
 
 # echo "NAME=wal
@@ -234,27 +146,6 @@ echo "@define-color accent_color @primaryFixedDim;
 # ROUNDNESS=10
 # SPACING=3
 # GRADIENT=0.0" > ~/.cache/wal/colors-oomox
-=======
-@define-color sidebar_backdrop_color @window_bg_color;" > ~/.cache/wal/gtk4.css
-
-echo "NAME=wal
-BG=$(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
-FG=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
-MENU_BG=$(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
-MENU_FG=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
-SEL_BG=$(sed '30q;d' ~/.cache/wal/template-materialyoucolor-python)
-SEL_FG=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
-TXT_BG=$(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
-TXT_FG=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
-BTN_BG=$(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
-BTN_FG=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
-HDR_BG=$(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
-HDR_FG=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
-GTK3_GENERATE_DARK=True
-ROUNDNESS=10
-SPACING=3
-GRADIENT=0.0" > ~/.cache/wal/colors-oomox
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
 
 # reg0 = clock-foreground, time-foreground, cmus-album-foreground, cmus-timer-foreground
 # reg1 = returned-number-background (127, 128,...)
@@ -282,7 +173,6 @@ GRADIENT=0.0" > ~/.cache/wal/colors-oomox
 # bri6 = ~ character of true-path
 # bri7 = dirs-foreground
 
-<<<<<<< HEAD
 echo "[colors]
 foreground=$(sed '47q;d' ~/Personalization/type1)
 background=$(sed '49q;d' ~/Personalization/type1)
@@ -310,50 +200,14 @@ selection-background=$(sed '30q;d' ~/Personalization/type1)
 
 search-box-no-match=$(sed '40q;d' ~/Personalization/type1) $(sed '39q;d' ~/Personalization/type1)
 search-box-match=$(sed '47q;d' ~/Personalization/type1) $(sed '49q;d' ~/Personalization/type1)
-=======
-echo "1.4" > ~/Downloads/wallpapers/opacity
-
-echo "[colors]
-foreground=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
-background=$(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
-
-regular0=$(sed '27q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular1=$(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular2=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular3=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular4=$(sed '30q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular5=$(sed '35q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular6=$(sed '29q;d' ~/.cache/wal/template-materialyoucolor-python)
-regular7=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
-
-bright0=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
-bright1=$(sed '52q;d' ~/.cache/wal/template-materialyoucolor-python)
-bright2=$(sed '52q;d' ~/.cache/wal/template-materialyoucolor-python)
-bright3=$(sed '40q;d' ~/.cache/wal/template-materialyoucolor-python)
-bright4=ffffff
-bright5=ffffff
-bright6=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
-bright7=$(sed '26q;d' ~/.cache/wal/template-materialyoucolor-python)
-
-selection-foreground=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python)
-selection-background=$(sed '30q;d' ~/.cache/wal/template-materialyoucolor-python)
-
-search-box-no-match=$(sed '40q;d' ~/.cache/wal/template-materialyoucolor-python) $(sed '39q;d' ~/.cache/wal/template-materialyoucolor-python)
-search-box-match=$(sed '47q;d' ~/.cache/wal/template-materialyoucolor-python) $(sed '49q;d' ~/.cache/wal/template-materialyoucolor-python)
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
 
 jump-labels=ffffff ffffff
 urls=ffffff" > ~/.config/foot/theme
 
 fi
 
-<<<<<<< HEAD
 echo "background-color=$(sed '28q;d' ~/Personalization/type2)
 text-color=$(sed '29q;d' ~/Personalization/type2)
-=======
-echo "background-color=$(sed '28q;d' ~/.cache/wal/materialyoucolor-python)
-text-color=$(sed '29q;d' ~/.cache/wal/materialyoucolor-python)
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd
 border-size=0
 max-history=15
 sort=+time
@@ -366,8 +220,4 @@ default-timeout=7000" > ~/.config/mako/config
 
 makoctl reload
 
-<<<<<<< HEAD
 # oomox-cli ~/.cache/wal/colors-oomox -m gtk320
-=======
-oomox-cli ~/.cache/wal/colors-oomox -m gtk320
->>>>>>> a10c0eddef0068628cdc6810a726e6df384075bd

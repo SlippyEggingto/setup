@@ -1,5 +1,0 @@
-
-(include "./bar.yuck")
-(include "./resource_usage.yuck")
-(include "./logout_menu.yuck")
-(include "./right_bar.yuck")
