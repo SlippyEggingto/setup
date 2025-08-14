@@ -1,0 +1,402 @@
+/* START OF BASIC.H */
+/* @import url('/home/nptanphuc/.cache/wal/materialyoucolor-python.css'); */
+@import url('/home/nptanphuc/Personalization/type4.css');
+
+* {
+    transition: 0.3s;
+    -gtk-icon-theme: 'Adwaita';
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Symbols Nerd Font Mono";
+}
+/* END OF BASIC.H */
+
+/* START OF BAR_BASIC.H */
+
+window.top-bar {
+    background-color: @primaryContainer;
+    color: @onPrimaryContainer;
+    font-weight: 600;
+}
+
+.modules-left, .modules-right {
+    margin: 0 15px 0 15px;
+}
+
+/* END OF BAR_BASIC.H */
+
+/* START OF BAR_WORKSPACES.H */
+
+.workspaces {
+    border-radius: 100px;
+    padding: 8px;
+    /* font-size: 0px; */
+    margin: 6px 4px 6px 4px;
+    background-color: rgba(255, 255, 255, .1);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
+}
+
+.workspaces button {
+    min-height: 0px;
+    min-width: 4px;
+    background-color: alpha(@onPrimaryContainer, .2);
+    border: none;
+}
+
+.workspaces .active {
+    background-color: @onPrimaryContainer;
+}
+
+.workspaces .focused {
+    min-width: 30px;
+}
+
+.workspaces .empty:hover, .workspaces .active:hover{
+    min-width: 30px;
+}
+
+.workspaces .focused_and_active {
+    background-color: @onPrimaryContainer;
+    min-width: 30px;
+    border: none;
+}
+
+/* END OF BAR_WORKSPACES.H */
+
+/* START OF BAR_WINDOW.H */
+
+.window-class {
+    font-size: 14px;
+}
+
+.window-title {
+    font-size: 15px;
+    /* font-weight: 800; */
+    margin-top: -3px;
+}
+
+/* END OF BAR_WINDOW.H */
+
+/* START OF BAR_CLOCK.H */
+
+.clock {
+    margin: 6px 4px 6px 4px;
+    border-radius: 100px;
+    padding: 0 8px 0 8px;
+    background-color: rgba(255, 255, 255, .1);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
+    font-size: 14px;
+}
+
+.time-time {
+    /* font-weight: 800; */
+}
+
+.chart {
+    margin: 6px 4px 6px 4px;
+    border-radius: 100px;
+    padding: 0 3px 0 3px;
+    background-color: rgba(255, 255, 255, .1);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
+}
+
+.tools-icon {
+    background-color: alpha(@onPrimaryContainer, .12);
+    margin: 2px 0 2px 0;
+    padding: 0 4px 0 4px;
+    border-radius: 100px;
+}
+
+/* END OF BAR_CLOCK.H */
+
+/* START OF BAR_MEDIA.H */
+
+.media {
+    margin: 6px 4px 6px 4px;
+    border-radius: 100px;
+    padding: 0 4px 0 4px;
+    background-color: rgba(255, 255, 255, .1);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
+}
+
+.media-title {
+    font-size: 14px;
+    margin-left: 3px;
+}
+
+.media-artist {
+    font-weight: 600;
+    font-size: 14px;
+    margin-right: 3px;
+}
+
+.media-event-box:active, .workspaces-event-box:active {
+    background-color: transparent;
+}
+
+.media-event-box label, .media-event-box icon {
+    transition: none;
+}
+
+/* END OF BAR_MEDIA.H */
+
+/* START OF BAR_VOLUME.H */
+
+.volume {
+    margin: 0;
+    border: none;
+    background-color: transparent;
+}
+
+/* END OF BAR_VOLUME.H */
+
+/* START OF MEDIA_PROGRESS.H */
+
+.media-progress {
+    font-size: 2px;
+    min-width: 20px;
+    min-height: 20px;
+    background-color: alpha(@onPrimaryContainer, .16);
+    transition: none;
+}
+
+/* END OF MEDIA_PROGRESS.H */
+
+/* START OF RIGHT_BAR_BASIC.H */
+
+window.right-bar {
+    background-color: @primaryContainer;
+    color: @onPrimaryContainer;
+    border-radius: 16px;
+}
+
+/* END OF RIGHT_BAR_BASIC.H */
+
+/* START OF UTILITIES.H */
+
+.utilities {
+    background-color: transparent;
+    /* border-radius: 16px; */
+    padding: 10px;
+}
+
+.utilities-menu {
+    margin: 10px;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, .1);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
+    border-radius: 16px;
+}
+
+.utilities-chooser {
+    /* background-color: red; */
+}
+
+.utilities-chooser button {
+    /* border: none; */
+    color: @onPrimaryContainer;
+    background-color: rgba(255, 255, 255, .1);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
+}
+
+.utilities-chooser button:active {
+    background-color: @secondaryFixedDim;
+}
+
+.utilities-switch {
+    min-width: 10px;
+    border-radius: 12px;
+}
+
+.utilities_button {
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    color: @onPrimaryContainer;
+}
+
+.audio-slider {
+    min-width: 250px;
+    margin: 10px;
+}
+
+.audio-slider trough{
+    min-height: 8px;
+    background-color: rgba(255, 255, 255, .1);
+    border-radius: 100px;
+}
+
+.audio-slider highlight {
+    background-color: @onPrimaryContainer;
+    border-radius: 100px;
+}
+
+/* END OF UTILITIES.H */
+
+/* START OF MEDIA_WINDOW.H */
+
+window.media-window, window.on-screen-volume, window.on-screen-brightness {
+    background: transparent;
+}
+
+.media-window, .on-screen-volume, .on-screen-brightness {
+    transition: cubic-bezier(.6,.77,.06,1.2) .5s;
+    background-color: @primaryContainer;
+    color: @onPrimaryContainer;
+    padding: 10px;
+    border-radius: 16px;
+    margin-top: -175px;
+}
+
+.on-screen-volume, .on-screen-brightness {
+    padding: 8px 10px 10px 10px;
+}
+
+.osv-bar trough {
+    background-color: alpha(@onPrimaryContainer, .15);
+    border: none;
+}
+
+.osv-bar trough block.filled {
+    background-color: @onPrimaryContainer;
+    min-height: 12px;
+    margin: -1px;
+}
+
+.osv-label {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.media-window button {
+    transition: none;
+    background-color: alpha(@onPrimaryContainer, .1);
+    color: @onPrimaryContainer;
+}
+
+.media-window button:hover {
+    background-color: @onPrimaryContainer;
+    color: @primaryContainer;
+    border: 1px solid @onPrimaryContainer;
+}
+
+.media-window button:active {
+    background-color: @onPrimaryContainer;
+    color: @surfaceContainer;
+}
+
+.media-slider {
+    font-size: 0px;
+}
+
+.media-slider trough{
+    min-height: 8px;
+    background-color: alpha(@onPrimaryContainer, .15);
+    border-radius: 100px;
+}
+
+.media-slider slider {
+    background-color: @onPrimaryContainer;
+}
+
+.media-slider highlight {
+    background-color: @onPrimaryContainer;
+    border-radius: 100px;
+}
+
+/* END OF MEDIA_WINDOW.H */
+
+/* START OF LOGOUT_WINDOW.H*/
+
+.logout-eventbox:active {
+    background-color: rgba(0, 0, 0, .1);
+    border: none;
+    box-shadow: none;
+}
+
+.logout-image {
+    background-position: 59% 57%;
+    min-width: 400px;
+    min-height: 400px;
+    background-clip: border-box;
+    border-top-left-radius: 26px;
+    border-bottom-left-radius: 26px;
+}
+
+.logout-right-pane {
+    background-color: alpha(@primary, .5);
+    color: @onPrimary;
+    min-width: 380px;
+    min-height: 380px;
+    border-top-right-radius: 26px;
+    border-bottom-right-radius: 26px;
+    padding: 20px 20px 20px 0;
+}
+
+.logout-right-pane button {
+    padding: 0;
+    border-radius: 16px;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+}
+
+.logout-right-pane button:active {
+    background-color: unset;
+}
+
+.logout-right-pane button label {
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 16px;
+    transition-delay: 0.3s;
+}
+
+.logout-icon {
+    background-repeat: no-repeat;
+    background-position: center;
+    min-width: 0;
+    min-height: 0;
+    color: transparent;
+    margin-left: 20px;
+    background-size: 50%;
+    border-radius: 16px;
+    transition-delay: 0s;
+}
+
+.logout-right-pane button:hover .logout-icon {
+    min-height: 25px;
+    min-width: 25px;
+    padding: 10px;
+    transition-delay: 0.1s;
+}
+
+.logout-right-pane button:hover label {
+    margin-left: 10px;
+    transition-delay: 0s;
+}
+
+.logout-right-pane button:nth-child(1) label, .logout-right-pane button:nth-child(1) .logout-icon {
+    background-color: #89b4fa;
+    color: #313244;
+}
+
+.logout-right-pane button:nth-child(2) label, .logout-right-pane button:nth-child(2) .logout-icon {
+    background-color: #f38ba8;
+    color: #313244;
+}
+
+.logout-right-pane button:nth-child(3) label, .logout-right-pane button:nth-child(3) .logout-icon {
+    background-color: #a6e3a1;
+    color: #313244;
+}
+
+.logout-right-pane button:nth-child(4) label, .logout-right-pane button:nth-child(4) .logout-icon {
+    background-color: #f9e2af;
+    color: #313244;
+}
+
+.logout-right-pane button:nth-child(5) label, .logout-right-pane button:nth-child(5) .logout-icon {
+    background-color: #cba6f7;
+    color: #313244;
+}
+
+/* END OF LOGOUT_WINDOW.H */

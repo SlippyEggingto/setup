@@ -1,0 +1,30 @@
+[colors]
+foreground=f5e0bb
+background=241a04
+
+regular0=402d00
+regular1=ffb4ab
+regular2=b1cfa8
+regular3=eac16c
+regular4=78590c
+regular5=b1cfa8
+regular6=ffdea1
+regular7=eac16c
+
+bright0=eac16c
+bright1=b1cfa8
+bright2=b1cfa8
+bright3=690005
+bright4=ffffff
+bright5=ffffff
+bright6=f5e0bb
+bright7=eac16c
+
+selection-foreground=f5e0bb
+selection-background=78590c
+
+search-box-no-match=690005 ffb4ab
+search-box-match=f5e0bb 241a04
+
+jump-labels=ffffff ffffff
+urls=ffffff
