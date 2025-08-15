@@ -3,10 +3,10 @@
 @import url('/home/nptanphuc/Personalization/type4.css');
 
 * {
-    transition: 0.3s;
-    /* -gtk-icon-theme: 'Adwaita'; */
+    -gtk-icon-theme: 'Adwaita';
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Symbols Nerd Font Mono";
 }
+
 /* END OF BASIC.H */
 
 /* START OF BAR_BASIC.H */
@@ -15,6 +15,7 @@ window.top-bar {
     background-color: @primaryContainer;
     color: @onPrimaryContainer;
     font-weight: 600;
+    transition: 0.3s;
 }
 
 .modules-left, .modules-right {
@@ -27,7 +28,7 @@ window.top-bar {
 
 .workspaces {
     border-radius: 100px;
-    padding: 8px 8px 8px 8px;
+    padding: 8px;
     margin: 6px 4px 6px 4px;
     background-color: rgba(255, 255, 255, .1);
     box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
@@ -46,45 +47,45 @@ window.top-bar {
     background-color: red;
 }
 
-/* .workspaces #button { */
-    /* font-size: 0px;
+.workspaces eventbox {
+    font-size: 0px;
     min-height: 0px;
-    min-width: 0px;
     background-color: alpha(@onPrimaryContainer, .2);
     border: none;
-    border-radius: 100px; */
-/* } */
+    border-radius: 100px;
+}
 
-/* .workspaces .active {
+.workspaces .active {
     background-color: @onPrimaryContainer;
     min-width: 10px;
-} */
+}
 
-/* .workspaces .focused {
+.workspaces .focused {
     min-width: 30px;
 }
 
 .workspaces .empty:hover, .workspaces .active:hover{
     min-width: 30px;
+    /* background-color: red; */
 }
 
 .workspaces .focused_and_active {
     background-color: @onPrimaryContainer;
     min-width: 30px;
     border: none;
-} */
+}
 
 /* END OF BAR_WORKSPACES.H */
 
 /* START OF BAR_WINDOW.H */
 
 .window-class {
-    font-size: 14px;
+    font-size: 13px;
+    font-weight: 800;
 }
 
 .window-title {
-    font-size: 15px;
-    font-weight: 800;
+    font-size: 14px;
     margin-top: -3px;
 }
 
@@ -130,6 +131,7 @@ window.top-bar {
     padding: 0 4px 0 4px;
     background-color: rgba(255, 255, 255, .1);
     box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
+    transition: 0.3s;
 }
 
 .media-title {
@@ -138,7 +140,6 @@ window.top-bar {
 }
 
 .media-artist {
-    font-weight: 600;
     font-size: 14px;
     margin-right: 3px;
 }
@@ -261,6 +262,7 @@ window.right-bar {
 
 window.media-window, window.on-screen-volume, window.on-screen-brightness {
     background: transparent;
+    transition: 0.3s;
 }
 
 .media-window, .on-screen-volume, .on-screen-brightness {
@@ -269,7 +271,6 @@ window.media-window, window.on-screen-volume, window.on-screen-brightness {
     color: @onPrimaryContainer;
     padding: 10px;
     border-radius: 16px;
-    margin-top: -175px;
 }
 
 .on-screen-volume, .on-screen-brightness {
@@ -292,21 +293,26 @@ window.media-window, window.on-screen-volume, window.on-screen-brightness {
     font-weight: 800;
 }
 
-.media-window button {
+.media-window-button {
     transition: none;
-    background-color: alpha(@onPrimaryContainer, .1);
+    background-color: alpha(@onPrimaryContainer, .15);
     color: @onPrimaryContainer;
+    border-radius: 11px;
 }
 
-.media-window button:hover {
+.media-window-button:hover {
     background-color: @onPrimaryContainer;
     color: @primaryContainer;
     border: 1px solid @onPrimaryContainer;
 }
 
-.media-window button:active {
+.media-window-button:active {
     background-color: @onPrimaryContainer;
     color: @surfaceContainer;
+}
+
+.media-window-button-icon {
+    margin: 6px;
 }
 
 .media-slider {
@@ -320,6 +326,7 @@ window.media-window, window.on-screen-volume, window.on-screen-brightness {
 }
 
 .media-slider slider {
+    background-image: none;
     background-color: @onPrimaryContainer;
 }
 

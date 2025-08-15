@@ -1,0 +1,1 @@
+playerctl metadata --format '{{ playerName }}{{ duration(position) }}{{ duration(mpris:length) }}{{ status }}' --follow | tee /home/nptanphuc/.config/ags/mpris.signal
