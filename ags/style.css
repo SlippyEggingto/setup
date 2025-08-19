@@ -106,7 +106,7 @@ window.top-bar {
     font-weight: 800;
 }
 
-.chart {
+.tools {
     margin: 6px 4px 6px 4px;
     border-radius: 100px;
     padding: 0 3px 0 3px;
@@ -119,6 +119,7 @@ window.top-bar {
     margin: 2px 0 2px 0;
     padding: 0 4px 0 4px;
     border-radius: 100px;
+    font-size: 14px;
 }
 
 /* END OF BAR_CLOCK.H */
@@ -265,7 +266,7 @@ window.media-window, window.on-screen-volume, window.on-screen-brightness {
     transition: 0.3s;
 }
 
-.media-window, .on-screen-volume, .on-screen-brightness {
+.media-window {
     transition: cubic-bezier(.6,.77,.06,1.2) .5s;
     background-color: @primaryContainer;
     color: @onPrimaryContainer;
@@ -273,19 +274,24 @@ window.media-window, window.on-screen-volume, window.on-screen-brightness {
     border-radius: 16px;
 }
 
-.on-screen-volume, .on-screen-brightness {
-    padding: 8px 10px 10px 10px;
+.outer-osv-bar {
+    border-radius: 10000px;
+    border: 1px solid alpha(@onSurface, .2);
 }
 
-.osv-bar trough {
-    background-color: alpha(@onPrimaryContainer, .15);
-    border: none;
+.on-screen-volume {
+    transition: cubic-bezier(.6,.77,.06,1.2) .5s;
+    margin-right: -70px;
 }
 
-.osv-bar trough block.filled {
-    background-color: @onPrimaryContainer;
-    min-height: 12px;
-    margin: -1px;
+.on-screen-brightness {
+    transition: cubic-bezier(.6,.77,.06,1.2) .5s;
+    margin-left: -70px;
+}
+
+.osv-bar {
+    border-radius: 1000px;
+    color: @onPrimaryContainer;
 }
 
 .osv-label {
@@ -294,10 +300,11 @@ window.media-window, window.on-screen-volume, window.on-screen-brightness {
 }
 
 .media-window-button {
-    transition: none;
-    background-color: alpha(@onPrimaryContainer, .15);
+    transition: 0.3s;
+    border: transparent;
+    background-color: alpha(@onPrimaryContainer, .1);
     color: @onPrimaryContainer;
-    border-radius: 11px;
+    border-radius: 10px;
 }
 
 .media-window-button:hover {
@@ -322,6 +329,7 @@ window.media-window, window.on-screen-volume, window.on-screen-brightness {
 .media-slider trough{
     min-height: 8px;
     background-color: alpha(@onPrimaryContainer, .15);
+    /* background-color: red; */
     border-radius: 100px;
 }
 
@@ -331,6 +339,7 @@ window.media-window, window.on-screen-volume, window.on-screen-brightness {
 }
 
 .media-slider highlight {
+    background-image: none;
     background-color: @onPrimaryContainer;
     border-radius: 100px;
 }

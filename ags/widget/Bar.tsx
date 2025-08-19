@@ -7,19 +7,43 @@ import { With } from "gnim";
 import Pango from "gi://Pango?version=1.0";
 
 import AstalHyprland from "gi://AstalHyprland?version=0.1";
-const hyprland = AstalHyprland.get_default()
 import AstalMpris from "gi://AstalMpris?version=0.1";
-const mpris = AstalMpris.get_default();
 import AstalWp from "gi://AstalWp?version=0.1";
-const audio = AstalWp.get_default();
 import AstalBattery from "gi://AstalBattery?version=0.1";
 import { monitorFile } from "ags/file";
-const battery = AstalBattery.get_default();
 
-const [window_class, set_window_class] = createState("Workspace 0");
-const [window_title, set_window_title] = createState("Desktop");
-const [something_happened, change_something] = createState("hello");
-var window_list : boolean[] = new Array(11);
+export const hyprland = AstalHyprland.get_default(),
+             mpris = AstalMpris.get_default(),
+             audio = AstalWp.get_default(),
+             battery = AstalBattery.get_default();
+
+export const [window_class, set_window_class] = createState("Workspace 0"),
+             [window_title, set_window_title] = createState("Desktop"),
+             [something_happened, change_something] = createState("hello"),
+             speaker = audio.defaultSpeaker,
+             [volume_handler, set_volume_handler] = createState("hello"),
+             [brightness_handler, set_brightness_handler] = createState("hello"),
+             [media_string, set_media_string] = createState(""),
+             screen = exec(`bash -c "ls -w1 /sys/class/backlight | head -1"`),
+             screenWidth = Number(exec(`bash -c "xrandr | grep -Po '(?<=current ).*?(?= x)'"`))
+export let   volume_icon:string,
+             volume_volume:number,
+             window_list : boolean[] = new Array(11),
+             isBeingChosenPlayer : number = 0,
+             media_icon : string = "media-playback-start-symbolic", 
+             media_title : string = "Unknown title",
+             media_artist : string = "Unknown artist",
+             media_position : number = 0,
+             media_length : number = 0,
+             media_percentages : number = 1,
+             media_appear : boolean = false,
+             osv_appear : boolean = false,
+             osb_appear : boolean = false,
+             osv_css : string = "",
+             osb_css : string = "",
+             brightness_brightness : number = Math.round((Number(exec('brightnessctl get')) / Number(exec('brightnessctl max')))*100),
+             volumeTimeOuts:any = [], brightnessTimeOuts:any = [],
+             volWinTimesOut:any = [], brightWinTimeOuts:any = []
 
 function Window() {
     hyprland.connect("event", () => {
@@ -59,9 +83,9 @@ function Window() {
 }
 
 function Usage() {
-    const cpu_usage = createPoll("", 2000, "bash -c \"grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage}'\"")
-    const ram_usage = createPoll("", 2000, "bash -c \"free | grep Mem | awk '{print $3/$2 * 100.0}'\"")
-    const swap_usage = createPoll("", 2000, "bash -c \"free | grep Swap | awk '{print $3/$2 * 100.0}'\"")
+    const cpu_usage = createPoll("", 2000, "bash -c \"grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage}'\""),
+          ram_usage = createPoll("", 2000, "bash -c \"free | grep Mem | awk '{print $3/$2 * 100.0}'\""),
+          swap_usage = createPoll("", 2000, "bash -c \"free | grep Swap | awk '{print $3/$2 * 100.0}'\"")
 
     return (
         <box spacing={5} class={"media"}>
@@ -146,9 +170,9 @@ function Clock() {
 
 function Workspaces() {
     function getCSSClassName(i:number):string {
-        let active : boolean = window_list[i];
-        let focused : boolean = i == hyprland.focusedWorkspace.id;
-        let debug : string;
+        let active : boolean = window_list[i],
+            focused : boolean = i == hyprland.focusedWorkspace.id,
+            debug : string;
 
         if (active == true && focused == true) debug = "focused_and_active";
         else if (active == true && focused == false) debug = "active";
@@ -159,9 +183,9 @@ function Workspaces() {
     }
 
     function getCSSProperties(i:number):string {
-        let active : boolean = window_list[i];
-        let focused : boolean = i == hyprland.focusedWorkspace.id;
-        let debug : string;
+        let active : boolean = window_list[i],
+            focused : boolean = i == hyprland.focusedWorkspace.id,
+            debug : string;
 
         if (active == true && focused == true) debug = "background-color: @onPrimaryContainer; min-width: 30px; border: none; transition: 0.3s;"
         else if (active == true && focused == false) debug = "background-color: @onPrimaryContainer; min-width: 10px; transition: 0.3s;"
@@ -275,17 +299,6 @@ function Workspaces() {
     )
 }
 
-const [media_string, set_media_string] = createState("");
-
-let isBeingChosenPlayer : number = 0;
-let media_icon : string = "media-playback-start-symbolic", 
-    media_title : string = "Unknown title",
-    media_artist : string = "Unknown artist",
-    media_position : number = 0,
-    media_length : number = 0,
-    media_percentages : number = 1,
-    media_appear : boolean = false;
-
 function setMediaWindowPosition() {
     if (media_appear) {
         app.apply_css(`
@@ -330,7 +343,8 @@ monitorFile('/home/nptanphuc/Personalization/type4.css', () => {
 if (media_string.get().length == 5) set_media_string("hello!");
 else set_media_string("hello");
 
-monitorFile(("/home/nptanphuc/.config/ags/mpris.signal"), () => {
+// monitorFile(("/home/nptanphuc/.config/ags/mpris.signal"), () => {
+setInterval(() => {
     if (mpris.players.length > 0) {
         let oke = mpris.players[isBeingChosenPlayer];
         if (oke.playbackStatus == 0) media_icon = "media-playback-pause-symbolic";
@@ -348,12 +362,10 @@ monitorFile(("/home/nptanphuc/.config/ags/mpris.signal"), () => {
         media_title = "Unknown title";
         media_artist = "Unknown artist";
     }
-
-    console.log("worked")
     
     if (media_string.get().length == 5) set_media_string("hello!")
     else set_media_string("hello")
-})
+}, 1000)
 
 mpris.connect("player-closed", () => {
     media_icon = "media-playback-start-symbolic";
@@ -435,41 +447,100 @@ function Media() {
     )
 }
 
-function Volume() {
-    const defaultSpeaker = audio.defaultSpeaker
-
-    const [volume_handler, set_volume_handler] = createState("hello");
-    
-    let vol = defaultSpeaker.volume * 100;
-    let mut = defaultSpeaker.mute
-    let icon : string;
-
-    setInterval(() => {
-        vol = defaultSpeaker.volume * 100;
-        mut = defaultSpeaker.mute
-
-        if (mut == true) icon = 'audio-volume-muted-symbolic'
-        else if (vol <= 15) icon = 'audio-volume-low-symbolic'
-        else if (vol <= 25) icon = 'audio-volume-medium-symbolic'
-        else if (vol <= 67) icon = 'audio-volume-high-symbolic'
-        else icon = 'audio-volume-overamplified-symbolic'
-
-        if (volume_handler.get().length == 5) set_volume_handler("hello!");
-        else set_volume_handler("hello");
-    }, 100);
-
+function Battery() {
+    const [battery_handler, set_battery_handler] = createState("hello");
+    battery.connect("notify", () => {
+        if (battery_handler.get().length == 5) set_battery_handler("hello!");
+        else set_battery_handler("hello");
+    })
 
     return (
-        <eventbox class={"volume"}>
-            <With value={volume_handler}>
-                {(value) => value && 
-                    <icon
-                        icon={icon}
-                        tooltip_text = {`Volume ${Math.floor(vol)}%`}
-                    />
+        <box class={"media"}>
+            <With value={battery_handler}>
+                {(value) => value &&
+                    <box spacing={3}>
+                        <circularprogress
+                            class={"media-progress"}
+                            startAt={0.75}
+                            endAt={0.75}
+                            value={battery.percentage}
+                        >
+                            <icon icon={battery.iconName} class={"media-icon"} css={"font-size: 10px;"}></icon>
+                        </circularprogress>
+                        <label css={"font-size: 14px;"}
+                            label={`${Math.round(battery.percentage*100).toString()}%`}
+                        />
+                    </box>
                 }
             </With>
-        </eventbox>
+        </box>
+    )
+}
+
+function Tools() {
+    return (
+        <box spacing={5} class={"tools"}>
+            <eventbox class={"ultilities_button"} onClick={() => {execAsync('hyprpicker -a')}}>
+                <icon icon={"document-edit-symbolic"} class={"tools-icon"} />
+            </eventbox>
+            <eventbox class={"ultilities_button"} onClick={() => {execAsync("notify-send '(˶˃ ᵕ ˂˶)'")}}>
+                <icon icon={"find-location-symbolic"} class={"tools-icon"} />
+            </eventbox>
+        </box>
+    )
+}
+
+function setOnScreenVolumePosition() {
+    for (var i=0; i<volumeTimeOuts.length; i++) clearTimeout(volumeTimeOuts[i])
+
+    if (!osv_appear) {
+        osv_appear = true
+        app.apply_css(`
+            .on-screen-volume {
+                margin-right: 10px;
+            }
+        `)
+    }
+
+    volumeTimeOuts.push(
+        setTimeout(() => {
+            osv_appear = false
+            app.apply_css(`
+                .on-screen-volume {
+                    margin-right: -70px;
+                }
+            `)
+        }, 2000)
+    )
+}
+
+function Volume() {
+    speaker.connect("notify", () => {
+        speaker.mute == true 
+            ? volume_icon = `audio-volume-muted-symbolic`
+            : speaker.volume <= 0.15
+                ? volume_icon = `audio-volume-low-symbolic`
+                : speaker.volume <= 0.25
+                    ? volume_icon = `audio-volume-medium-symbolic`
+                    : speaker.volume <= 0.67
+                        ? volume_icon = `audio-volume-high-symbolic` 
+                        : `audio-volume-overamplified-symbolic`
+        osv_css = `background: linear-gradient(to bottom, @onSurface ${100-Math.round(volume_volume*100)}%, @primaryContainer ${100-Math.round(volume_volume*100)}%);`
+        volume_volume = speaker.volume;
+        setOnScreenVolumePosition();
+        
+        if (volume_handler.get().length == 5) set_volume_handler("hello!");
+        else set_volume_handler("hello");
+    })
+
+    return (
+        <box>
+            <With value={volume_handler}>
+                {(value) => value &&
+                    <icon icon={volume_icon} />
+                }
+            </With>
+        </box>
     )
 }
 
@@ -488,6 +559,8 @@ function Center() {
             <Clock></Clock>
             <Workspaces></Workspaces>
             <Media></Media>
+            <Battery></Battery>
+            <Tools></Tools>
         </box>
     )
 }
@@ -495,10 +568,7 @@ function Center() {
 function Right() {
     return (
         <box class="modules-right" halign={Gtk.Align.END}>
-            {/* <Volume></Volume> */}
-            <label
-                // label={"Không có gì quý hơn độc lập, tự do!"}
-            />
+            <Volume></Volume>
         </box>
     )
 }
@@ -515,7 +585,6 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
             exclusivity={Astal.Exclusivity.EXCLUSIVE}
             anchor={TOP | LEFT | RIGHT}
             application={app}
-            // heightRequest={40}
         >
             <centerbox>
                 <Left $type="start"></Left>
@@ -528,133 +597,118 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 
 // END OF BAR_WINDOW.H
 
-// START OF MEDIA_WINDOW.H
+// START OF OSD_VOLUME_WINDOW.H
 
-function TrackCover() {
-    return (
-        <box>
-            <With value={media_string}>
-                {(value) => value &&
-                    <box
-                        css={`background-image: url('${mpris.players[isBeingChosenPlayer].artUrl.replace('file://', '')}'); min-width: 120px; min-height: 120px; background-size: auto 100%; background-repeat: no-repeat; background-clip: content-box; background-position: 50% 50%; border-radius: 12px; box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);`}
-                    />
-                }
-            </With>
-        </box>
-    )
-}
-
-function InformationPanel() {  
-    return (
-        <box css="margin-left: 10px;">
-            <With value={media_string}>
-                {(value) => value &&
-                    <box orientation={Gtk.Orientation.VERTICAL}>
-                        <label
-                            css={"font-weight: 800;"}
-                            halign={Gtk.Align.START}
-                            maxWidthChars={30}
-                            ellipsize={Pango.EllipsizeMode.END}
-                            label={media_title}
-                        />
-                        <label
-                            halign={Gtk.Align.START}
-                            maxWidthChars={30}
-                            ellipsize={Pango.EllipsizeMode.END}
-                            label={media_artist}
-                        />
-                    </box>
-                }
-            </With>
-        </box>
-    )
-}
-
-function numberToTime(a:number) : string {
-    if (a==-1 || isNaN(a)) return '00:00'
-    let h = Math.floor(a/3600);
-    let m = Math.floor((a-h*3600)/60);
-    let s = Math.floor(a-h*3600-m*60);
-    let hh = '';
-    let mm = '';
-    let ss = '';
-    if (h<10) hh = '0';
-    if (m<10) mm = '0';
-    if (s<10) ss = '0';
-    if (h==0) return mm + m.toString() + ':' + ss + s.toString();
-    else return hh + h.toString() + ':' + mm + m.toString() + ':' + ss+s.toString();
-}
-
-let media_dragged:boolean = false;
-
-function ControlPanel() {
-    return (
-        <box>
-            <With value={media_string}>
-                {(value) => value &&
-                    <box orientation={Gtk.Orientation.VERTICAL}>
-                        <slider
-                            widthRequest={300}
-                            class={"media-slider"}
-                            value={media_percentages}
-                            onDragged={({value}) => {
-                                // mpris.players[isBeingChosenPlayer].pause();
-                                mpris.players[isBeingChosenPlayer].set_position(value*mpris.players[isBeingChosenPlayer].length)
-                                // console.log(value);
-                            }}
-                        />
-                        <centerbox spacing={10}>
-                            <label $type="start" halign={Gtk.Align.END}
-                                label={numberToTime(Math.round(media_position))}
-                            />
-                            <box $type="center" spacing={5}>
-                                <eventbox class={"media-window-button"} onClick={() => {mpris.players[isBeingChosenPlayer].previous()}}>
-                                    <icon icon={"media-skip-backward-symbolic"} class={"media-window-button-icon"} />
-                                </eventbox>
-                                <eventbox class={"media-window-button"} onClick={() => {mpris.players[isBeingChosenPlayer].play_pause()}}>
-                                    <icon icon={media_icon} class={"media-window-button-icon"} />
-                                </eventbox>
-                                <eventbox class={"media-window-button"} onClick={() => {mpris.players[isBeingChosenPlayer].next()}}>
-                                    <icon icon={"media-skip-forward-symbolic"} class={"media-window-button-icon"} />
-                                </eventbox>
-                            </box>
-                            <label $type="end" halign={Gtk.Align.START}
-                                label={numberToTime(Math.round(media_length))}
-                            />
-                        </centerbox>
-                    </box>
-                }
-            </With>
-        </box>
-    )
-}
-
-function RightPanel() {
-    return (
-        <centerbox widthRequest={300} orientation={Gtk.Orientation.VERTICAL}>
-            <InformationPanel $type="start"></InformationPanel>
-            <box $type="center"></box>
-            <ControlPanel $type="end"></ControlPanel>
-        </centerbox>
-    )
-}
-
-export function MediaWindow(gdkmonitor: Gdk.Monitor) {
-    const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
+export function OnScreenVolume(gdkmonitor: Gdk.Monitor) {
+    const { TOP, LEFT, RIGHT, BOTTOM} = Astal.WindowAnchor
 
     return (
         <window
             visible
-            name="media_window"
-            class="media-window"
+            name="on_screen_volume"
+            class="on-screen-volume"
             gdkmonitor={gdkmonitor}
-            anchor={TOP}
+            anchor={RIGHT}
             application={app}
-            margin={10}
         >
-            <box spacing={10} class={"media-window"}>
-                <TrackCover></TrackCover>
-                <RightPanel></RightPanel>
+            <box class="on-screen-volume">
+                <With value={volume_handler}>
+                    {(value) => value &&
+                    <box class={"outer-osv-bar"}>
+                        <box
+                            class={"osv-bar"}
+                            widthRequest={36}
+                            heightRequest={200}
+                            css={osv_css}
+                        >
+                            <icon $type="center"
+                                valign={Gtk.Align.END}
+                                icon={volume_icon}
+                                marginBottom={10}
+                            ></icon>
+                        </box>
+                    </box>
+                    }
+                </With>
+            </box>
+        </window>
+    )
+}
+
+// END OF OSD_VOLUME_WINDOW.H
+
+// START OF OSD_BRIGHTNESS_WINDOW.H
+
+function setOnScreenBrightnessPosition() {
+    for (var i=0; i<brightnessTimeOuts.length; i++) clearTimeout(brightnessTimeOuts[i])
+
+    if (!osb_appear) {
+        osb_appear = true
+        app.apply_css(`
+            .on-screen-brightness {
+                margin-left: 10px;
+            }
+        `)
+    }
+
+    brightnessTimeOuts.push(
+        setTimeout(() => {
+            osb_appear = false
+            app.apply_css(`
+                .on-screen-brightness {
+                    margin-left: -70px;
+                }
+            `)
+        }, 2000)
+    )
+}
+
+export function onScreenBrightness(gdkmonitor: Gdk.Monitor) {
+    const { TOP, LEFT, RIGHT, BOTTOM} = Astal.WindowAnchor
+
+    monitorFile(
+        `/sys/class/backlight/${screen}/brightness`,
+                
+        function() {
+            console.log("oke")
+            setOnScreenBrightnessPosition();
+
+            brightness_brightness = Math.round((Number(exec('brightnessctl get')) / Number(exec('brightnessctl max')))*100)
+            osb_css = `background: linear-gradient(to bottom, @onSurface ${100-brightness_brightness}%, @primaryContainer ${100-brightness_brightness}%);`
+
+            if (brightness_handler.get().length == 5) set_brightness_handler("hello!")
+            else set_brightness_handler("hello")
+        }
+    )
+
+    return (
+        <window
+            visible
+            name="on_screen_brightness"
+            class="on-screen-brightness"
+            gdkmonitor={gdkmonitor}
+            anchor={LEFT}
+            application={app}
+        >
+            <box class={"on-screen-brightness"}>
+                <With value={brightness_handler}>
+                    {(value) => value &&
+                    <box class={"outer-osv-bar"}>
+                        <box
+                            class={"osv-bar"}
+                            widthRequest={36}
+                            heightRequest={200}
+                            css={osb_css}
+                        >
+                            <icon $type="center"
+                                valign={Gtk.Align.END}
+                                icon={"display-brightness-symbolic"}
+                                marginBottom={10}
+                            ></icon>
+                        </box>
+                    </box>
+                    }
+                </With>
             </box>
         </window>
     )
