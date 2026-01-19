@@ -8,14 +8,21 @@ mkdir -p ~/Pictures/Screenshots
 mkdir -p ~/.config/mako
 mkdir -p ~/Personalization
 
-sudo rm /etc/pacman.conf
+sudo rm /etc/pacman.conf -rf
 sudo ln -s ~/setup/pacman.conf /etc
 
-sudo rm /etc/pacman.d/mirrorlist
+sudo rm /etc/pacman.d/mirrorlist -rf
 sudo ln -s ~/setup/mirrorlist /etc/pacman.d/
 
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
+sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+sudo pacman-key --lsign-key 3056513887B78AEB
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
+
 sudo pacman -Syyuu
-sudo pacman -S hyprland-git hyprpaper-git neovim foot fish ttf-nerd-fonts-symbols-mono wofi cliphist brightnessctl hyprlock-git hyprpicker-git hyprshot themix-full-git mako nautilus google-chrome vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git xdg-desktop-portal-gnome bibata-cursor-theme fcitx5 fcitx5-unikey fcitx5-config-qt cmus polkit-kde-agent qt5-wayland qt6-wayland visual-studio-code-bin keyd socat swww typescript npm meson gjs gnome-bluetooth-3.0 upower gobject-introspection libdbusmenu-gtk3 libsoup3 glib2 glib2-devel yaru-icon-theme python-materialyoucolor-git yad ttf-ms-fonts ttf-sourcecodepro-nerd sublime-text pamixer aylurs-gtk-shell-git unrar unzip p7zip gnome-tweaks gnome-font-viewer gnome-text-editor usbutils less gvfs-mtp gtk-layer-shell gtk4-layer-shell aylurs-gtk-shell-git libastal-4-git libastal-battery-git libastal-git libastal-hyprland-git libastal-io-git libastal-mpris-git libastal-network-git libastal-tray-git libastal-wireplumber-git gtkmm-4.0 gdk-pixbuf2
+sudo pacman -S hyprland hyprpaper neovim foot fish ttf-nerd-fonts-symbols-mono wofi cliphist brightnessctl hyprlock hyprpicker hyprshot themix-full-git mako nautilus google-chrome vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-desktop-portal-gnome bibata-cursor-theme fcitx5 fcitx5-unikey fcitx5-config-qt cmus polkit-kde-agent qt5-wayland qt6-wayland visual-studio-code-bin keyd socat swww typescript npm meson gjs gnome-bluetooth-3.0 upower gobject-introspection libdbusmenu-gtk3 libsoup3 glib2 glib2-devel yaru-icon-theme python-materialyoucolor-git yad ttf-ms-fonts ttf-sourcecodepro-nerd sublime-text pamixer aylurs-gtk-shell unrar unzip p7zip gnome-tweaks gnome-font-viewer gnome-text-editor usbutils less gvfs-mtp gtk-layer-shell gtk4-layer-shell aylurs-gtk-shell libastal-4 libastal-battery libastal libastal-hyprland libastal-io libastal-mpris libastal-network libastal-tray libastal-wireplumber gtkmm-4.0 gdk-pixbuf2
 sudo npm install -g sass
 
 git clone https://github.com/yeyushengfan258/Win11-icon-theme.git ~/Win11-icon-theme/
@@ -46,10 +53,7 @@ alias nvim=\"nvim +\'hi Normal ctermbg=none guibg=none\' +\'set expandtab ts=4 s
 cat ~/.cache/wal/sequences &" >> ~/.config/fish/config.fish
 
 echo "export HYPRSHOT_DIR=~/Pictures/Screenshots/
-export GTK_THEME=oomox-colors-oomox
-export GTK_IM_MODULE=ibus
-export QT_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus" >> ~/.bash_profile
+export GTK_THEME=oomox-colors-oomox" >> ~/.bash_profile
 
 mkdir -p ~/.config/xdg-desktop-portal/
 rm ~/.config/xdg-desktop-portal/hyprland-portals.conf
@@ -111,9 +115,9 @@ org.freedesktop.impl.portal.FileChooser=gtk" >> ~/.config/xdg-desktop-portal/hyp
 # Xft/HintStyle \"hintslight\"
 # Xft/RGBA \"rgb\"" >> ~/.config/xsettingsd/xsettingsd.conf
 
-curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
-fisher install IlanCosman/tide@v6
-tide configure --auto --style=Rainbow --prompt_colors='16 colors' --show_time='24-hour format' --rainbow_prompt_separators=Angled --powerline_prompt_heads=Sharp --powerline_prompt_tails=Flat --powerline_prompt_style='Two lines, character and frame' --prompt_connection=Disconnected --powerline_right_prompt_frame=Yes --prompt_spacing=Sparse --icons='Few icons' --transient=No
+# curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+# fisher install IlanCosman/tide@v6
+# tide configure --auto --style=Rainbow --prompt_colors='16 colors' --show_time='24-hour format' --rainbow_prompt_separators=Angled --powerline_prompt_heads=Sharp --powerline_prompt_tails=Flat --powerline_prompt_style='Two lines, character and frame' --prompt_connection=Disconnected --powerline_right_prompt_frame=Yes --prompt_spacing=Sparse --icons='Few icons' --transient=No
 
 git clone https://github.com/NvChad/starter ~/.config/nvim
 
