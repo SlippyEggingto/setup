@@ -4,7 +4,7 @@ if [[ "$wallpaper" == "" ]]; then
     exit 1
 fi
 
-dark=dark
+dark=light
 light_bar=true
 
 printf "wallpaper: "
@@ -19,10 +19,6 @@ swww img --transition-type grow --transition-pos 0.854,0.997 --transition-step 9
 
 
 python3 ~/Personalization/color.py
-if [[ "$light_bar" == "true" ]];
-then
-    python3 ~/Personalization/light_bar.py
-fi
 mv ~/Personalization/type5 ~/.config/hypr/
 
 if [[ "$dark" == "light" ]];
@@ -75,27 +71,27 @@ echo "@import url('/home/nptanphuc/Personalization/type4.css');
 # #987654
 # #246357
 
-echo "[colors]
-foreground=$(sed '34q;d' ~/Personalization/type1)
+echo "[colors-dark]
+foreground=$(sed '20q;d' ~/Personalization/type1)
 background=$(sed '33q;d' ~/Personalization/type1)
 
-regular0=$(sed '27q;d' ~/Personalization/type1)
-regular1=$(sed '39q;d' ~/Personalization/type1)
+regular0=$(sed '23q;d' ~/Personalization/type1)
+regular1=$(sed '53q;d' ~/Personalization/type1)
 regular2=$(sed '35q;d' ~/Personalization/type1)
 regular3=$(sed '26q;d' ~/Personalization/type1)
-regular4=$(sed '30q;d' ~/Personalization/type1)
+regular4=$(sed '28q;d' ~/Personalization/type1)
 regular5=$(sed '35q;d' ~/Personalization/type1)
 regular6=$(sed '29q;d' ~/Personalization/type1)
-regular7=$(sed '26q;d' ~/Personalization/type1)
+regular7=$(sed '29q;d' ~/Personalization/type1)
 
 bright0=$(sed '26q;d' ~/Personalization/type1)
-bright1=$(sed '52q;d' ~/Personalization/type1)
-bright2=$(sed '52q;d' ~/Personalization/type1)
-bright3=$(sed '40q;d' ~/Personalization/type1)
+bright1=$(sed '29q;d' ~/Personalization/type1)
+bright2=$(sed '29q;d' ~/Personalization/type1)
+bright3=$(sed '52q;d' ~/Personalization/type1)
 bright4=ffffff
 bright5=ffffff
 bright6=$(sed '47q;d' ~/Personalization/type1)
-bright7=$(sed '26q;d' ~/Personalization/type1)
+bright7=$(sed '29q;d' ~/Personalization/type1)
 
 selection-foreground=$(sed '34q;d' ~/Personalization/type1)
 selection-background=$(sed '30q;d' ~/Personalization/type1)
@@ -173,27 +169,32 @@ echo "@import url('/home/nptanphuc/Personalization/type4.css');
 # bri6 = ~ character of true-path
 # bri7 = dirs-foreground
 
-echo "[colors]
-foreground=$(sed '47q;d' ~/Personalization/type1)
-background=$(sed '49q;d' ~/Personalization/type1)
+# foreground != background
+# reg1 = red_bg
+# reg4 != reg7
+# bri1 = bri2 = bri7 = reg7
 
-regular0=$(sed '27q;d' ~/Personalization/type1)
-regular1=$(sed '39q;d' ~/Personalization/type1)
+echo "[colors-dark]
+foreground=$(sed '15q;d' ~/Personalization/type1)
+background=$(sed '16q;d' ~/Personalization/type1)
+
+regular0=$(sed '25q;d' ~/Personalization/type1)
+regular1=$(sed '52q;d' ~/Personalization/type1)
 regular2=$(sed '35q;d' ~/Personalization/type1)
 regular3=$(sed '26q;d' ~/Personalization/type1)
-regular4=$(sed '30q;d' ~/Personalization/type1)
+regular4=$(sed '28q;d' ~/Personalization/type1)
 regular5=$(sed '35q;d' ~/Personalization/type1)
-regular6=$(sed '29q;d' ~/Personalization/type1)
-regular7=$(sed '26q;d' ~/Personalization/type1)
+regular6=$(sed '24q;d' ~/Personalization/type1)
+regular7=$(sed '29q;d' ~/Personalization/type1)
 
 bright0=$(sed '26q;d' ~/Personalization/type1)
-bright1=$(sed '52q;d' ~/Personalization/type1)
-bright2=$(sed '52q;d' ~/Personalization/type1)
+bright1=$(sed '29q;d' ~/Personalization/type1)
+bright2=$(sed '29q;d' ~/Personalization/type1)
 bright3=$(sed '40q;d' ~/Personalization/type1)
 bright4=ffffff
 bright5=ffffff
 bright6=$(sed '47q;d' ~/Personalization/type1)
-bright7=$(sed '26q;d' ~/Personalization/type1)
+bright7=$(sed '29q;d' ~/Personalization/type1)
 
 selection-foreground=$(sed '47q;d' ~/Personalization/type1)
 selection-background=$(sed '30q;d' ~/Personalization/type1)
@@ -217,6 +218,11 @@ height=1000
 width=400
 border-radius=16
 default-timeout=7000" > ~/.config/mako/config
+
+if [[ "$light_bar" == "true" ]];
+then
+    python3 ~/Personalization/light_bar.py
+fi
 
 makoctl reload
 
