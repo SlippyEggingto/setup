@@ -324,24 +324,29 @@ window.media-window, window.on-screen-volume, window.on-screen-brightness {
 
 .media-slider {
     font-size: 0px;
+    padding: 0px;
 }
 
 .media-slider trough{
     min-height: 8px;
     background-color: alpha(@onPrimaryContainer, .15);
-    /* background-color: red; */
     border-radius: 100px;
+    border: none;
 }
 
 .media-slider slider {
     background-image: none;
     background-color: @onPrimaryContainer;
+    border: none;
+    border-left: 1px solid mix(@onPrimaryContainer, black, .3);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .2);
 }
 
 .media-slider highlight {
     background-image: none;
     background-color: @onPrimaryContainer;
     border-radius: 100px;
+    border: none;
 }
 
 /* END OF MEDIA_WINDOW.H */

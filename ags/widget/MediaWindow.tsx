@@ -24,7 +24,17 @@ function TrackCover() {
             <With value={media_string}>
                 {(value) => value &&
                     <box
-                        css={`background-image: url('${mpris.players[isBeingChosenPlayer].artUrl == null ? '' : mpris.players[isBeingChosenPlayer].artUrl.replace('file://', '')}'); min-width: 120px; min-height: 120px; background-size: auto 100%; background-repeat: no-repeat; background-clip: content-box; background-position: 50% 50%; border-radius: 12px; box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);`}
+                        css={`background-image: url('${mpris.players[isBeingChosenPlayer] == null
+                            ? ''
+                            : mpris.players[isBeingChosenPlayer].artUrl.replace('file://', '')}');
+                        min-width: 120px;
+                        min-height: 120px;
+                        background-size: auto 100%;
+                        background-repeat: no-repeat;
+                        background-clip: content-box;
+                        background-position: 50% 50%;
+                        border-radius: 12px;
+                        box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);`}
                     />
                 }
             </With>
@@ -82,7 +92,7 @@ function ControlPanel() {
                 <With value={media_string}>
                     {(value) => value &&
                         <box orientation={Gtk.Orientation.VERTICAL} spacing={12}>
-                            <slider halign={Gtk.Align.CENTER}
+                            <slider halign={Gtk.Align.END}
                                 widthRequest={280}
                                 class={"media-slider"}
                                 value={media_percentages}
