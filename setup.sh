@@ -134,7 +134,7 @@ sudo chmod 755 /usr/sbin/update-grub
 
 sudo sed -i '4s/5/0/' /etc/default/grub
 sudo sed -i '6s/ quiet//' /etc/default/grub
-sudo sed -i '6s/3/7/' /etc/default/grub
+sudo sed -i '6s/3/7 libata.force=noncq/' /etc/default/grub
 sudo update-grub
 
 sudo touch /etc/keyd/default.conf

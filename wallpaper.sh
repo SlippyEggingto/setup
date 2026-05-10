@@ -4,7 +4,7 @@ if [[ "$wallpaper" == "" ]]; then
     exit 1
 fi
 
-dark=light
+dark=dark
 light_bar=true
 
 printf "wallpaper: "
@@ -15,8 +15,7 @@ printf "\nis light bar: "
 printf $light_bar | tee /home/$USER/Personalization/light_bar
 printf "\n"
 
-swww img --transition-type grow --transition-pos 0.854,0.997 --transition-step 90 $wallpaper
-
+awww img --transition-type grow --transition-pos 0.854,0.997 --transition-step 90 $wallpaper
 
 python3 ~/Personalization/color.py
 mv ~/Personalization/type5 ~/.config/hypr/
