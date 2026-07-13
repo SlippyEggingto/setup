@@ -1,0 +1,29 @@
+- Thêm một vài menu linh tinh bay ra bay vô (giống cái media_window):
+    + Hiển thị đầy đủ class và title của cái app đang trỏ chuột vô thay vì chỉ ba chấm (chỗ class và title).
+    + Hiển thị lượng tài nguyên đang sử dụng (chỗ CPU, RAM, Swap).
+    + Lịch (chỗ cái đồng hồ).
+    + (Đang cân nhắc) Xem được workspace có app nào đang mở (chỗ 10 cái dấu chấm).
+    + Phần trăm pin, tình trạng đang sạc/không sạc (chỗ cục pin).
+    + (Đang cân nhắc) Thêm một số tiện ích hay hay (chỗ lụm mã màu).
+- Thêm một số thành phần trên thanh trạng thái:
+    + Thêm system tray (hay là cái gì ấy k nhớ=)));
+    + Do nối lại tình xưa với NetworkManager nên thêm lại cái cục wifi be bé cạnh cái loa:
+        ., Đảm bảo cập nhật liên tục (ngày xưa code sao có mạng r nhưng vẫn để đang kết nối ???).
+- Thêm một cái panel phụ bên phải:
+    + Chỉnh độ sáng và âm lượng.
+    + Lịch sử thông báo.
+    + Chỉnh dark/light mode, đổi hình nền máy tính.
+    + (Đang cân nhắc) Giao diện để kết nối wifi và bluetooth.
+- Chỉnh lại interval của đồng hồ để khớp với thời gian thực.
+- Chỉnh lại media_window:
+    + Các mục thời gian/thời lượng/tình trạng (phát/không phát) cho khớp event hệ thống:
+        ., Bấm dừng nhạc r mà nó vẫn để đang phát ạ=)))).
+        ., Từng thấy thời lượng nhảy ra 7 8 chữ số, bựa...
+        ., Hoạt ảnh của các nút lúc được hover bị đặt lại mỗi 1s.
+    + Cái này nó lag kinh hồn=)))
+    + Chuyển giữa cái player đang phát, thay vì chỉ hiện player có id 0.
+    + Cho chữ chạy qua chạy lại để hiện đủ tên bài hát/nhạc sĩ thay vì chỉ hiện khúc đầu rồi còn lại ba chấm.
+- Chỉnh lại theme:
+    + Làm quả theme GTK (ngày xưa làm được rồi nhưng quên lưu lên git🥹).
+    + Chỉnh lại darkmode cho foot.
+- (Đang cân nhắc) Hồi sinh hyprlock và logout_window.
