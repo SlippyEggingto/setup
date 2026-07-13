@@ -63,7 +63,9 @@ rm ~/.config/xdg-desktop-portal/hyprland-portals.conf
 touch ~/.config/xdg-desktop-portal/hyprland-portals.conf
 echo "[preferred]
 default=hyprland;gtk
-org.freedesktop.impl.portal.FileChooser=gtk" >> ~/.config/xdg-desktop-portal/hyprland-portals.conf
+org.freedesktop.impl.portal.FileChooser=gtk
+org.freedesktop.impl.portal.ScreenCast=hyprland
+org.freedesktop.impl.portal.Screenshot=hyprland" >> ~/.config/xdg-desktop-portal/hyprland-portals.conf
 
 # sudo rm -rf ~/.config/gtk-3.0/settings.ini
 # mkdir -p ~/.config/gtk-3.0/

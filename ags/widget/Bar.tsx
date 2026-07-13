@@ -367,6 +367,22 @@ setInterval(() => {
     else set_media_string("hello")
 }, 1000)
 
+const sleep = (ms:number) => new Promise((resolv) => setTimeout(resolv, ms));
+
+async function main() {
+    const DATE = new Date();
+    console.log(DATE.getMilliseconds());
+    await sleep(1000-DATE.getMilliseconds());
+
+    while (true) {
+        const newDate = new Date();
+        console.log(newDate.getSeconds(), newDate.getMilliseconds());
+        await sleep(1000-(new Date().getMilliseconds()));
+    }
+}
+
+// main();
+
 mpris.connect("player-closed", () => {
     media_icon = "media-playback-start-symbolic";
     media_percentages = 1;
