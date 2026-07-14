@@ -16,7 +16,7 @@ export const hyprland = AstalHyprland.get_default(),
              audio = AstalWp.get_default(),
              battery = AstalBattery.get_default();
 
-import { media_string, isBeingChosenPlayer, media_title, media_artist, media_percentages, media_position, media_icon, media_length } from "./Bar";
+import { media_string, isBeingChosenPlayer, media_title, media_artist, media_percentages, media_position, media_icon, media_length } from "./Media";
 
 function TrackCover() {
     return (

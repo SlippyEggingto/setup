@@ -2,8 +2,8 @@ import app from "ags/gtk3/app"
 import style from "./style.css"
 import Bar from "./widget/Bar"
 import { MediaWindow } from "./widget/MediaWindow"
-import { OnScreenVolume } from "./widget/Bar"
-import { onScreenBrightness } from "./widget/Bar"
+import { OnScreenVolume } from "./widget/OnScreenVolume"
+import { onScreenBrightness } from "./widget/OnScreenBrightness"
 
 app.start({
     css: style,
