@@ -8,7 +8,7 @@ from materialyoucolor.scheme.scheme_tonal_spot import SchemeTonalSpot
 with open("/home/nptanphuc/Personalization/wallpaper") as f:
     wallpaper = f.readline().strip()
 with open("/home/nptanphuc/Personalization/color_scheme") as f:
-    dark = f.readline().strip == "dark"
+    dark = f.readline().strip() == "dark"
 with open("/home/nptanphuc/Personalization/light_bar") as f:
     light_bar = f.readline().strip == "true"
 
@@ -23,7 +23,7 @@ seed_color = list(result.keys())[0]
 
 scheme = SchemeTonalSpot(
     Hct.from_int(seed_color),
-    dark == False,
+    dark,
     0.0
 )
 
@@ -31,9 +31,10 @@ def get_hex_from_rgba(rgba):
     r, g, b = rgba[:3]
     return f"{r:02x}{g:02x}{b:02x}"
 
-def make_bright_hct(hct_color, tone_step = 30):
+def make_bright_hct(hct_color, tone_step = 29 if dark else -19):
     current_tone = hct_color.tone
     new_tone = min(current_tone + tone_step, 95)
+    new_tone = max(new_tone, 0)
     return Hct.from_hct(hct_color.hue, hct_color.chroma, new_tone)
 
 file_paths = {
@@ -76,7 +77,7 @@ with ExitStack() as stack:
             css_root_regular += f"    --{color_attr}: #{reg_hex};\n"
 
             if not light_bar:
-                files["t"].write(f"@define-color {color_attr} #{reg_hex}\n")
+                files["t"].write(f"@define-color {color_attr} #{reg_hex};\n")
 
             files["x2"].write(f"{bright_hex}\n")
             files["y2"].write(f"#{bright_hex}\n")
