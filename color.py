@@ -5,17 +5,12 @@ from materialyoucolor.quantize import QuantizeCelebi
 from materialyoucolor.hct import Hct
 from materialyoucolor.scheme.scheme_tonal_spot import SchemeTonalSpot
 
-wall = open("/home/nptanphuc/Personalization/wallpaper")
-dak = open("/home/nptanphuc/Personalization/color_scheme")
-ligbar = open("/home/nptanphuc/Personalization/light_bar")
-wallpaper = wall.readline().replace("\n", "")
-dark = dak.readline().replace("\n", "")
-light_bar = ligbar.readline().replace("\n", "")
-
-if (dark == "dark"):
-    dark = True
-else:
-    dark = False
+with open("/home/nptanphuc/Personalization/wallpaper") as f:
+    wallpaper = f.readline().strip()
+with open("/home/nptanphuc/Personalization/color_scheme") as f:
+    dark = f.readline().strip == "dark"
+with open("/home/nptanphuc/Personalization/light_bar") as f:
+    light_bar = f.readline().strip == "true"
 
 image = Image.open(wallpaper)
 pixel_len = image.width * image.height
@@ -24,49 +19,74 @@ quality = 10
 pixel_array = [image_data[_] for _ in range(0, pixel_len, quality)]
 
 result = QuantizeCelebi(pixel_array, 1)
-
-color = 0
-
-for key, value in result.items():
-    color = key
+seed_color = list(result.keys())[0]
 
 scheme = SchemeTonalSpot(
-    Hct.from_int(color),
-    dark, # False is light scheme
+    Hct.from_int(seed_color),
+    dark == False,
     0.0
 )
 
-x = open("/home/nptanphuc/Personalization/type1", "w")                                  #     abcdef
-y = open("/home/nptanphuc/Personalization/type2", "w")                                  #     #abcdef
-z = open("/home/nptanphuc/Personalization/type3.css", "w")                              #     :root {-var: ;}
-if (light_bar == "false"): t = open("/home/nptanphuc/Personalization/type4.css", "w")   #     @define-color
-k = open("/home/nptanphuc/Personalization/type5", "w")                                  #     $var=#abcdef
+def get_hex_from_rgba(rgba):
+    r, g, b = rgba[:3]
+    return f"{r:02x}{g:02x}{b:02x}"
 
-def decToHex(num):
-    if num>255: return "ff"
-    hex = f'{num:x}'
-    if len(hex) < 2:
-        hex = "0" + hex
-    return hex
+def make_bright_hct(hct_color, tone_step = 30):
+    current_tone = hct_color.tone
+    new_tone = min(current_tone + tone_step, 95)
+    return Hct.from_hct(hct_color.hue, hct_color.chroma, new_tone)
 
+file_paths = {
+    "x": "/home/nptanphuc/Personalization/type1",       #   abcdef
+    "y": "/home/nptanphuc/Personalization/type2",       #   #abcdef
+    "z": "/home/nptanphuc/Personalization/type3.css",   #   :root {-var: ;}
+    "k": "/home/nptanphuc/Personalization/type5",       #   $var=#abcdef
 
-t3 = ":root {\n"
+    "x2": "/home/nptanphuc/Personalization/type12",
+    "y2": "/home/nptanphuc/Personalization/type22",
+    "z2": "/home/nptanphuc/Personalization/type32.css",
+    "k2": "/home/nptanphuc/Personalization/type52",
+}
 
+if not light_bar:
+    file_paths.update({"t": "/home/nptanphuc/Personalization/type4.css"})       #   @define-color
+    file_paths.update({"t2": "/home/nptanphuc/Personalization/type42.css"})
 
-for color in vars(MaterialDynamicColors).keys():
-    color_name = getattr(MaterialDynamicColors, color)
-    if hasattr(color_name, "get_hct"):
-        t0 = decToHex(color_name.get_hct(scheme).to_rgba()[0]) + decToHex(color_name.get_hct(scheme).to_rgba()[1]) + decToHex(color_name.get_hct(scheme).to_rgba()[2])
-        t1 = t0 + "\n"
-        t2 = "#" + t0 + "\n"
-        t3 += "    --" + str(color) + ": #" + t0 + ";\n"
-        if (light_bar == "false"): t4 = "@define-color " + str(color) + " #" + t0 + ";\n"
-        t5 = "$" + str(color) + "=0xff" + t0 + "\n"
+from contextlib import ExitStack
 
-        x.write(t1)
-        y.write(t2)
-        if (light_bar == "false"): t.write(t4)
-        k.write(t5)
+with ExitStack() as stack:
+    files = {key: stack.enter_context(open(path, "w")) for key, path in file_paths.items()}
 
-t3 += "}"
-z.write(t3)
+    css_root_regular = ":root {\n"
+    css_root_bright = ":root {\n"
+
+    for color_attr in vars(MaterialDynamicColors).keys():
+        color_name = getattr(MaterialDynamicColors, color_attr)
+
+        if hasattr(color_name, "get_hct"):
+            reg_hct = color_name.get_hct(scheme)
+            reg_hex = get_hex_from_rgba(reg_hct.to_rgba())
+
+            bright_hct = make_bright_hct(reg_hct)
+            bright_hex = get_hex_from_rgba(bright_hct.to_rgba())
+
+            files["x"].write(f"{reg_hex}\n")
+            files["y"].write(f"#{reg_hex}\n")
+            files["k"].write(f"${color_attr}=0xff{reg_hex}\n")
+            css_root_regular += f"    --{color_attr}: #{reg_hex};\n"
+
+            if not light_bar:
+                files["t"].write(f"@define-color {color_attr} #{reg_hex}\n")
+
+            files["x2"].write(f"{bright_hex}\n")
+            files["y2"].write(f"#{bright_hex}\n")
+            files["k2"].write(f"${color_attr}=0xff{bright_hex}\n")
+            css_root_bright += f"    --{color_attr}: #{bright_hex};\n"
+
+            if not light_bar:
+                files["t2"].write(f"@define-color {color_attr} #{bright_hex};\n")
+
+    css_root_regular += "}"
+    css_root_bright += "}"
+    files["z"].write(css_root_regular)
+    files["z2"].write(css_root_bright)

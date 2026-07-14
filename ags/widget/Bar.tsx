@@ -334,7 +334,7 @@ function setMediaWindowPosition() {
 }
 
 setMediaWindowPosition();
-monitorFile('/home/nptanphuc/Personalization/type4.css', () => {
+monitorFile('/home/nptanphuc/Personalization/done_notif', () => {
     app.reset_css();
     app.apply_css('./style.css')
     setMediaWindowPosition();

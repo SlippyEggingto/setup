@@ -22,7 +22,7 @@ sudo pacman-key --init
 sudo pacman-key --populate archlinux
 
 sudo pacman -Syyuu
-sudo pacman -S hyprland hyprpaper neovim foot fish ttf-nerd-fonts-symbols-mono wofi cliphist brightnessctl hyprlock hyprpicker hyprshot themix-full-git mako nautilus google-chrome vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-desktop-portal-gnome bibata-cursor-theme fcitx5 fcitx5-unikey fcitx5-config-qt cmus polkit-kde-agent qt5-wayland qt6-wayland visual-studio-code-bin keyd socat swww typescript npm meson gjs gnome-bluetooth-3.0 upower gobject-introspection libdbusmenu-gtk3 libsoup3 glib2 glib2-devel yaru-icon-theme python-materialyoucolor-git yad ttf-ms-fonts ttf-sourcecodepro-nerd sublime-text pamixer aylurs-gtk-shell unrar unzip p7zip gnome-tweaks gnome-font-viewer gnome-text-editor usbutils less gvfs-mtp gtk-layer-shell gtk4-layer-shell aylurs-gtk-shell libastal-4 libastal-battery libastal libastal-hyprland libastal-io libastal-mpris libastal-network libastal-tray libastal-wireplumber gtkmm-4.0 gdk-pixbuf2 playerctl xdg-desktop-portal-gnome
+sudo pacman -S hyprland hyprpaper neovim foot fish ttf-nerd-fonts-symbols-mono wofi cliphist brightnessctl hyprlock hyprpicker hyprshot mako nautilus google-chrome vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland bibata-cursor-theme fcitx5 fcitx5-unikey fcitx5-config-qt cmus polkit-kde-agent qt5-wayland qt6-wayland visual-studio-code-bin keyd socat swww typescript npm meson gjs gnome-bluetooth-3.0 upower gobject-introspection libdbusmenu-gtk3 libsoup3 glib2 glib2-devel yaru-icon-theme python-materialyoucolor-git yad ttf-ms-fonts ttf-sourcecodepro-nerd sublime-text pamixer aylurs-gtk-shell unrar unzip p7zip gnome-tweaks gnome-font-viewer gnome-text-editor usbutils less gvfs-mtp gtk-layer-shell gtk4-layer-shell aylurs-gtk-shell libastal-4 libastal-battery libastal libastal-hyprland libastal-io libastal-mpris libastal-network libastal-tray libastal-wireplumber gtkmm-4.0 gdk-pixbuf2 playerctl xdg-desktop-portal-gnome
 # sudo pacman -Rsn gnome-app-list gnome-backgrounds gnome-color-manager gnome-connections gnome-console gnome-contacts gnome-control-center gnome-desktop gnome-logs gnome-keybindings gnome-maps gnome-menus gnome-online-accounts gnome-remote-desktop gnome-session gnome-settings-daemon gnome-shell gnome-software gnome-system-monitor gnome-tour gnome-user-docs gnome-user-share gnome-weather evince gdm sushi
 sudo npm install -g sass
 
@@ -56,7 +56,10 @@ echo "set fish_greeting
 alias nvim=\"nvim +\\\"hi Normal ctermbg=none guibg=none\\\" +\\\"set expandtab ts=4 sw=4 ai\\\"\"" >> ~/.config/fish/config.fish
 
 echo "export HYPRSHOT_DIR=~/Pictures/Screenshots/
-export GTK_THEME=oomox-colors-oomox" >> ~/.bash_profile
+export XDG_PICTURES_DIR=\"~/Pictures/Webcam/Pictures\"
+export XDG_VIDEOS_DIR=\"~/Pictures/Webcam/Videos\"
+export EDITOR=subl
+alias Hyprland=\"start-hyprland\"" >> ~/.bash_profile
 
 mkdir -p ~/.config/xdg-desktop-portal/
 rm ~/.config/xdg-desktop-portal/hyprland-portals.conf
@@ -66,59 +69,6 @@ default=hyprland;gtk
 org.freedesktop.impl.portal.FileChooser=gtk
 org.freedesktop.impl.portal.ScreenCast=hyprland
 org.freedesktop.impl.portal.Screenshot=hyprland" >> ~/.config/xdg-desktop-portal/hyprland-portals.conf
-
-# sudo rm -rf ~/.config/gtk-3.0/settings.ini
-# mkdir -p ~/.config/gtk-3.0/
-# touch ~/.config/gtk-3.0/settings.ini
-# echo "[Settings]
-# gtk-theme-name=oomox-colors-oomox
-# gtk-icon-theme-name=Yaru-red-dark
-# gtk-font-name=Segoe UI 11
-# gtk-cursor-theme-name=Bibata-Modern-Classic
-# gtk-cursor-theme-size=24
-# gtk-toolbar-style=GTK_TOOLBAR_ICONS
-# gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
-# gtk-button-images=0
-# gtk-menu-images=0
-# gtk-enable-event-sounds=1
-# gtk-enable-input-feedback-sounds=0
-# gtk-xft-antialias=1
-# gtk-xft-hinting=1
-# gtk-xft-hintstyle=hintslight
-# gtk-xft-rgba=rgb
-# gtk-application-prefer-dark-theme=1" >> ~/.config/gtk-3.0/settings.ini
-# 
-# sudo rm -rf ~/.gtkrc-2.0
-# touch ~/.gtkrc-2.0
-# echo "include \"/home/$USER/.gtkrc-2.0.mine\"
-# gtk-theme-name=\"oomox-colors-oomox\"
-# gtk-icon-theme-name=\"Yaru-red-dark\"
-# gtk-font-name=\"Segoe UI 11\"
-# gtk-cursor-theme-name=\"Bibata-Modern-Classic\"
-# gtk-cursor-theme-size=24
-# gtk-toolbar-style=GTK_TOOLBAR_ICONS
-# gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
-# gtk-button-images=0
-# gtk-menu-images=0
-# gtk-enable-event-sounds=1
-# gtk-enable-input-feedback-sounds=0
-# gtk-xft-antialias=1
-# gtk-xft-hinting=1
-# gtk-xft-hintstyle=\"hintslight\"
-# gtk-xft-rgba=\"rgb\"" >> ~/.gtkrc-2.0
-# 
-# sudo rm -rf ~/.config/xsettingsd/xsettingsd.conf
-# mkdir -p ~/.config/xsettingsd/
-# touch ~/.config/xsettingsd/xsettingsd.conf
-# echo "Net/ThemeName \"oomox-colors-oomox\"
-# Net/IconThemeName \"Yaru-red-dark\"
-# Gtk/CursorThemeName \"Bibata-Modern-Classic\"
-# Net/EnableEventSounds 1
-# EnableInputFeedbackSounds 0
-# Xft/Antialias 1
-# Xft/Hinting 1
-# Xft/HintStyle \"hintslight\"
-# Xft/RGBA \"rgb\"" >> ~/.config/xsettingsd/xsettingsd.conf
 
 # curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 # fisher install IlanCosman/tide@v6
@@ -136,11 +86,11 @@ sudo chmod 755 /usr/sbin/update-grub
 
 sudo sed -i '4s/5/0/' /etc/default/grub
 sudo sed -i '6s/ quiet//' /etc/default/grub
-sudo sed -i '6s/3/7 libata.force=noncq/' /etc/default/grub
+sudo sed -i '6s/3/7 libata.force=noncq brcmfmac.feature_disable=0x82000/' /etc/default/grub
 sudo update-grub
 
 sudo touch /etc/keyd/default.conf
-printf "[ids]\n\n*\n\n[main]\n\nrightalt = leftcontrol\nrightshift = rightshift" | sudo tee -a /etc/keyd/default.conf
+printf "[ids]\n\n*\n\n[main]\n\nrightalt = layer(control)\nrightshift = rightshift" | sudo tee -a /etc/keyd/default.conf
 sudo systemctl enable keyd.service
 sudo systemctl start keyd.service
 
