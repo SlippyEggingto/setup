@@ -1,122 +1,136 @@
 import app from "ags/gtk3/app";
 import { createState, With } from "gnim";
 import Pango from "gi://Pango?version=1.0";
-import { mpris } from "./MediaWindow";
+import AstalMpris from "gi://AstalMpris?version=0.1";
 
-export const [media_string, set_media_string] = createState("")
+import { setMediaWindowPosition } from "./Bar";
+import { active_player_data, number_of_player_binder, set_all_players_state, set_number_of_player_binder } from "./GlobalVariable"
+import { PlayerDataType } from "./GlobalVariable";
+import { current_player_id, set_current_player_id } from "./GlobalVariable";
+import { is_media_window_appearing, set_is_media_window_appearing } from "./GlobalVariable";
+import { set_active_player_data } from "./GlobalVariable";
 
-export let  volume_volume:number,
-            isBeingChosenPlayer : number = 0,
-            media_icon : string = "media-playback-start-symbolic", 
-            media_title : string = "Unknown title",
-            media_artist : string = "Unknown artist",
-            media_position : number = 0,
-            media_length : number = 0,
-            media_percentages : number = 1,
-            media_appear : boolean = false
-        
-mpris.connect("player-closed", () => {
-    media_icon = "media-playback-start-symbolic";
-    media_percentages = 1;
-    media_title = "Unknown title";
-    media_artist = "Unknown artist";
+const mpris = AstalMpris.get_default()
 
-    if (media_string.get().length == 5) set_media_string("hello!")
-    else set_media_string("hello")
+export let all_players_array: PlayerDataType[] = [];
+
+export function syncActivePlayer() {
+    const target = all_players_array.find(p => p.playerId === current_player_id.get());
+    if (target) set_active_player_data({...target})
+}
+
+current_player_id.bind(() => {
+    syncActivePlayer();
 })
 
-if (media_string.get().length == 5) set_media_string("hello!");
-else set_media_string("hello");
+export function init() {
+    mpris.connect("notify::players", () => {
+        all_players_array = []
+        let validPlayerCnt = 0;
 
-setInterval(() => {
-    if (mpris.players.length > 0) {
-        let oke = mpris.players[isBeingChosenPlayer];
-        if (oke.playbackStatus == 0) media_icon = "media-playback-pause-symbolic";
-        else media_icon = "media-playback-start-symbolic";
-        if (oke.length != 0) media_percentages = oke.position / oke.length;
-        media_position = oke.position;
-        media_length = oke.length;
-        if (oke.title == null || oke.title == "") media_title = "Unknown title";
-        else media_title = mpris.players[isBeingChosenPlayer].title;
-        if (oke.artist == null || oke.artist == "") media_artist = "Unknown artist";
-        else media_artist = mpris.players[isBeingChosenPlayer].artist;
-    } else {
-        media_icon = "media-playback-start-symbolic";
-        media_percentages = 1;
-        media_title = "Unknown title";
-        media_artist = "Unknown artist";
-    }
-    
-    if (media_string.get().length == 5) set_media_string("hello!")
-    else set_media_string("hello")
-}, 1000)
+        for (let i = 0; i < mpris.get_players().length; i++) {
+            let current_player = mpris.get_players()[i];
+            if (!current_player) continue;
+            if (current_player.canPlay === false || current_player.busName === "org.mpris.MediaPlayer2.playerctld") continue;
+
+            validPlayerCnt++;
+
+            let tempPlayerDataType : PlayerDataType = {
+                playerName: current_player.busName,
+                playerId: validPlayerCnt,
+                title: current_player.title || "Unknown title",
+                album: current_player.album ||  "Unknow album",
+                artist: current_player.artist || "Unknown artist",
+                position: current_player.position,
+                length: current_player.length,
+                percentages: current_player.length !== 0 ? current_player.position / current_player.length : 0,
+                playback_status: current_player.playback_status === 0 ? "Playing" : "Pause",
+                playback_status_icon: current_player.playbackStatus === 0 ? "media-playback-pause-symbolic" : "media-playback-start-symbolic",
+                cover_art_url: current_player.art_url || ""
+            }
+
+            all_players_array.push(tempPlayerDataType)
+            const handlePlayerUpdate = () => {
+                tempPlayerDataType.playerName = current_player.busName
+                tempPlayerDataType.title = current_player.title || "Unknown title";
+                tempPlayerDataType.album = current_player.album || "Unknown album";
+                tempPlayerDataType.artist = current_player.artist || "Unknown artist";
+                tempPlayerDataType.position = current_player.position;
+                tempPlayerDataType.length = current_player.length;
+                tempPlayerDataType.percentages = current_player.length !== 0 ? current_player.position / current_player.length : 0;
+                tempPlayerDataType.playback_status = current_player.playback_status === 0 ? "Playing" : "Pause",
+                tempPlayerDataType.playback_status_icon = current_player.playbackStatus === 0 ? "media-playback-pause-symbolic" : "media-playback-start-symbolic";
+                tempPlayerDataType.cover_art_url = current_player.art_url || "";
+
+                if (tempPlayerDataType.playerId === current_player_id.get()) {
+                    syncActivePlayer();
+                }
+
+                set_all_players_state([...all_players_array])
+
+            };
+
+            current_player.connect("notify::position", handlePlayerUpdate);
+            current_player.connect("notify::playback-status", handlePlayerUpdate);
+        }
+
+        set_all_players_state([...all_players_array])
+        set_number_of_player_binder(validPlayerCnt)
+        if (current_player_id.get() >= validPlayerCnt) set_current_player_id(current_player_id.get() % validPlayerCnt);
+        syncActivePlayer();
+
+        console.error(current_player_id.get());
+
+        for (let i = 0; i < validPlayerCnt; i++) {
+            console.warn(all_players_array[i].playerName);
+        }
+    })
+}
+
+setTimeout(() => {
+    init();
+}, 1000);
 
 export function Media() {
     return (
         <eventbox class={"media-event-box"} onClick={() => {
-            if (media_appear) {
-                app.apply_css(`
-                    .media-window {
-                        margin-top: -175px;
-                    }
-
-                    .media-event-box .media {
-                        background-color: @primaryContainer;
-                        color: @onPrimaryContainer;
-                    }
-
-                    .media-event-box .media-progress {
-                        background-color: alpha(@onPrimaryContainer, .16);
-                    }
-                `)
-            } else {
-                app.apply_css(`
-                    .media-window {
-                        margin-top: 0px;
-                    }
-
-                    .media-event-box .media {
-                        background-color: @onPrimaryContainer;
-                        color: @primaryContainer;
-                    }
-
-                    .media-event-box .media-progress {
-                        background-color: alpha(@primaryContainer, .2);
-                    }
-                `)
-            }
-
-            media_appear = !media_appear;
+            set_is_media_window_appearing(!is_media_window_appearing.get())
+            setMediaWindowPosition();
         }}
         >
-            <With value={media_string}>
-                {(value) => value &&
-                    <box class={"media"}>
-                        <box class={"media-progress-outer"}>
-                            <circularprogress
-                                class={"media-progress"}
-                                startAt={0.75}
-                                endAt={0.75}
-                                value={media_percentages}
-                            >
-                                <icon
-                                    class={"media-icon"}
-                                    icon={media_icon}
+            <box class={"media"}>
+                <With value={active_player_data}>
+                    {(value) => value &&
+                        <box>
+                            <box class={"media-progress-outer"}>
+                                <circularprogress
+                                    class={"media-progress"}
+                                    startAt={0.75}
+                                    endAt={0.75}
+                                    value={value.percentages}
+                                >
+                                    <icon
+                                        class={"media-icon"}
+                                        icon={value.playback_status_icon}
+                                    />
+                                </circularprogress>
+                            </box>
+                            <box>
+                                <label class={"media-title"}
+                                    maxWidthChars={20}
+                                    ellipsize={Pango.EllipsizeMode.END}
+                                    label={value.title}
                                 />
-                            </circularprogress>
+                                <label class={"media-artist"}
+                                    maxWidthChars={15}
+                                    ellipsize={Pango.EllipsizeMode.END}
+                                    label={" • " + value.artist}
+                                />
+                            </box>
                         </box>
-                        <label class={"media-title"}
-                            maxWidthChars={20}
-                            ellipsize={Pango.EllipsizeMode.END}
-                            label={media_title}
-                        />
-                        <label class={"media-artist"}
-                            maxWidthChars={15}
-                            ellipsize={Pango.EllipsizeMode.END}
-                            label={" • " + media_artist}
-                        />
-                    </box>
-            }</With>
+                    }
+                </With>
+            </box>
         </eventbox>
     )
 }

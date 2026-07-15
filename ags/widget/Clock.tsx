@@ -1,10 +1,13 @@
 import { Gtk } from "ags/gtk3";
-import { createState, With } from "gnim";
+import { With } from "gnim";
 
-const [clock_first_half, set_clokc_first_half] = createState("")
-const [clock_second_half, set_clokc_second_half] = createState("")
+import  {   set_clokc_first_half,
+            set_clokc_second_half,
+            clock_first_half,
+            clock_second_half
+        } from "./GlobalVariable";
 
-const sleep = (ms:number) => new Promise((resolv) => setTimeout(resolv, ms));
+export const sleep = (ms:number) => new Promise((resolv) => setTimeout(resolv, ms));
 
 async function main() {
     const DATE = new Date();

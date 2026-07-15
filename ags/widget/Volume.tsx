@@ -4,8 +4,6 @@ import { createState } from "ags";
 import { monitorFile } from "ags/file";
 import { With } from "gnim";
 
-import { media_appear } from "./Media";
-
 const audio = AstalWp.get_default(),
       speaker = audio.defaultSpeaker
 
@@ -41,46 +39,6 @@ function setOnScreenVolumePosition() {
         }, 2000)
     )
 }
-function setMediaWindowPosition() {
-    if (media_appear) {
-        app.apply_css(`
-            .media-window {
-                margin-top: 0px;
-            }
-
-            .media-event-box .media {
-                background-color: @onPrimaryContainer;
-                color: @primaryContainer;
-            }
-
-            .media-event-box .media-progress {
-                background-color: alpha(@primaryContainer, .2);
-            }
-        `)
-    } else {
-        app.apply_css(`
-            .media-window {
-                margin-top: -175px;
-            }
-
-            .media-event-box .media {
-                background-color: @primaryContainer;
-                color: @onPrimaryContainer;
-            }
-
-            .media-event-box .media-progress {
-                background-color: alpha(@onPrimaryContainer, .16);
-            }
-        `)
-    }
-}
-
-setMediaWindowPosition();
-monitorFile('/home/nptanphuc/Personalization/done_notif', () => {
-    app.reset_css();
-    app.apply_css('./style.css')
-    setMediaWindowPosition();
-})
 
 export function Volume() {
     speaker.connect("notify", () => {

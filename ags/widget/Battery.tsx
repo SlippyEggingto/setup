@@ -1,6 +1,5 @@
 import { createState, With } from "ags";
-import AstalBattery from "gi://AstalBattery?version=0.1";
-const battery = AstalBattery.get_default();
+import { battery } from "./GlobalVariable";
 
 export function Battery() {
     const [battery_handler, set_battery_handler] = createState("hello");
