@@ -261,7 +261,7 @@ window.right-bar {
 
 /* START OF MEDIA_WINDOW.H */
 
-window.media-window, window.on-screen-volume, window.on-screen-brightness {
+window.media-outer-window, window.on-screen-volume, window.on-screen-brightness {
     background: transparent;
     transition: 0.3s;
 }

@@ -1,4 +1,3 @@
-import app from "ags/gtk3/app";
 import { With } from "gnim";
 import Pango from "gi://Pango?version=1.0";
 import AstalMpris from "gi://AstalMpris?version=0.1";
@@ -45,6 +44,8 @@ export function __init__() {
         if (ithplayer === undefined) continue;
         if (ithplayer.canPlay === false || ithplayer.busName === "org.mpris.MediaPlayer2.playerctld") continue;
 
+        // console.log(ithplayer.identity)
+
         let tempPlayer = new PlayerDataType();
         tempPlayer.playerName = ithplayer.busName;
         tempPlayer.playerId = playerCnt;
@@ -57,7 +58,7 @@ export function __init__() {
         const ps = (ithplayer.playback_status !== undefined) ? ithplayer.playback_status : ithplayer.playbackStatus;
         tempPlayer.playback_status = ps === 0 ? "Playing" : "Pause";
         tempPlayer.playback_status_icon = ps === 0 ? "media-playback-pause-symbolic" : "media-playback-start-symbolic";
-        tempPlayer.cover_art_url = ithplayer.art_url || "";
+        tempPlayer.cover_art_url = ithplayer.cover_art || "";
 
         temp_all_players_array.push(tempPlayer)
         playerCnt++;
@@ -73,7 +74,7 @@ export function __init__() {
                 tempPlayer.percentages = ithplayer.length !== 0 ? ithplayer.position / ithplayer.length : 0;
                 tempPlayer.playback_status = ithplayer.playback_status === 0 ? "Playing" : "Pause",
                 tempPlayer.playback_status_icon = ithplayer.playbackStatus === 0 ? "media-playback-pause-symbolic" : "media-playback-start-symbolic";
-                tempPlayer.cover_art_url = ithplayer.art_url || "";
+                tempPlayer.cover_art_url = ithplayer.cover_art || "";
                 
                 set_all_players_array([...all_players_array.get()])
                 set_current_player({ ...current_player.get() })
@@ -87,7 +88,7 @@ export function __init__() {
         };
 
         let playerHandles : number[] = [];
-        playerHandles.push(ithplayer.connect("notify::title", handlePlayerUpdate));
+        playerHandles.push(ithplayer.connect("notify::trackid", handlePlayerUpdate));
         playerHandles.push(ithplayer.connect("notify::position", handlePlayerUpdate));
         playerHandles.push(ithplayer.connect("notify::playback-status", handlePlayerUpdate));
 
@@ -147,6 +148,7 @@ export function Media() {
 
             set_current_player_id(current_id)
             set_current_player(all_players_array.get()[current_id])
+            set_all_players_array([...all_players_array.get()])
         }}
         >
             <box class={"media"}>

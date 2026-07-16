@@ -6,7 +6,7 @@ import AstalMpris from "gi://AstalMpris?version=0.1";
 
 const mpris = AstalMpris.get_default()
 
-import { all_players_array } from "./GlobalVariable";
+import { all_players_array, current_player_id } from "./GlobalVariable";
 import { PlayerDataType } from "./GlobalVariable";
 
 function numberToTime(seconds : number) {
@@ -19,12 +19,10 @@ function numberToTime(seconds : number) {
 }
 
 function TrackCover({player} : {player : PlayerDataType}) {
-    return (
+    return ((player.playerId === current_player_id.get() ?  (
         <box>
             <box
-                css={`background-image: url('${player == null
-                    ? ''
-                    : player.cover_art_url.replace('file://', '')}');
+                css={`background-image: url('${player.cover_art_url}');
                 min-width: 120px;
                 min-height: 120px;
                 background-size: auto 100%;
@@ -35,11 +33,11 @@ function TrackCover({player} : {player : PlayerDataType}) {
                 box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);`}
             />
         </box>
-    )
+    ):<></>))
 }
 
 function InformationPanel({player} : {player : PlayerDataType}) {  
-    return (
+    return ((player.playerId === current_player_id.get() ?  (
         <box css="margin-left: 10px;">
             <box orientation={Gtk.Orientation.VERTICAL}>
                 <label
@@ -57,7 +55,7 @@ function InformationPanel({player} : {player : PlayerDataType}) {
                 />
             </box>
         </box>
-    )
+    ):<></>))
 }
 
 function ControlPanel({player} : {player : PlayerDataType}) {
@@ -65,7 +63,7 @@ function ControlPanel({player} : {player : PlayerDataType}) {
         return mpris.players.find(p => p.busName === player.playerName);
     };
 
-    return (
+    return ((player.playerId === current_player_id.get() ?  (
         <box valign={Gtk.Align.END}>
             <box $type="center">
                 <box orientation={Gtk.Orientation.VERTICAL} spacing={12}>
@@ -100,17 +98,23 @@ function ControlPanel({player} : {player : PlayerDataType}) {
                 </box>
             </box>
         </box>
-    )
+    ):<></>))
 }
 
 function RightPanel({player} : {player : PlayerDataType}) {
-    return (
+    const getMprisPlayer = () => {
+        return mpris.players.find(p => p.busName === player.playerName);
+    };
+
+    return ((player.playerId === current_player_id.get() ?  (
         <centerbox widthRequest={300} orientation={Gtk.Orientation.VERTICAL}>
             <InformationPanel player={player} $type="start"></InformationPanel>
             <box $type="center"></box>
             <ControlPanel player={player} $type="end"></ControlPanel>
         </centerbox>
-    )
+    ):<box>
+        <icon icon={player.playback_status_icon} />
+    </box>))
 }
 
 let tempPlayer = new PlayerDataType();
@@ -133,7 +137,7 @@ export function MediaWindow(gdkmonitor: Gdk.Monitor) {
         <window
             visible
             name="media_window"
-            class="media-window"
+            class="media-outer-window"
             gdkmonitor={gdkmonitor}
             anchor={TOP}
             application={app}
