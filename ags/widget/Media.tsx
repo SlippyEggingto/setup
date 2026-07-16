@@ -1,94 +1,133 @@
 import app from "ags/gtk3/app";
-import { createState, With } from "gnim";
+import { With } from "gnim";
 import Pango from "gi://Pango?version=1.0";
 import AstalMpris from "gi://AstalMpris?version=0.1";
 
-import { setMediaWindowPosition } from "./Bar";
-import { active_player_data, number_of_player_binder, set_all_players_state, set_number_of_player_binder } from "./GlobalVariable"
-import { PlayerDataType } from "./GlobalVariable";
-import { current_player_id, set_current_player_id } from "./GlobalVariable";
-import { is_media_window_appearing, set_is_media_window_appearing } from "./GlobalVariable";
-import { set_active_player_data } from "./GlobalVariable";
 
 const mpris = AstalMpris.get_default()
 
-export let all_players_array: PlayerDataType[] = [];
+import {    all_players_array, set_all_players_array,
+            current_player, set_current_player,
+            PlayerDataType,
+            is_media_window_appearing, set_is_media_window_appearing,
+            number_of_player_binder, set_number_of_player_binder,
+            setMediaWindowPosition,
+            current_player_id,
+            set_current_player_id} from "./GlobalVariable";
 
-export function syncActivePlayer() {
-    const target = all_players_array.find(p => p.playerId === current_player_id.get());
-    if (target) set_active_player_data({...target})
+let active_connections : { player : any, handlers : number[] }[] = [];
+
+function clearOldConnections() {
+    for (let connect of active_connections) {
+        try {
+            if (connect.player) {
+                for (let id of connect.handlers) {
+                    connect.player.disconnect(id);
+                }
+            }
+        } catch(e) {
+            console.error(e);
+        }
+    }
+
+    active_connections = [];
 }
 
-current_player_id.bind(() => {
-    syncActivePlayer();
-})
+export function __init__() {
+    clearOldConnections();
 
-export function init() {
-    mpris.connect("notify::players", () => {
-        all_players_array = []
-        let validPlayerCnt = 0;
+    let temp_all_players_array = new Array<PlayerDataType>;
+    let playerCnt = 0;
 
-        for (let i = 0; i < mpris.get_players().length; i++) {
-            let current_player = mpris.get_players()[i];
-            if (!current_player) continue;
-            if (current_player.canPlay === false || current_player.busName === "org.mpris.MediaPlayer2.playerctld") continue;
+    for (let i = 0; i < mpris.players.length; i++) {
+        let ithplayer = mpris.players[i];
 
-            validPlayerCnt++;
+        if (ithplayer === undefined) continue;
+        if (ithplayer.canPlay === false || ithplayer.busName === "org.mpris.MediaPlayer2.playerctld") continue;
 
-            let tempPlayerDataType : PlayerDataType = {
-                playerName: current_player.busName,
-                playerId: validPlayerCnt,
-                title: current_player.title || "Unknown title",
-                album: current_player.album ||  "Unknow album",
-                artist: current_player.artist || "Unknown artist",
-                position: current_player.position,
-                length: current_player.length,
-                percentages: current_player.length !== 0 ? current_player.position / current_player.length : 0,
-                playback_status: current_player.playback_status === 0 ? "Playing" : "Pause",
-                playback_status_icon: current_player.playbackStatus === 0 ? "media-playback-pause-symbolic" : "media-playback-start-symbolic",
-                cover_art_url: current_player.art_url || ""
-            }
+        let tempPlayer = new PlayerDataType();
+        tempPlayer.playerName = ithplayer.busName;
+        tempPlayer.playerId = playerCnt;
+        tempPlayer.title = ithplayer.title || "Unknown title";
+        tempPlayer.album = ithplayer.album || "Unknown album";
+        tempPlayer.artist = ithplayer.artist || "Unknown artist";
+        tempPlayer.position = ithplayer.position;
+        tempPlayer.length = ithplayer.length;
+        tempPlayer.percentages = ithplayer.length !== 0 ? ithplayer.position / ithplayer.length : 0;
+        const ps = (ithplayer.playback_status !== undefined) ? ithplayer.playback_status : ithplayer.playbackStatus;
+        tempPlayer.playback_status = ps === 0 ? "Playing" : "Pause";
+        tempPlayer.playback_status_icon = ps === 0 ? "media-playback-pause-symbolic" : "media-playback-start-symbolic";
+        tempPlayer.cover_art_url = ithplayer.art_url || "";
 
-            all_players_array.push(tempPlayerDataType)
-            const handlePlayerUpdate = () => {
-                tempPlayerDataType.playerName = current_player.busName
-                tempPlayerDataType.title = current_player.title || "Unknown title";
-                tempPlayerDataType.album = current_player.album || "Unknown album";
-                tempPlayerDataType.artist = current_player.artist || "Unknown artist";
-                tempPlayerDataType.position = current_player.position;
-                tempPlayerDataType.length = current_player.length;
-                tempPlayerDataType.percentages = current_player.length !== 0 ? current_player.position / current_player.length : 0;
-                tempPlayerDataType.playback_status = current_player.playback_status === 0 ? "Playing" : "Pause",
-                tempPlayerDataType.playback_status_icon = current_player.playbackStatus === 0 ? "media-playback-pause-symbolic" : "media-playback-start-symbolic";
-                tempPlayerDataType.cover_art_url = current_player.art_url || "";
+        temp_all_players_array.push(tempPlayer)
+        playerCnt++;
 
-                if (tempPlayerDataType.playerId === current_player_id.get()) {
-                    syncActivePlayer();
+        const handlePlayerUpdate = () => {
+            try {
+                tempPlayer.playerName = ithplayer.busName
+                tempPlayer.title = ithplayer.title || "Unknown title";
+                tempPlayer.album = ithplayer.album || "Unknown album";
+                tempPlayer.artist = ithplayer.artist || "Unknown artist";
+                tempPlayer.position = ithplayer.position;
+                tempPlayer.length = ithplayer.length;
+                tempPlayer.percentages = ithplayer.length !== 0 ? ithplayer.position / ithplayer.length : 0;
+                tempPlayer.playback_status = ithplayer.playback_status === 0 ? "Playing" : "Pause",
+                tempPlayer.playback_status_icon = ithplayer.playbackStatus === 0 ? "media-playback-pause-symbolic" : "media-playback-start-symbolic";
+                tempPlayer.cover_art_url = ithplayer.art_url || "";
+                
+                set_all_players_array([...all_players_array.get()])
+                set_current_player({ ...current_player.get() })
+
+                if (tempPlayer.playerId === current_player_id.get()) {
+                    set_current_player(all_players_array.get()[tempPlayer.playerId]);
                 }
+            } catch(e) {
+                console.error(e);
+            }
+        };
 
-                set_all_players_state([...all_players_array])
+        let playerHandles : number[] = [];
+        playerHandles.push(ithplayer.connect("notify::title", handlePlayerUpdate));
+        playerHandles.push(ithplayer.connect("notify::position", handlePlayerUpdate));
+        playerHandles.push(ithplayer.connect("notify::playback-status", handlePlayerUpdate));
 
-            };
+        active_connections.push({
+            player: ithplayer,
+            handlers: playerHandles
+        })
+    }
 
-            current_player.connect("notify::position", handlePlayerUpdate);
-            current_player.connect("notify::playback-status", handlePlayerUpdate);
-        }
+    set_number_of_player_binder(playerCnt);
+    set_all_players_array(temp_all_players_array);
 
-        set_all_players_state([...all_players_array])
-        set_number_of_player_binder(validPlayerCnt)
-        if (current_player_id.get() >= validPlayerCnt) set_current_player_id(current_player_id.get() % validPlayerCnt);
-        syncActivePlayer();
+   if (playerCnt > 0) {
+        const id = current_player_id.get();
+        const active = temp_all_players_array.find(p => p.playerId === id) || temp_all_players_array[0];
+        set_current_player({ ...active });
+    } else {
+        set_current_player({
+            playerName : "",
+            playerId : playerCnt,
+            title : "Unknown title",
+            album : "Unknown album",
+            artist : "Unknown artist",
+            position : 0,
+            length : 0,
+            percentages : 1,
+            playback_status : "Playing",
+            playback_status_icon :  "media-playback-start-symbolic",
+            cover_art_url : ""
 
-        console.error(current_player_id.get());
-
-        for (let i = 0; i < validPlayerCnt; i++) {
-            console.warn(all_players_array[i].playerName);
-        }
-    })
+        }); 
+    }
 }
 
 setTimeout(() => {
-    init();
+    __init__();
+
+    mpris.connect("notify::players", () => {
+        __init__();
+    })
 }, 1000);
 
 export function Media() {
@@ -96,11 +135,23 @@ export function Media() {
         <eventbox class={"media-event-box"} onClick={() => {
             set_is_media_window_appearing(!is_media_window_appearing.get())
             setMediaWindowPosition();
+        }} onScroll={(_, event) => {
+            const dy = event.delta_y;
+
+            const number_of_player = number_of_player_binder.get();
+            if (number_of_player <= 1) return;
+            
+            let current_id = current_player_id.get();
+            if (dy > 0) current_id = (current_id + 1) % number_of_player
+            else if (dy < 0) current_id = (current_id - 1 + number_of_player) % number_of_player;
+
+            set_current_player_id(current_id)
+            set_current_player(all_players_array.get()[current_id])
         }}
         >
             <box class={"media"}>
-                <With value={active_player_data}>
-                    {(value) => value &&
+                <With value={current_player}>
+                    {(value) => value ? (
                         <box>
                             <box class={"media-progress-outer"}>
                                 <circularprogress
@@ -128,7 +179,35 @@ export function Media() {
                                 />
                             </box>
                         </box>
-                    }
+                    ) : (
+                        <box>
+                            <box class={"media-progress-outer"}>
+                                <circularprogress
+                                    class={"media-progress"}
+                                    startAt={0.75}
+                                    endAt={0.75}
+                                    value={1}
+                                >
+                                    <icon
+                                        class={"media-icon"}
+                                        icon={"media-playback-start-symbolic"}
+                                    />
+                                </circularprogress>
+                            </box>
+                            <box>
+                                <label class={"media-title"}
+                                    maxWidthChars={20}
+                                    ellipsize={Pango.EllipsizeMode.END}
+                                    label={"Unknown title"}
+                                />
+                                <label class={"media-artist"}
+                                    maxWidthChars={15}
+                                    ellipsize={Pango.EllipsizeMode.END}
+                                    label={" • " + "Unknown artist"}
+                                />
+                            </box>
+                        </box>
+                    )}
                 </With>
             </box>
         </eventbox>

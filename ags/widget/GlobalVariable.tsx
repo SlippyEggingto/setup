@@ -1,3 +1,5 @@
+import app from "ags/gtk3/app";
+
 import AstalHyprland from "gi://AstalHyprland?version=0.1";
 import AstalMpris from "gi://AstalMpris?version=0.1";
 import AstalWp from "gi://AstalWp?version=0.1";
@@ -17,7 +19,7 @@ export class PlayerDataType {
     playback_status_icon : string
     cover_art_url : string
 
-    constructor(init?: Partial<PlayerDataType>) {
+    constructor() {
         this.playerName = ""
         this.playerId = -1
         this.title = "Unknown title"
@@ -32,7 +34,7 @@ export class PlayerDataType {
     }
 }
 
-export const [active_player_data, set_active_player_data] = createState<PlayerDataType>({
+export const [current_player, set_current_player] = createState<PlayerDataType>({
     playerName: "",
     playerId: -1,
     title: "Unknown title",
@@ -46,6 +48,40 @@ export const [active_player_data, set_active_player_data] = createState<PlayerDa
     cover_art_url: "",
 })
 
+export function setMediaWindowPosition() {
+    if (is_media_window_appearing.get()) {
+        app.apply_css(`
+            .media-window {
+                margin-top: 0px;
+            }
+
+            .media-event-box .media {
+                background-color: @onPrimaryContainer;
+                color: @primaryContainer;
+            }
+
+            .media-event-box .media-progress {
+                background-color: alpha(@primaryContainer, .2);
+            }
+        `)
+    } else {
+        app.apply_css(`
+            .media-window {
+                margin-top: -175px;
+            }
+
+            .media-event-box .media {
+                background-color: @primaryContainer;
+                color: @onPrimaryContainer;
+            }
+
+            .media-event-box .media-progress {
+                background-color: alpha(@onPrimaryContainer, .16);
+            }
+        `)
+    }
+}
+
 export const    hyprland = AstalHyprland.get_default(),
                 mpris = AstalMpris.get_default(),
                 audio = AstalWp.get_default(),
@@ -53,6 +89,6 @@ export const    hyprland = AstalHyprland.get_default(),
                 [clock_first_half, set_clokc_first_half] = createState(""),
                 [clock_second_half, set_clokc_second_half] = createState(""),
                 [number_of_player_binder, set_number_of_player_binder] = createState(0),
-                [current_player_id, set_current_player_id] = createState(1),
+                [current_player_id, set_current_player_id] = createState(0),
                 [is_media_window_appearing, set_is_media_window_appearing] = createState(false),
-                [all_players_state, set_all_players_state] = createState<PlayerDataType[]>([])
+                [all_players_array, set_all_players_array] = createState<PlayerDataType[]>([])

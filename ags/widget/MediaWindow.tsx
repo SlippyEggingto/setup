@@ -1,16 +1,12 @@
 import app from "ags/gtk3/app";
-import { createState, With } from "gnim";
+import { With } from "gnim";
 import { Astal, Gtk, Gdk } from "ags/gtk3";
 import Pango from "gi://Pango?version=1.0";
 import AstalMpris from "gi://AstalMpris?version=0.1";
 
 const mpris = AstalMpris.get_default()
 
-import { all_players_array } from "./Media"
-import { current_player_id, number_of_player_binder } from "./GlobalVariable";
-import { active_player_data } from "./GlobalVariable";
-import { init } from "./Media";
-import { all_players_state } from "./GlobalVariable";
+import { all_players_array } from "./GlobalVariable";
 import { PlayerDataType } from "./GlobalVariable";
 
 function numberToTime(seconds : number) {
@@ -117,6 +113,19 @@ function RightPanel({player} : {player : PlayerDataType}) {
     )
 }
 
+let tempPlayer = new PlayerDataType();
+tempPlayer.playerName = "";
+tempPlayer.playerId = -1;
+tempPlayer.title = "Unknown title";
+tempPlayer.album = "Unknown album";
+tempPlayer.artist = "Unknown artist";
+tempPlayer.position = 0
+tempPlayer.length = 0
+tempPlayer.percentages = 1
+tempPlayer.playback_status = "Pause";
+tempPlayer.playback_status_icon = "media-playback-start-symbolic";
+tempPlayer.cover_art_url = "";
+
 export function MediaWindow(gdkmonitor: Gdk.Monitor) {
     const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
 
@@ -131,7 +140,7 @@ export function MediaWindow(gdkmonitor: Gdk.Monitor) {
             margin={10}
         >   
         <box>
-            <With value={all_players_state}>
+            <With value={all_players_array}>
                 {(playerList) => (
                     <box orientation={Gtk.Orientation.HORIZONTAL} spacing={15}>
                         {playerList && playerList.length > 0 ? (
@@ -141,7 +150,12 @@ export function MediaWindow(gdkmonitor: Gdk.Monitor) {
                                     <RightPanel player={player}></RightPanel>
                                 </box>
                             ))
-                        ) : <></>}
+                        ) : 
+                            <box spacing={10} class={"media-window"}>
+                                <TrackCover player={tempPlayer}></TrackCover>
+                                <RightPanel player={tempPlayer}></RightPanel>
+                            </box>
+                        }
                     </box>
                 )}
             </With>

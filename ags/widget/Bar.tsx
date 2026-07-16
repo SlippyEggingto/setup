@@ -12,41 +12,7 @@ import { Volume } from "./Volume";
 import { Tools } from "./Tools";
 import { monitorFile } from "ags/file";
 
-import { is_media_window_appearing } from "./GlobalVariable";
-
-export function setMediaWindowPosition() {
-    if (is_media_window_appearing.get()) {
-        app.apply_css(`
-            .media-window {
-                margin-top: 0px;
-            }
-
-            .media-event-box .media {
-                background-color: @onPrimaryContainer;
-                color: @primaryContainer;
-            }
-
-            .media-event-box .media-progress {
-                background-color: alpha(@primaryContainer, .2);
-            }
-        `)
-    } else {
-        app.apply_css(`
-            .media-window {
-                margin-top: -175px;
-            }
-
-            .media-event-box .media {
-                background-color: @primaryContainer;
-                color: @onPrimaryContainer;
-            }
-
-            .media-event-box .media-progress {
-                background-color: alpha(@onPrimaryContainer, .16);
-            }
-        `)
-    }
-}
+import { setMediaWindowPosition } from "./GlobalVariable";
 
 setMediaWindowPosition();
 monitorFile('/home/nptanphuc/Personalization/done_notif', () => {
