@@ -2,7 +2,6 @@ import { With } from "gnim";
 import Pango from "gi://Pango?version=1.0";
 import AstalMpris from "gi://AstalMpris?version=0.1";
 
-
 const mpris = AstalMpris.get_default()
 
 import {    all_players_array, set_all_players_array,
@@ -12,7 +11,8 @@ import {    all_players_array, set_all_players_array,
             number_of_player_binder, set_number_of_player_binder,
             setMediaWindowPosition,
             current_player_id,
-            set_current_player_id} from "./GlobalVariable";
+            set_current_player_id
+       }    from "./GlobalVariable";
 
 let active_connections : { player : any, handlers : number[] }[] = [];
 
@@ -80,7 +80,7 @@ export function __init__() {
                 set_current_player({ ...current_player.get() })
 
                 if (tempPlayer.playerId === current_player_id.get()) {
-                    set_current_player(all_players_array.get()[tempPlayer.playerId]);
+                    set_current_player(tempPlayer);
                 }
             } catch(e) {
                 console.error(e);
@@ -100,6 +100,7 @@ export function __init__() {
 
     set_number_of_player_binder(playerCnt);
     set_all_players_array(temp_all_players_array);
+    if (current_player_id.get() >= playerCnt) set_current_player_id(0);
 
    if (playerCnt > 0) {
         const id = current_player_id.get();
@@ -116,10 +117,9 @@ export function __init__() {
             length : 0,
             percentages : 1,
             playback_status : "Playing",
-            playback_status_icon :  "media-playback-start-symbolic",
+            playback_status_icon : "media-playback-start-symbolic",
             cover_art_url : ""
-
-        }); 
+        });
     }
 }
 

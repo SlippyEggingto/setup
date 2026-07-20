@@ -19,7 +19,7 @@ function numberToTime(seconds : number) {
 }
 
 function TrackCover({player} : {player : PlayerDataType}) {
-    return ((player.playerId === current_player_id.get() ?  (
+    return ((player.playerId === current_player_id.get() || player.playerId == -1 ?  (
         <box>
             <box
                 css={`background-image: url('${player.cover_art_url}');
@@ -37,7 +37,7 @@ function TrackCover({player} : {player : PlayerDataType}) {
 }
 
 function InformationPanel({player} : {player : PlayerDataType}) {  
-    return ((player.playerId === current_player_id.get() ?  (
+    return ((player.playerId === current_player_id.get() || player.playerId == -1 ?  (
         <box css="margin-left: 10px;">
             <box orientation={Gtk.Orientation.VERTICAL}>
                 <label
@@ -63,7 +63,7 @@ function ControlPanel({player} : {player : PlayerDataType}) {
         return mpris.players.find(p => p.busName === player.playerName);
     };
 
-    return ((player.playerId === current_player_id.get() ?  (
+    return ((player.playerId === current_player_id.get() || player.playerId == -1 ?  (
         <box valign={Gtk.Align.END}>
             <box $type="center">
                 <box orientation={Gtk.Orientation.VERTICAL} spacing={12}>
@@ -102,11 +102,7 @@ function ControlPanel({player} : {player : PlayerDataType}) {
 }
 
 function RightPanel({player} : {player : PlayerDataType}) {
-    const getMprisPlayer = () => {
-        return mpris.players.find(p => p.busName === player.playerName);
-    };
-
-    return ((player.playerId === current_player_id.get() ?  (
+    return ((player.playerId === current_player_id.get() || player.playerId == -1 ?  (
         <centerbox widthRequest={300} orientation={Gtk.Orientation.VERTICAL}>
             <InformationPanel player={player} $type="start"></InformationPanel>
             <box $type="center"></box>
