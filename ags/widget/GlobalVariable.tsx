@@ -7,51 +7,27 @@ import AstalBattery from "gi://AstalBattery?version=0.1";
 import { createState } from "gnim";
 
 export class PlayerDataType {
-    playerName : string;
-    playerId: number;
-    title : string;
-    album : string;
-    artist : string;
-    position: number
-    length : number
-    percentages : number
-    playback_status : string
-    playback_status_icon : string
-    cover_art_url : string
+    player : AstalMpris.Player
+    id : number
+    handlers : number[]
 
     constructor() {
-        this.playerName = ""
-        this.playerId = -1
-        this.title = "Unknown title"
-        this.album = "Unknow album"
-        this.artist = "Unknown artist"
-        this.position = 0
-        this.length = 0
-        this.percentages = 0
-        this.playback_status = "Playing"
-        this.playback_status_icon = "media-playback-start-symbolic"
-        this.cover_art_url = ""
+        this.player = new AstalMpris.Player
+        this.id = 0
+        this.handlers = []
     }
 }
 
 export const [current_player, set_current_player] = createState<PlayerDataType>({
-    playerName: "",
-    playerId: -1,
-    title: "Unknown title",
-    album: "Unknow album",
-    artist: "Unknown artist",
-    position: 0,
-    length: 0,
-    percentages: 0,
-    playback_status: "Playing",
-    playback_status_icon: "media-playback-start-symbolic",
-    cover_art_url: "",
+    player: new AstalMpris.Player,
+    id: 0,
+    handlers: [],
 })
 
 export function setMediaWindowPosition() {
     if (is_media_window_appearing.get()) {
         app.apply_css(`
-            .media-window {
+            .another-media-outer-window {
                 margin-top: 0px;
             }
 
@@ -66,7 +42,7 @@ export function setMediaWindowPosition() {
         `)
     } else {
         app.apply_css(`
-            .media-window {
+            .another-media-outer-window {
                 margin-top: -175px;
             }
 
@@ -82,13 +58,26 @@ export function setMediaWindowPosition() {
     }
 }
 
+export function get_media_icon_from_playback_status(current_playback_status : AstalMpris.PlaybackStatus) : string {
+    if (current_player().player.position === -1) return "media-playback-start-symbolic";
+    if (current_playback_status.toString() === "0") return "media-playback-pause-symbolic";
+    return "media-playback-start-symbolic";
+}
+
+export function get_media_percentages(current_position : number, current_length : number) : number {
+    if (current_length === 0) return 1;
+    return current_position / current_length;
+}
+
 export const    hyprland = AstalHyprland.get_default(),
                 mpris = AstalMpris.get_default(),
                 audio = AstalWp.get_default(),
                 battery = AstalBattery.get_default(),
-                [clock_first_half, set_clokc_first_half] = createState(""),
-                [clock_second_half, set_clokc_second_half] = createState(""),
+                [clock_first_half, set_clock_first_half] = createState(""),
+                [clock_second_half, set_clock_second_half] = createState(""),
                 [number_of_player_binder, set_number_of_player_binder] = createState(0),
                 [current_player_id, set_current_player_id] = createState(0),
                 [is_media_window_appearing, set_is_media_window_appearing] = createState(false),
                 [all_players_array, set_all_players_array] = createState<PlayerDataType[]>([])
+                // [current_player, set_current_player] = createState(AstalMpris.Player),
+                // [all_players_array, set_all_players_array] = createState<AstalMpris.Player[]>([])

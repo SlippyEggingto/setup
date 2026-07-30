@@ -262,12 +262,14 @@ window.right-bar {
 /* START OF MEDIA_WINDOW.H */
 
 window.media-outer-window, window.on-screen-volume, window.on-screen-brightness {
-    background: transparent;
-    transition: 0.3s;
+    background: transparent
+}
+
+.another-media-outer-window {
+    transition: cubic-bezier(.6,.77,.06,1.2) .5s;
 }
 
 .media-window {
-    transition: cubic-bezier(.6,.77,.06,1.2) .5s;
     background-color: @primaryContainer;
     color: @onPrimaryContainer;
     padding: 10px;
