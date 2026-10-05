@@ -22,7 +22,7 @@ sudo pacman-key --init
 sudo pacman-key --populate archlinux
 
 sudo pacman -Syyuu
-sudo pacman -S hyprland hyprpaper neovim foot fish ttf-nerd-fonts-symbols-mono wofi cliphist brightnessctl hyprlock hyprpicker hyprshot mako nautilus google-chrome vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland bibata-cursor-theme fcitx5 fcitx5-unikey fcitx5-config-qt cmus polkit-kde-agent qt5-wayland qt6-wayland visual-studio-code-bin keyd socat swww typescript npm meson gjs gnome-bluetooth-3.0 upower gobject-introspection libdbusmenu-gtk3 libsoup3 glib2 glib2-devel yaru-icon-theme python-materialyoucolor-git yad ttf-ms-fonts ttf-sourcecodepro-nerd sublime-text pamixer aylurs-gtk-shell unrar unzip p7zip gnome-tweaks gnome-font-viewer gnome-text-editor usbutils less gvfs-mtp gtk-layer-shell gtk4-layer-shell aylurs-gtk-shell libastal-4 libastal-battery libastal libastal-hyprland libastal-io libastal-mpris libastal-network libastal-tray libastal-wireplumber astal-notifd gtkmm-4.0 gdk-pixbuf2 playerctl xdg-desktop-portal-gnome
+sudo pacman -S hyprland neovim foot fish ttf-nerd-fonts-symbols-mono wofi cliphist brightnessctl hyprlock hyprpicker hyprshot mako nautilus google-chrome vulkan-intel vulkan-tools neofetch htop tree ntfs-3g yay xdg-desktop-portal-gtk xdg-desktop-portal-hyprland bibata-cursor-theme fcitx5 fcitx5-bamboo fcitx5-config-qt cmus qt5-wayland qt6-wayland visual-studio-code-bin keyd socat swww typescript npm meson gjs gnome-bluetooth-3.0 upower gobject-introspection libdbusmenu-gtk3 libsoup3 glib2 glib2-devel yaru-icon-theme python-materialyoucolor-git yad ttf-ms-fonts ttf-sourcecodepro-nerd sublime-text pamixer aylurs-gtk-shell unrar unzip p7zip gnome-font-viewer gnome-text-editor usbutils less gvfs-mtp gtk-layer-shell gtk4-layer-shell aylurs-gtk-shell libastal-4 libastal-battery libastal libastal-hyprland libastal-io libastal-mpris libastal-network libastal-tray libastal-wireplumber astal-notifd gtkmm-4.0 gdk-pixbuf2 playerctl iwd
 # sudo pacman -Rsn gnome-app-list gnome-backgrounds gnome-color-manager gnome-connections gnome-console gnome-contacts gnome-control-center gnome-desktop gnome-logs gnome-keybindings gnome-maps gnome-menus gnome-online-accounts gnome-remote-desktop gnome-session gnome-settings-daemon gnome-shell gnome-software gnome-system-monitor gnome-tour gnome-user-docs gnome-user-share gnome-weather evince gdm sushi
 sudo npm install -g sass
 
@@ -93,6 +93,11 @@ sudo touch /etc/keyd/default.conf
 printf "[ids]\n\n*\n\n[main]\n\nrightalt = layer(control)\nrightshift = rightshift" | sudo tee -a /etc/keyd/default.conf
 sudo systemctl enable keyd.service
 sudo systemctl start keyd.service
+
+printf "[Match]\nName=wlan0\n\n[Link]\nRequiredForOnline=routable\n\n[Network]\nDHCP=yes\nIgnoreCarrierLoss=3s\n" | sudo tee -a /etc/systemd/network/25-wireless.network
+
+sudo systemctl enable --now iwd systemd-networkd
+sudo systemctl start --now iwd systemd-networkd
 
 # sudo dd if=/dev/zero of=/SWAP.img bs=1M count=8192
 # sudo sync

@@ -22,6 +22,10 @@ window.top-bar {
     margin: 0 15px 0 15px;
 }
 
+.modules-right {
+    font-size: 14px;
+}
+
 /* END OF BAR_BASIC.H */
 
 /* START OF BAR_WORKSPACES.H */
@@ -236,7 +240,7 @@ window.right-bar {
 
 .utilities_button {
     border: none;
-    background-color: transparent;
+    background-color: red;
     box-shadow: none;
     color: @onPrimaryContainer;
 }

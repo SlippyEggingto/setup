@@ -1,6 +1,7 @@
 import app from "ags/gtk3/app";
 import { Astal, Gtk, Gdk } from "ags/gtk3";
 import { Accessor } from "gnim";
+import { monitorFile } from "ags/file";
 
 import { Window } from "./Window";
 import { Usage } from "./Usage";
@@ -8,9 +9,10 @@ import { Clock } from "./Clock";
 import { Workspaces } from "./Workspaces";
 import { Media } from "./Media";
 import { Battery } from "./Battery";
-import { Volume } from "./Volume";
 import { Tools } from "./Tools";
-import { monitorFile } from "ags/file";
+// import { Tray } from "./Tray";
+// import { Network } from "./Network";
+import { Volume } from "./Volume";
 
 import { setMediaWindowPosition } from "./GlobalVariable";
 
@@ -38,13 +40,15 @@ function Center() {
             <Media></Media>
             <Battery></Battery>
             <Tools></Tools>
+            {/* <Tray></Tray> */}
         </box>
     )
 }
 
 function Right() {
     return (
-        <box class="modules-right" halign={Gtk.Align.END}>
+        <box class="modules-right" halign={Gtk.Align.END} spacing={7}>
+            {/* <Network></Network> */}
             <Volume></Volume>
         </box>
     )
