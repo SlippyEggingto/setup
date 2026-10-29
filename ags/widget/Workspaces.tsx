@@ -28,7 +28,7 @@ export function Workspaces() {
                         <box class={"workspaces"} spacing={5}>
                             {Array.from({length: 10}, (_, i) => (
                                 <eventbox
-                                    onClick={() => {execAsync(`hyprctl dispatch workspace ${i + 1}`)}}
+                                    onClick={() => {execAsync(`hyprctl dispatch "hl.dsp.focus({ workspace = ${i + 1} })"`)}}
                                     heightRequest={10}
                                 >
                                     <box

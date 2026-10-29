@@ -41,7 +41,7 @@ file_paths = {
     "x": "/home/nptanphuc/Personalization/type1",       #   abcdef
     "y": "/home/nptanphuc/Personalization/type2",       #   #abcdef
     "z": "/home/nptanphuc/Personalization/type3.css",   #   :root {-var: ;}
-    "k": "/home/nptanphuc/Personalization/type5",       #   $var=#abcdef
+    "k": "/home/nptanphuc/Personalization/type5",       #   local var=#abcdef
 
     "x2": "/home/nptanphuc/Personalization/type12",
     "y2": "/home/nptanphuc/Personalization/type22",
@@ -73,7 +73,7 @@ with ExitStack() as stack:
 
             files["x"].write(f"{reg_hex}\n")
             files["y"].write(f"#{reg_hex}\n")
-            files["k"].write(f"${color_attr}=0xff{reg_hex}\n")
+            files["k"].write(f"local {color_attr}=0xff{reg_hex}\n")
             css_root_regular += f"    --{color_attr}: #{reg_hex};\n"
 
             if not light_bar:
@@ -81,7 +81,7 @@ with ExitStack() as stack:
 
             files["x2"].write(f"{bright_hex}\n")
             files["y2"].write(f"#{bright_hex}\n")
-            files["k2"].write(f"${color_attr}=0xff{bright_hex}\n")
+            files["k2"].write(f"local{color_attr}=0xff{bright_hex}\n")
             css_root_bright += f"    --{color_attr}: #{bright_hex};\n"
 
             if not light_bar:

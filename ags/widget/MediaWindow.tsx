@@ -113,7 +113,18 @@ function RightPanel({player} : {player : PlayerDataType}) {
             <ControlPanel player={player} $type="end"></ControlPanel>
         </centerbox>
     ):<box>
-        <icon icon={get_media_icon_from_playback_status(player.player.playbackStatus)} />
+        {/* <icon icon={get_media_icon_from_playback_status(player.player.playbackStatus)} /> */}
+        <box
+                css={`background-image: url('${player.player.coverArt}');
+                min-width: 120px;
+                min-height: 120px;
+                background-size: auto 100%;
+                background-repeat: no-repeat;
+                background-clip: content-box;
+                background-position: 50% 50%;
+                border-radius: 12px;
+                box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);`}
+            />
     </box>))
 }
 
